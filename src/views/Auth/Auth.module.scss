@@ -1,0 +1,55 @@
+@use "../../scss/colors" as v;
+
+.auth {
+    background: v.$green-color;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding: 66px 86px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &__logo {
+        margin-bottom: 60px;
+    }
+
+    &__desc {
+        max-width: 360px;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 28px;
+        color: #FFFFFF;
+        opacity: 0.6;
+        margin-bottom: 30px;
+        font-family: 'Noto Sans condensed';
+    }
+
+    &__bgimage{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    &__help{
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &__text{
+            font-weight: 500;
+            font-size: 11px;
+            line-height: 15px;
+            color: #FFFFFF;
+            opacity: 0.4;
+        }
+
+        &__link{
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+            color: #FFFFFF;
+        }
+    }
+}

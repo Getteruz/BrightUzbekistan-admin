@@ -1,0 +1,50 @@
+@use '../../scss/colors' as v;
+
+.sidebar{
+    width: 220px;
+    height: 100vh;
+    background: v.$green-color;
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 42px;
+
+    &__helplink{
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: #FFFFFF;
+        opacity: 0.4;
+    }
+
+    &__list{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+
+    &__link, &__button{
+        display: flex;
+        align-items: center;
+        gap: 12.5px;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 19px;
+        color: #FFFFFF;
+        opacity: 0.6;
+        cursor: pointer;
+    }
+
+    &__button{
+        background: transparent;
+        border: none;
+        opacity: 1;
+        margin-top: auto;
+    }
+}
+
+.active{
+    opacity: 1;
+}
