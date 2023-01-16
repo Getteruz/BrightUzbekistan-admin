@@ -7,14 +7,14 @@ export default defineConfig({
   plugins: [react()],
   publicDir: 'public',
   build: {
-    outDir: 'build'
+    outDir: '../dist'
   },
-  // resolve: {
-  //   alias: [
-  //     {
-  //       find: '@',
-  //       replacement: resolve(__dirname, 'src')
-  //     }
-  //   ]
-  // }
+  resolve: {
+    alias: [
+      {
+        find: '@',
+        replacement: resolve(__dirname, 'src')
+      }
+    ]
+  }
 })
