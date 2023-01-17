@@ -8,8 +8,8 @@ const Router = () => {
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route path="" element={<Main />} />
-        <Route path="/auth" element={<AuthPage />} />
       </Route>
+      <Route path="/auth" element={<AuthPage />} />
     </Routes>
   )
 }
