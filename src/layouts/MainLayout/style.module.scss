@@ -5,8 +5,14 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
   flex: 1;  
   height: 100vh;
   overflow: auto;
   background-color: v.$bg-color;
+}
+
+.container{
+  flex-grow: 1;
 }

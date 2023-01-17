@@ -8,11 +8,6 @@ export default defineConfig({
   publicDir: 'public',
   build: {
     outDir: '../dist',
-    rollupOptions: {
-      input: {
-          main: resolve(__dirname, 'src/pages/index.html'),
-      }
-  }
   },
   resolve: {
     alias: [
