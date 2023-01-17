@@ -2,11 +2,10 @@
 
 .nav {
     width: 100%;
-    padding: 10px;
     border-bottom: 1px solid v.$border-color;
-    padding-left: 31px;
-
+    
     &__container {
+        padding: 10px 0 10px 31px;
         display: flex;
         align-items: center;
         justify-content: space-between;

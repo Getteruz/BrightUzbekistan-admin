@@ -1,0 +1,39 @@
+@use '../../../scss/colors' as v;
+
+.checkbox{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    & > input{
+        display: none;
+        visibility: hidden;
+
+        &:checked{
+            border-color: v.$orange-color;
+            .checkbox__check{
+                border-color: v.$orange-color;
+            }
+        }
+    }
+
+    &__check{
+        width: 24px;
+        height: 14px;
+        border: 2px solid v.$text-color;
+        border-radius: 12px;
+        padding: 2px;
+        position: relative;
+
+        &__circle{
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: v.$text-color;
+            position: absolute;
+            top: 50%;
+            left: 2px;
+            transform: translateY(-50%);
+        }
+    }
+}

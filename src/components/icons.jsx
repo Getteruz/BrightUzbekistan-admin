@@ -98,3 +98,13 @@ export function PlusIcon() {
         </svg>
     )
 }
+
+export function CalendaIcon() {
+    return (
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 2.5C2.72386 2.5 2.5 2.72386 2.5 3C2.5 3.27614 2.72386 3.5 3 3.5H7C7.27614 3.5 7.5 3.27614 7.5 3C7.5 2.72386 7.27614 2.5 7 2.5H3Z" fill="#0B212B" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M0.5 2C0.5 1.17157 1.17157 0.5 2 0.5H8C8.82843 0.5 9.5 1.17157 9.5 2V8C9.5 8.82843 8.82843 9.5 8 9.5H2C1.17157 9.5 0.5 8.82843 0.5 8V2ZM2 1.5H8C8.27614 1.5 8.5 1.72386 8.5 2V8C8.5 8.27614 8.27614 8.5 8 8.5H2C1.72386 8.5 1.5 8.27614 1.5 8V2C1.5 1.72386 1.72386 1.5 2 1.5Z" fill="#0B212B" />
+        </svg>
+
+    )
+}
