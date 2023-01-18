@@ -1,4 +1,5 @@
 import ContentWrapper from '../../components/ContentWrapper';
+import ListItem from '../../components/ListItem';
 import LeftAside from './Components/LeftAside';
 import RightAside from './Components/RightAside';
 import cls from './Main.module.scss'
@@ -7,7 +8,9 @@ const Main = () => {
     return (
         <ContentWrapper>
             <LeftAside />
-            <div></div>
+            <div>
+                <ListItem />
+            </div>
             <RightAside />
         </ContentWrapper>
     );

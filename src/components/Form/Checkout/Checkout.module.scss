@@ -4,15 +4,19 @@
     display: flex;
     align-items: center;
     gap: 5px;
+    cursor: pointer;
 
     & > input{
         display: none;
         visibility: hidden;
 
-        &:checked{
+        &:checked + .checkbox__check{
             border-color: v.$orange-color;
-            .checkbox__check{
-                border-color: v.$orange-color;
+
+            & > div{
+                background: v.$orange-color;
+                left: auto;
+                right: 2px;
             }
         }
     }
@@ -24,6 +28,7 @@
         border-radius: 12px;
         padding: 2px;
         position: relative;
+        transition: all 0.2s;
 
         &__circle{
             width: 6px;
@@ -34,6 +39,7 @@
             top: 50%;
             left: 2px;
             transform: translateY(-50%);
+            transition: all 0.2s;
         }
     }
 }

@@ -20,9 +20,9 @@ const RightAside = () => {
             <div className={cls.aside__configList}>
                 <p className={cls.aside__title}>Сортировка</p>
                 <Flex gap='20' direction='column'>
-                    <Checkout label='Неделе' />
-                    <Checkout label='Месяц' />
-                    <Checkout label='Год' />
+                    <Checkout label='Неделе'  name='sort' />
+                    <Checkout label='Месяц'  name='sort' />
+                    <Checkout label='Год'  name='sort' />
                 </Flex>
             </div>
             <div className={cls.aside__configList}>

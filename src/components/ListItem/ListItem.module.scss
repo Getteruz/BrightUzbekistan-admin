@@ -1,0 +1,42 @@
+
+.item{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    &__text__wrapper{
+        display: flex;
+        align-items: flex-start;
+        gap: 25px;
+    }
+
+    &__title{
+        font-weight: 500;
+        font-size: 17px;
+        line-height: 25px;
+        display: inline-block;
+    }
+
+    &__author{
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        opacity: 0.6;
+        flex-shrink: 0;
+    }
+
+    &__category{
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        opacity: 0.4;
+    }
+
+    &__dots{
+        padding: 3px 8px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+    }
+}

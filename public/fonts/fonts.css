@@ -40,8 +40,16 @@
 
 @font-face {
     font-family: "Noto Sans condensed";
-    src: url("./NotoSans/noto-sans-condensed-medium.ttf") format("woff");
-    font-weight: 900;
+    src: url("./NotoSans/noto-sans-condensed-medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans condensed";
+    src: url("./NotoSans/NotoSansDisplay-Condensed.ttf") format("truetype");
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
