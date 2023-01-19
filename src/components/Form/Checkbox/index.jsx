@@ -1,9 +1,9 @@
 import { CheckIcon } from '../../icons';
 import cls from './Checkbox.module.scss'
 
-const Checkbox = ({label = ''}) => {
+const Checkbox = ({label = '', light = false}) => {
     return (
-        <label className={cls.label}>
+        <label className={`${cls.label} ${light ? cls.light : ''}`}>
             <input type="checkbox" />
             <div className={cls.label__box}>
                 <CheckIcon />

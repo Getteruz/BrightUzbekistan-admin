@@ -1,0 +1,40 @@
+@use '../../../scss/colors' as v;
+
+.block{
+    width: 185px;
+    background: v.$green-color;
+    box-shadow: -2px 7px 20px rgba(4, 33, 59, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+
+    &__list{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 25px;
+        background: white;
+        align-items: flex-start;
+        border-radius: 0 0 12px 12px;
+        overflow: hidden;
+    }
+
+    &__button{
+        border: none;
+        background: transparent;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        cursor: pointer;
+    }
+
+    &__logout{
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 18px;
+        color: white;
+        border: none;
+        background: transparent;
+        padding: 7px 25px;
+        cursor: pointer;
+    }
+}

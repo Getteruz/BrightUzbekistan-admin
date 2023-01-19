@@ -1,6 +1,6 @@
-import cls from './Checkout.module.scss'
+import cls from './Switch.module.scss'
 
-const Checkout = ({label, type = 'checkbox', name = ''}) => {
+const Switch = ({label, type = 'checkbox', name = ''}) => {
     return (
         <label className={cls.checkbox}>
             <input type={type} name={name} />
@@ -12,4 +12,4 @@ const Checkout = ({label, type = 'checkbox', name = ''}) => {
     );
 }
 
-export default Checkout;
+export default Switch;

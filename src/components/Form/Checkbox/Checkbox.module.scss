@@ -25,13 +25,11 @@
         font-weight: 500;
         font-size: 13px;
         line-height: 18px;
-        opacity: 0.4;
     }
 
     &__box{
         width: 14px;
         height: 14px;
-        opacity: 0.3;
         border: 1.4px solid #0B212B;
         border-radius: 3px;
         display: flex;
@@ -44,5 +42,11 @@
             height: 8px;
             display: none;
         }
+    }
+}
+
+.light{
+    & > span, & > div{
+        opacity: 0.4;
     }
 }

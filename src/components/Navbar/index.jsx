@@ -1,13 +1,17 @@
+import { useState } from 'react';
 import Avatar from '../Avatar';
 import MessageButton from '../Buttons/MessageButton';
 import WhiteButton from '../Buttons/WhiteButton';
 import Container from '../Container';
+import ProfileDrobdown from '../Drobdowns/ProfileDrobdown';
+import Wrapper from '../Drobdowns/Wrapper';
 import { SearchIcon } from '../icons';
 import cls from './Navbar.module.scss'
 
 const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false)
     return (
-        <div className={cls.nav}>
+        <div className={cls.nav} id='navbar'>
             <Container className={cls.nav__container}>
                 <label className={cls.nav__label}>
                     <SearchIcon />
@@ -16,7 +20,12 @@ const Navbar = () => {
                 <div className={cls.nav__btns}>
                     <MessageButton className={cls.nav__msg__btn} active />
                     <WhiteButton>id: 98234-ad33</WhiteButton>
-                    <Avatar src='/avatar.png' />
+                    <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setIsOpen(state => !state)}>
+                        <Avatar src='/avatar.png' />
+                        <Wrapper bottom='-10px'>
+                            {isOpen && <ProfileDrobdown />}
+                        </Wrapper>
+                    </div>
                 </div>
             </Container>
         </div>
