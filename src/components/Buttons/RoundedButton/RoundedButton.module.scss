@@ -1,0 +1,15 @@
+@use '../../../scss/colors' as v;
+
+.btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 12px 20px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    border: 1px solid v.$border-color;
+    background: transparent;
+    border-radius: 20px;
+}

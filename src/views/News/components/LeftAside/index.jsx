@@ -1,15 +1,18 @@
-import WhiteButton from '../../../../components/Buttons/WhiteButton';
+import { useNavigate } from 'react-router-dom';
+import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import Flex from '../../../../components/Flex';
 import { LeftIcon } from '../../../../components/icons';
 import cls from './LeftAside.module.scss'
 
 const LeftAside = () => {
+    const navigate = useNavigate()
+
     return (
         <div className={cls.aside}>
-            <WhiteButton className={cls.aside__btn}>
+            <RoundedButton className={cls.aside__btn} onClick={() => navigate(-1)}>
                 <LeftIcon />
                 Назад
-            </WhiteButton>
+            </RoundedButton>
             <Flex gap='15' direction='column' alignItems='flex-start'>
                 <button className={cls.aside__link}>Мои новости</button>
                 <button className={cls.aside__link}>Сохранённые</button>

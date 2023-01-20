@@ -1,10 +1,10 @@
 import cls from './Input.module.scss'
 
-const Input = ({placeholder, type = 'text', label, ...other}) => {
+const Input = ({type = 'text', placeholder = '', label = ''}) => {
     return (
-        <label className={cls.label} {...other}>
-            <input type={type} className={cls.input} placeholder={placeholder} />
-            <span className={cls.label__text}>{label}</span>
+        <label className={cls.label}>
+            {label}
+            <input type={type} placeholder={placeholder} />
         </label>
     );
 }

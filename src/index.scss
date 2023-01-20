@@ -13,7 +13,7 @@ html {
   padding: 0;
   box-sizing: border-box;
   font-family: "Noto Sans", sans-serif;
-  text-decoration: none;
+  // text-decoration: none;
   color: $text-color;
 }
 
@@ -22,8 +22,12 @@ body{
   overflow: hidden;
 }
 
-ul{
-  list-style: none;
+a{
+  text-decoration: none;
+}
+
+button{
+  cursor: pointer;
 }
 
 h1,
@@ -35,6 +39,10 @@ h6,
 p{
   margin: 0;
   padding: 0;
+}
+
+.ant-btn-primary > span, .jodit-ui-button__text{
+  color: white;
 }
 
 .ant-picker-focused{
@@ -55,6 +63,9 @@ p{
 
 .jodit-react-container{
   border-radius: 5px!important;
+  flex-grow: 1;
+  min-height: 593px!important;
+  display: flex;
   
   & , & > div{
     max-width: 100%!important;
@@ -72,13 +83,18 @@ p{
   display: flex;
   flex-direction: column;
   background: white;
-  max-height: 100%!important;
   overflow-y: auto;
+  height: 593px!important;
+}
+
+.jodit{
+  height: 593px!important;
 }
 
 .jodit-workplace{
   flex-grow: 1;
-  max-height: 537px!important;
+  height: 537px!important;
+  height: 100%;
   overflow-y: auto;
 
   & > div{

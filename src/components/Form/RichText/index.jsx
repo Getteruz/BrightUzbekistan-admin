@@ -1,4 +1,5 @@
 import JoditEditor from "jodit-react";
+import Flex from "../../Flex";
 
 const config = {
     buttons: 'bold, italic, underline, strikethrough, eraser, ul, ol, fontsize, paragraph, classSpan, lineHeight, superscript, subscript, file, image, video, spellcheck, cut, copy, paste, selectall, copyformat, hr, table, link, symbols, indent, outdent, left, brush, undo, redo, find source, preview, print',
@@ -22,9 +23,12 @@ const config = {
 
 const RichText = () => {
     return (
-        <JoditEditor
-            config={config}
-        />
+        <Flex direction='column' gap='10' style={{flexGrow: 1}}>
+            <span style={{fontSize: '11px', lineHeight: '15px'}}>Содержание</span>
+            <JoditEditor
+                config={config}
+            />
+        </Flex>
     );
 }
 

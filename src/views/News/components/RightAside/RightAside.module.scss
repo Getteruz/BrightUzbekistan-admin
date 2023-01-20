@@ -1,0 +1,52 @@
+.aside{
+    margin-top: 88px;
+    padding: 25px 30px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    height: 100px;
+    
+    &__title{
+        font-size: 11px;
+        line-height: 15px;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    &__checkboxlist{
+        margin-bottom: 44px;
+    }
+
+    &__configList{
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-bottom: 34px;
+
+        & > p{
+            margin-bottom: 0;
+        }
+    }
+
+    &__dataList{
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        & > *{
+            max-width: 103px;
+        }
+    }
+
+    &__tags{
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 15px;
+    }
+
+    &__tag{
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 18px;
+        color: #001AFF;
+    }
+}

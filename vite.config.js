@@ -10,11 +10,6 @@ export default defineConfig({
     outDir: './dist',
   },
   resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: resolve(__dirname, 'src')
-      }
-    ]
+    extensions: ['.js', '.jsx', '.json', '.scss', '.css'],
   }
 })

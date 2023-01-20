@@ -1,0 +1,29 @@
+@use '../../../scss/colors' as v;
+
+.group{
+    width: 100%;
+    border: 1px solid v.$border-color;
+    border-radius: 5px;
+    padding: 13px 17px;
+
+    & > button{
+        padding: 0 20px;
+        background: transparent;
+        border: none;
+        border-left: 1px solid v.$border-color;
+        border-right: 1px solid v.$border-color;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: v.$light-color;
+
+        &:first-child{
+            border-left: none;
+            padding-left: 0;
+        }
+        &:last-child{
+            border-right: none;
+            padding-right: 0;
+        }
+    }
+}

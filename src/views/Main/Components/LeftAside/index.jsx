@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom';
 import WhiteButton from '../../../../components/Buttons/WhiteButton';
 import Flex from '../../../../components/Flex';
 import { PlusIcon } from '../../../../components/icons';
 import cls from './LeftAside.module.scss'
 
 const LeftAside = () => {
+    const navigate = useNavigate()
+
     return (
         <div className={cls.aside}>
-            <WhiteButton className={cls.aside__btn}>
+            <WhiteButton className={cls.aside__btn} onClick={() => navigate('/news')}>
                 <PlusIcon />
                 Добавить новости
             </WhiteButton>

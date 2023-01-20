@@ -1,0 +1,52 @@
+
+
+.content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__group{
+        display: flex;
+        align-items: center;
+        padding: 20px 0;
+        gap: 20px;
+
+        & > div{
+            width: auto;
+        }
+    }
+
+    &__form{
+        width: 100%;
+        padding-top: 8px;
+        padding-bottom: 38px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        &__wrapper{
+            display: flex;
+            align-items: stretch;
+            gap: 20px;
+
+            & > div{ 
+                &:first-child{
+                    width: 100%;
+                    flex-grow: 1;
+                }
+
+                &:nth-child(2){
+                    width: 220px!important;
+                }
+            }
+        }
+
+        &__wrap{
+            overflow-y: auto;
+            &::-webkit-scrollbar{
+                width: 0;
+            }
+        }
+    }
+
+}
