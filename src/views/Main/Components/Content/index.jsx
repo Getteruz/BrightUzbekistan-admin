@@ -2,7 +2,7 @@ import GreyButton from '../../../../components/Buttons/GreyButton';
 import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
-import ListItem from '../../../../components/ListItem';
+import NewsList from '../../../../components/NewsList';
 import useGetSize from '../../../../hooks/useGetSize';
 import cls from './Content.module.scss'
 
@@ -25,18 +25,7 @@ const Content = () => {
                 </Flex>
             </div>
             <div className={cls.content__list__wrapper} style={{ maxHeight: `calc(100% - ${height}px)` }}>
-                <div className={cls.content__list}>
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                    <ListItem />
-                </div>
+                <NewsList news={Array(10).fill(null)} />
             </div>
         </div>
     );

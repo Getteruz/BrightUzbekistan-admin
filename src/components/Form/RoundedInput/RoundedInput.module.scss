@@ -15,3 +15,11 @@
         opacity: 0.5;
     }
 }
+
+.label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 11px;
+    line-height: 15px;
+}

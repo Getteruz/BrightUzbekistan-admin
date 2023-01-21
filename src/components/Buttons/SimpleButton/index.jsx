@@ -1,8 +1,8 @@
 import cls from './SimpleButton.module.scss'
 
-const SimpleButton = ({children, ...other}) => {
+const SimpleButton = ({children, light = false, ...other}) => {
     return (
-        <button className={cls.btn} {...other}>{children}</button>
+        <button className={`${cls.btn} ${light ? cls.light : ''}`} {...other}>{children}</button>
     );
 }
 

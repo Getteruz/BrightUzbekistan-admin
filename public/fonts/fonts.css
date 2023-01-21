@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Old Standard TT";
-    src: url("./OldStandartTT/OldStandardTT-Bold.woff") format("woff");
+    src: url("/fonts/OldStandartTT/OldStandardTT-Bold.woff") format("woff");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: "Noto Sans";
-    src: url("./NotoSans/NotoSans-Regular.woff") format("woff");
+    src: url("/fonts/NotoSans/NotoSans-Regular.woff") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
     font-family: "Noto Sans";
-    src: url("./NotoSans/NotoSans-Medium.woff") format("woff");
+    src: url("/fonts/NotoSans/NotoSans-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -24,7 +24,7 @@
 
 @font-face {
     font-family: "Noto Sans";
-    src: url("./NotoSans/NotoSans-Bold.woff") format("woff");
+    src: url("/fonts/NotoSans/NotoSans-Bold.woff") format("woff");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -32,7 +32,7 @@
 
 @font-face {
     font-family: "Noto Sans";
-    src: url("./NotoSans/NotoSans-Black.woff") format("woff");
+    src: url("/fonts/NotoSans/NotoSans-Black.woff") format("woff");
     font-weight: 900;
     font-style: normal;
     font-display: swap;
@@ -40,7 +40,7 @@
 
 @font-face {
     font-family: "Noto Sans condensed";
-    src: url("./NotoSans/noto-sans-condensed-medium.ttf") format("truetype");
+    src: url("/fonts/NotoSans/noto-sans-condensed-medium.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -48,7 +48,7 @@
 
 @font-face {
     font-family: "Noto Sans condensed";
-    src: url("./NotoSans/NotoSansDisplay-Condensed.ttf") format("truetype");
+    src: url("/fonts/NotoSans/NotoSansDisplay-Condensed.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;

@@ -3,36 +3,33 @@ import Flex from '../../../../components/Flex';
 import Switch from '../../../../components/Form/Switch';
 import Datapicker from '../../../../components/Form/Datapicker';
 import RoundedInput from '../../../../components/Form/RoundedInput';
-import cls from './RightAside.module.scss'
+import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
+import SwitchGroup from '../../../../components/SwitchGroup';
+import DateGroup from '../../../../components/DateGroup';
 
 const RightAside = () => {
     return (
-        <div className={cls.aside}>
-            <span className={cls.aside__title}>По пользователю</span>
-            <RoundedInput placeholder='username' />
-            <Flex gap='7' rowCount={4} className={cls.aside__list}>
-                <Avatar src='/avatar.png' />
-                <Avatar src='/avatar.png' />
-                <Avatar src='/avatar.png' />
-                <Avatar src='/avatar.png' />
-                <Avatar src='/avatar.png' />
-            </Flex>
-            <div className={cls.aside__configList}>
-                <p className={cls.aside__title}>Сортировка</p>
-                <Flex gap='20' direction='column'>
-                    <Switch label='Неделе'  name='sort' />
-                    <Switch label='Месяц'  name='sort' />
-                    <Switch label='Год'  name='sort' />
+        <RightAsideWrapper>
+            <Flex direction='column' gap='15'>
+                <RoundedInput placeholder='username' label='По пользователю' />
+                <Flex gap='7' rowCount={4}>
+                    <Avatar src='/avatar.png' />
+                    <Avatar src='/avatar.png' />
+                    <Avatar src='/avatar.png' />
+                    <Avatar src='/avatar.png' />
+                    <Avatar src='/avatar.png' />
                 </Flex>
-            </div>
-            <div className={cls.aside__configList}>
-                <p className={cls.aside__title}>По дате</p>
-                <div className={cls.aside__dataList}>
-                    <Datapicker label='от' />
-                    <Datapicker label='до' />
-                </div>
-            </div>
-        </div>
+            </Flex>
+            <SwitchGroup label='Сортировка'>
+                <Switch label='Неделе' name='sort' />
+                <Switch label='Месяц' name='sort' />
+                <Switch label='Год' name='sort' />
+            </SwitchGroup>
+            <DateGroup label='По дате'>
+                <Datapicker label='от' />
+                <Datapicker label='до' />
+            </DateGroup>
+        </RightAsideWrapper>
     );
 }
 

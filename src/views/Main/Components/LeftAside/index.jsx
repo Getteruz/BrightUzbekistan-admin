@@ -1,31 +1,32 @@
 import { useNavigate } from 'react-router-dom';
 import WhiteButton from '../../../../components/Buttons/WhiteButton';
+import SimpleButton from '../../../../components/Buttons/SimpleButton'
 import Flex from '../../../../components/Flex';
 import { PlusIcon } from '../../../../components/icons';
-import cls from './LeftAside.module.scss'
+import LeftAsideWrapper from '../../../../components/Aside/LeftAsideWrapper';
 
 const LeftAside = () => {
     const navigate = useNavigate()
 
     return (
-        <div className={cls.aside}>
-            <WhiteButton className={cls.aside__btn} onClick={() => navigate('/news')}>
+        <LeftAsideWrapper>
+            <WhiteButton onClick={() => navigate('/news')}>
                 <PlusIcon />
                 Добавить новости
             </WhiteButton>
             <Flex gap='15' direction='column' alignItems='flex-start'>
-                <button className={cls.aside__link}>Последние новости</button>
-                <button className={cls.aside__link}>Мир</button>
-                <button className={cls.aside__link}>Экономика</button>
-                <button className={cls.aside__link}>Бизнес</button>
-                <button className={cls.aside__link}>Общество</button>
-                <button className={cls.aside__link}>Спорт</button>
+                <SimpleButton style={{fontWeight: 500}}>Последние новости</SimpleButton>
+                <SimpleButton style={{fontWeight: 500}}>Мир</SimpleButton>
+                <SimpleButton style={{fontWeight: 500}}>Экономика</SimpleButton>
+                <SimpleButton style={{fontWeight: 500}}>Бизнес</SimpleButton>
+                <SimpleButton style={{fontWeight: 500}}>Общество</SimpleButton>
+                <SimpleButton style={{fontWeight: 500}}>Спорт</SimpleButton>
             </Flex>
-            <Flex gap='11' direction='column' alignItems='flex-start' style={{ marginTop: 'auto', }}>
-                <button className={cls.aside__link}>Создать категорию!</button>
-                <button className={cls.aside__link} style={{ opacity: 0.4 }}>Помощь!</button>
+            <Flex gap='11' direction='column' alignItems='flex-start'>
+                <SimpleButton style={{fontWeight: 500}}>Создать категорию!</SimpleButton>
+                <SimpleButton style={{fontWeight: 500}} light={true}>Помощь!</SimpleButton>
             </Flex>
-        </div>
+        </LeftAsideWrapper>
     );
 }
 

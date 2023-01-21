@@ -1,9 +1,9 @@
 import Flex from '../Flex';
 import Checkbox from '../Form/Checkbox';
 import { DotsIcon } from '../icons';
-import cls from './ListItem.module.scss'
+import cls from './NewsItem.module.scss'
 
-const ListItem = () => {
+const NewsItem = () => {
     return (
         <div className={cls.item}>
             <Checkbox label='9:41' light={true}/>
@@ -21,4 +21,4 @@ const ListItem = () => {
     );
 }
 
-export default ListItem;
+export default NewsItem;
