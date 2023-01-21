@@ -11,7 +11,7 @@
     border-right: 1px solid v.$border-color;
 
     & > *{
-        &:nth-child(3){
+        &:last-child{
             margin-top: auto;
         }
     }

@@ -12,9 +12,11 @@
     justify-content: center ;
     position: relative;
     cursor: pointer;
+    color: v.$text-color;
+    transition: all 0.2s;
 }
 
-.active{
+.message{
     &::after{
         content: '';
         position: absolute;
@@ -24,5 +26,14 @@
         height: 5px;
         border-radius: 50%;
         background: v.$orange-color;
+    }
+}
+
+.active{
+    background: v.$orange-color;
+    color: rgb(255, 255, 255) !important;
+    &  *{
+        color: white !important;
+        fill: white !important;
     }
 }

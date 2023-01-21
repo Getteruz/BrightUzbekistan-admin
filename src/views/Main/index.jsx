@@ -1,15 +1,15 @@
-import ContentWrapper from '../../components/ContentWrapper';
+import ComponentsWrapper from '../../components/ComponentsWrapper';
 import Content from './Components/Content';
 import LeftAside from './Components/LeftAside';
 import RightAside from './Components/RightAside';
 
 const Main = () => {
     return (
-        <ContentWrapper>
+        <ComponentsWrapper>
             <LeftAside />
             <Content />
             <RightAside />
-        </ContentWrapper>
+        </ComponentsWrapper>
     );
 }
 

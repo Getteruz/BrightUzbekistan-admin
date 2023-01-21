@@ -1,17 +1,15 @@
-import ContentWrapper from '../../components/ContentWrapper';
-import RichText from '../../components/Form/RichText';
 import RightAside from './components/RightAside';
 import LeftAside from './components/LeftAside';
-import cls from './News.module.scss'
 import Content from './components/Content';
+import ComponentsWrapper from '../../components/ComponentsWrapper';
 
 const News = () => {
     return (
-        <ContentWrapper>
+        <ComponentsWrapper>
             <LeftAside />
             <Content />
             <RightAside />
-        </ContentWrapper>
+        </ComponentsWrapper>
     );
 }
 

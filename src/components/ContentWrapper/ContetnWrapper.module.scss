@@ -1,0 +1,14 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.wrapper {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}

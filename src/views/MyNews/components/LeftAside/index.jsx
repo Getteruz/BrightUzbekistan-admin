@@ -23,8 +23,8 @@ const LeftAside = () => {
                 <SimpleButton>Спорт</SimpleButton>
             </Flex>
             <Flex gap='11' direction='column' alignItems='flex-start'>
-                <SimpleButton>Создать категорию!</SimpleButton>
-                <SimpleButton light={true}>Помощь!</SimpleButton>
+                <SimpleButton light={true}>Как создать?</SimpleButton>
+                <SimpleButton>Вы вошли как редактор</SimpleButton>
             </Flex>
         </LeftAsideWrapper>
     );

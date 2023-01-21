@@ -7,7 +7,6 @@ import Switch from '../../../../components/Form/Switch';
 import Timepicker from '../../../../components/Form/Timepicker';
 import SwitchGroup from '../../../../components/SwitchGroup';
 import TagsGroup from '../../../../components/TagsGroup';
-import cls from './RightAside.module.scss'
 
 const RightAside = () => {
     return (

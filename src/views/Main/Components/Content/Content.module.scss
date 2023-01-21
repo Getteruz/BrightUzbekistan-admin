@@ -4,35 +4,12 @@
     height: 100%;
 
     &__menu{
-        position: sticky;
-        top: 0;
-        padding: 25px 0;
-        padding-bottom: 37px;
         display: flex;
         align-items: center;
         gap: 20px;
-        background: v.$bg-color;
 
         & > label{
             flex-shrink: 0;
-        }
-    }
-
-    &__list{
-        height: 100%;
-        flex-grow: 1;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-        &__wrapper{
-            overflow-y: auto;
-            padding-bottom: 12px;
-            
-            &::-webkit-scrollbar{
-                width: 0;
-            }
         }
     }
 }
