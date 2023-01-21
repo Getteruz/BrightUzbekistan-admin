@@ -4,7 +4,8 @@
     display: flex;
     align-items: flex-start;
     gap: 15px;
-
+    z-index: 1;
+    position: relative;
     &__text__wrapper{
         display: flex;
         align-items: flex-start;

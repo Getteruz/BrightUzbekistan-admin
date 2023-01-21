@@ -1,0 +1,32 @@
+
+.box{
+    padding: 35px;
+    background: #EEEEEE;
+    border: 2px solid #FFFFFF;
+    box-shadow: -16px 34px 64px rgba(4, 33, 59, 0.16);
+    border-radius: 10px;
+    z-index: 10000;
+    width: 586px;
+
+    &__info{
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        opacity: 0.4;
+        margin-bottom: 25px;
+    }
+
+    &__btnwrapper{
+        margin: 43px 0;
+        padding: 17px;
+        display: flex;
+        align-items: center;
+        background: #FFFFFF;
+        border-radius: 12px;
+        gap: 23px;
+
+        & > div{
+            width: 205px;
+        }
+    }
+}
