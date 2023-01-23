@@ -206,3 +206,77 @@ export function DownloadIcon() {
         </svg>
     )
 }
+
+export function LocationIcon() {
+    return (
+        <svg
+            width={20}
+            height={21}
+            viewBox="0 0 20 21"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <mask
+                id="mask0_10_7"
+                style={{ maskType: "alpha" }}
+                maskUnits="userSpaceOnUse"
+                x={0}
+                y={0}
+                width={24}
+                height={24}
+            >
+                <rect width={24} height={24} fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_10_7)">
+                <path
+                    d="M15 9.625C15 13.7083 10 17.2083 10 17.2083C10 17.2083 5 13.7083 5 9.625C5 8.23261 5.52678 6.89726 6.46447 5.91269C7.40215 4.92812 8.67392 4.375 10 4.375C11.3261 4.375 12.5979 4.92812 13.5355 5.91269C14.4732 6.89726 15 8.23261 15 9.625Z"
+                    stroke="#0B212B"
+                    strokewidth={2}
+                    strokelinecap="round"
+                    strokelinejoin="round"
+                />
+                <path
+                    d="M10 11.375C10.9205 11.375 11.6667 10.5915 11.6667 9.625C11.6667 8.6585 10.9205 7.875 10 7.875C9.07957 7.875 8.33337 8.6585 8.33337 9.625C8.33337 10.5915 9.07957 11.375 10 11.375Z"
+                    stroke="#0B212B"
+                    strokewidth={2}
+                    strokelinecap="round"
+                    strokelinejoin="round"
+                />
+            </g>
+        </svg>
+    )
+}
+
+export function CheckCircle() {
+    return (
+        <svg
+            width={16}
+            height={16}
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g clipPath="url(#clip0_1_7188)">
+                <path
+                    d="M14.6673 7.38674V8.00007C14.6665 9.43769 14.201 10.8365 13.3402 11.988C12.4794 13.1394 11.2695 13.9817 9.89089 14.3893C8.51227 14.797 7.03882 14.748 5.6903 14.2498C4.34177 13.7516 3.19042 12.8308 2.40796 11.6248C1.6255 10.4188 1.25385 8.99212 1.34844 7.55762C1.44303 6.12312 1.99879 4.75762 2.93284 3.66479C3.86689 2.57195 5.12917 1.81033 6.53144 1.4935C7.93371 1.17668 9.40083 1.32163 10.714 1.90674"
+                    stroke="#0075FF"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M14.6667 2.66675L8 9.34008L6 7.34008"
+                    stroke="#0075FF"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </g>
+            <defs>
+                <clipPath id="clip0_1_7188">
+                    <rect width={16} height={16} fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    )
+}

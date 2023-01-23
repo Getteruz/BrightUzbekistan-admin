@@ -8,7 +8,7 @@ import cls from './LeftAside.module.scss'
 const LeftAside = () => {
     return (
         <LeftAsideWrapper>
-            <WhiteButton>
+            <WhiteButton style={{padding: '11px 19px'}}>
                 <PlusIcon />
                 Создать пользователя
             </WhiteButton>
