@@ -2,17 +2,15 @@
 .card{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 11px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    cursor: pointer;
+    gap: 20px;
+    width: 516px;
+    padding: 2px;
 
     &__title{
         font-family: 'Old Standard TT';
         font-weight: 700;
-        font-size: 28px;
-        line-height: 31px;
+        font-size: 44px;
+        line-height: 38px;
     }
 
     &__info{
@@ -30,7 +28,9 @@
         gap: 4px;
     }
 
-    &:last-child{
-        border-bottom: none;
+    &__desc{
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 21px;
     }
 }

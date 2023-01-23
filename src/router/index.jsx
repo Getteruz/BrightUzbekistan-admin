@@ -5,6 +5,7 @@ import Main from "../views/Main"
 import Messages from "../views/Messages"
 import MyNews from "../views/MyNews"
 import News from "../views/News"
+import Users from "../views/Users"
 
 const Router = () => {
   return (
@@ -14,6 +15,7 @@ const Router = () => {
         <Route path="news" element={<News />} />
         <Route path="mynews" element={<MyNews />} />
         <Route path="messages" element={<Messages />} />
+        <Route path="users" element={<Users />} />
       </Route>
       <Route path="/auth" element={<AuthPage />} />
     </Routes>

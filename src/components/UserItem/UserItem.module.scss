@@ -1,0 +1,25 @@
+
+.item{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &__info{
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+
+        &__name{
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        &__role{
+            font-weight: 500;
+            font-size: 11px;
+            line-height: 15px;
+            opacity: 0.4;
+        }
+    }
+}

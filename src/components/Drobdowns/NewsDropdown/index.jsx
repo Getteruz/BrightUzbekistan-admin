@@ -1,21 +1,18 @@
-import Flex from '../../Flex';
-import Instagram from './Buttons/Instagram';
-import Telegram from './Buttons/Telegram';
-import Card from './Card';
+import { useState } from 'react';
+import AllNews from './AllNews';
+import SingleNews from './SingleNews';
 import cls from './NewsDropdown.module.scss'
 
+const pageCount = 2
+
 const NewsDropdown = () => {
+    const [page, setPage] = useState(1)
+
     return (
-        <div className={cls.box}>
-            <p className={cls.box__info}>Количество новост для публикации: 4</p>
-            <Flex direction='column' gap='15'>
-                <Card />
-                <Card />
-                <Card />
-            </Flex>
-            <div className={cls.box__btnwrapper}>
-                <Telegram label='rcyvguhbi' />
-                <Instagram label='rcyvguhbi' />
+        <div className={cls.wrapper}>
+            <div style={{translate: `calc((-100% / ${pageCount}) * (${page} - 1))`}}>
+                <AllNews setPage={setPage}/>
+                <SingleNews setPage={setPage}/>
             </div>
         </div>
     );

@@ -1,9 +1,9 @@
-import GreyButton from "../../../../components/Buttons/GreyButton";
 import RedButton from "../../../../components/Buttons/RedButton";
+import SimpleButton from "../../../../components/Buttons/SimpleButton";
 import ContentWrapper from "../../../../components/ContentWrapper";
 import Flex from "../../../../components/Flex";
 import Checkbox from "../../../../components/Form/Checkbox";
-import { ArchiveIcon, DeleteIcon, FolderIcon } from "../../../../components/icons";
+import { PlayIcon } from "../../../../components/icons";
 import NewsList from "../../../../components/NewsList";
 
 
@@ -14,19 +14,11 @@ const Content = () => {
                 <Flex gap='20' style={{width: 'auto'}}>
                     <Checkbox label="Выбрать все" />
                     <RedButton>
-                        <FolderIcon />
-                        Отправить
+                        Опубликовать
                     </RedButton>
                 </Flex>
                 <Flex gap='5' style={{width: 'auto'}}>
-                    <GreyButton>
-                        <DeleteIcon />
-                        Удалить
-                    </GreyButton>
-                    <GreyButton>
-                        <ArchiveIcon />
-                        В архив
-                    </GreyButton>
+                    <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
                 </Flex>
             </div>
         }>

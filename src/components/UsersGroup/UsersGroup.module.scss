@@ -1,0 +1,13 @@
+
+.group{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & > h4{
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        opacity: 0.8;
+    }
+}
