@@ -21,9 +21,9 @@ const RightAside = () => {
                 </Flex>
             </Flex>
             <SwitchGroup label='Сортировка'>
-                <Switch label='Неделе' name='sort' />
-                <Switch label='Месяц' name='sort' />
-                <Switch label='Год' name='sort' />
+                <Switch label='Неделе' name='sort' type='radio' />
+                <Switch label='Месяц' name='sort' type='radio' />
+                <Switch label='Год' name='sort' type='radio' />
             </SwitchGroup>
             <DateGroup label='По дате'>
                 <Datapicker label='от' />
