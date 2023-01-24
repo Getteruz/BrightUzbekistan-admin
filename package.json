@@ -24,6 +24,7 @@
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.30.0",
     "react-i18next": "^11.16.7",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.7.0",
     "redux": "^4.1.2",

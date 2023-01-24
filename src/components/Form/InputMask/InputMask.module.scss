@@ -1,0 +1,14 @@
+
+.input{
+    background: #EEEEEE;
+    border: 1px solid rgba(11, 33, 43, 0.2);
+    border-radius: 5px;
+    padding: 13px 10px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 17px;
+
+    &:focus{
+        outline: none;
+    }
+}

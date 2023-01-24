@@ -6,7 +6,6 @@ import Checkbox from "../../../../components/Form/Checkbox";
 import { PlayIcon } from "../../../../components/icons";
 import NewsList from "../../../../components/NewsList";
 
-
 const Content = () => {
     return (
         <ContentWrapper navbar={

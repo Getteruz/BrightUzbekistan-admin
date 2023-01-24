@@ -280,3 +280,11 @@ export function CheckCircle() {
         </svg>
     )
 }
+
+export function SelectIcon() {
+    return (
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.22894 0.171631L0.286133 1.11444L5.00017 5.8285L9.71421 1.11446L8.7714 0.17165L5.00018 3.94287L1.22894 0.171631Z" fill="#0B212B" />
+        </svg>
+    )
+}

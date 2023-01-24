@@ -126,3 +126,32 @@ p{
 .jodit-ui-group{
   flex-shrink: 0;
 }
+
+.ant-select{
+  width: 100%!important;
+  height: auto!important;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid rgba(11, 33, 43, 0.2);
+  border-radius: 5px;
+
+   & > div{
+    margin-top: auto;
+   }
+}
+
+.ant-select-selector{
+  background: transparent!important;
+  padding: 14px 15px !important;
+  border: none!important;
+  display: flex;
+  align-items: center;
+  max-height: 43px;
+  height: 100%!important;
+  box-shadow: none!important;
+}
+
+.ant-select-focused{
+  border-color: $green-color!important;
+  box-shadow: 0 0 2px $green-color;
+}

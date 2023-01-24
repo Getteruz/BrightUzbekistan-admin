@@ -2,9 +2,9 @@ import Avatar from '../../../../components/Avatar';
 import BtnGroup from '../../../../components/Form/BtnGroup';
 import { CheckCircle, LocationIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
-import cls from './AddUser.module.scss'
+import cls from './UserInfo.module.scss'
 
-const AddUser = () => {
+const UserInfo = () => {
     return (
         <div className={cls.box}>
            <span>Информация о ролях</span> 
@@ -41,4 +41,4 @@ const AddUser = () => {
     );
 }
 
-export default AddUser;
+export default UserInfo;
