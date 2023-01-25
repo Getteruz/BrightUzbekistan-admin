@@ -13,7 +13,6 @@ import useGetSize from '../../../../hooks/useGetSize';
 import cls from './Content.module.scss'
 
 const Content = () => {
-    const { height } = useGetSize('news_nav')
 
     return (
         <ContentWrapper navbar={
@@ -36,6 +35,7 @@ const Content = () => {
                     <Flex direction='column' gap='20'>
                         <Input placeholder='Загаловок новости' label='Загаловок новости' />
                         <TextArea placeholder='Краткое описание' label='Краткое описание' />
+                        <Input placeholder='Введите заголовок' label='Короткий линк' />
                     </Flex>
                     <SquarePhotoUpload />
                 </div>

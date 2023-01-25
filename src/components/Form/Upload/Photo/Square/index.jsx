@@ -8,8 +8,8 @@ const SquarePhotoUpload = ({ }) => {
             <span className={cls.text}>Фото к зоголовку</span>
             <div className={cls.box}>
                 <div className={cls.box__preview}>
-                    {/* <span>Нет фото</span> */}
-                    <img src="https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80" alt="" />
+                    <span>Нет фото</span>
+                    {/* <img src="https://images.unsplash.com/photo-1661961112951-f2bfd1f253ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80" alt="" /> */}
                 </div>
                 <label>
                     <Button />
