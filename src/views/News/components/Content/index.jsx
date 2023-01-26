@@ -26,10 +26,10 @@ const Content = () => {
         }>
             <form className={cls.content__form}>
                 <BtnGroup>
-                    <button>O‘zbekcha</button>
-                    <button>Ўзбекча</button>
-                    <button>Русский</button>
-                    <button>English</button>
+                    <button type='button'>O‘zbekcha</button>
+                    <button type='button'>Ўзбекча</button>
+                    <button type='button'>Русский</button>
+                    <button type='button'>English</button>
                 </BtnGroup>
                 <div className={cls.content__form__wrapper}>
                     <Flex direction='column' gap='20'>

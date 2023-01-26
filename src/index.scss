@@ -61,70 +61,19 @@ p{
   }
 }
 
-.jodit-react-container{
-  border-radius: 5px!important;
-  flex-grow: 1;
-  min-height: 593px!important;
-  display: flex;
-  
-  & , & > div{
-    max-width: 100%!important;
-    max-height: 100%!important;
-    width: 100%!important;
-    height: 100%!important;
-  }
-
-  & > *{
-    background: white;
-  }
+.fr-btn-grp{
+  margin: 0!important;
 }
 
-.jodit-container{
-  display: flex;
-  flex-direction: column;
-  background: white;
-  overflow-y: auto;
-  height: 593px!important;
+.fr-toolbar, .fr-wrapper, .fr-second-toolbar{
+  background: $bg-color!important;
 }
 
-.jodit{
-  height: 593px!important;
+.fr-second-toolbar{
+  border-top: 1px solid $border-color;
 }
-
-.jodit-workplace{
-  flex-grow: 1;
-  height: 537px!important;
-  height: 100%;
-  overflow-y: auto;
-
-  & > div{
-    padding: 30px!important;
-  }
-}
-
-.jodit-status-bar, .jodit-add-new-line{
-  display: none;  
-  width: 0;
-  height: 0;
-  overflow: hidden;
-  visibility: hidden;
-}
-
-.jodit-toolbar-button{
-  padding: 5px!important;
-  height: auto;
-}
-
-.jodit-toolbar-editor-collection{
-  background-image: none;
-}
-
-.jodit-toolbar__box{
-  background: white!important;
-}
-
-.jodit-ui-group{
-  flex-shrink: 0;
+.fr-toolbar{
+  border-bottom: 1px solid $border-color!important;
 }
 
 .ant-select{
