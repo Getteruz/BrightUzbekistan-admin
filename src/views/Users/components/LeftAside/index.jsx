@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import LeftAsideWrapper from "../../../../components/Aside/LeftAsideWrapper";
 import WhiteButton from "../../../../components/Buttons/WhiteButton";
 import { PlusIcon } from "../../../../components/icons";
@@ -6,9 +7,10 @@ import UsersGroup from "../../../../components/UsersGroup";
 import cls from './LeftAside.module.scss'
 
 const LeftAside = () => {
+    const navigate = useNavigate()
     return (
         <LeftAsideWrapper>
-            <WhiteButton style={{padding: '11px 19px'}}>
+            <WhiteButton style={{padding: '11px 19px'}} onClick={() => navigate('/adduser')}>
                 <PlusIcon />
                 Создать пользователя
             </WhiteButton>

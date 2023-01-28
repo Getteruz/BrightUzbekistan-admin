@@ -11,36 +11,36 @@ export const links = [
         id: 2,
         label: 'Новости',
         icon: DocIcon,
-        link: '/'
+        link: '/news'
     },
     {
         id: 3,
         label: 'Пользователи',
         icon: StatistikaIcon,
-        link: '/'
+        link: '/users'
     },
     {
         id: 4,
         label: 'Доп-страници',
         icon: StatistikaIcon,
-        link: ''
+        link: '/dop-pages'
     },
     {
         id: 5,
         label: 'Реклама',
         icon: StatistikaIcon,
-        link: '/'
+        link: '/reklama'
     },
     {
         id: 6,
         label: 'Статистика',
         icon: StatistikaIcon,
-        link: '/'
+        link: '/statistika'
     },
     {
         id: 7,
         label: 'Архив',
         icon: StatistikaIcon,
-        link: '/'
+        link: '/archive'
     },
 ]

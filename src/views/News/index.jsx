@@ -3,7 +3,7 @@ import LeftAside from './components/LeftAside';
 import Content from './components/Content';
 import ComponentsWrapper from '../../components/ComponentsWrapper';
 
-const News = () => {
+const AddNews = () => {
     return (
         <ComponentsWrapper>
             <LeftAside />
@@ -13,4 +13,4 @@ const News = () => {
     );
 }
 
-export default News;
+export default AddNews;

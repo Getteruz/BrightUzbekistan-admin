@@ -10,7 +10,7 @@ const LeftAside = () => {
 
     return (
         <LeftAsideWrapper>
-            <WhiteButton onClick={() => navigate('/news')}>
+            <WhiteButton onClick={() => navigate('/addnews')}>
                 <PlusIcon />
                 Добавить новости
             </WhiteButton>

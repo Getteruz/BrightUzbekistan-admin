@@ -3,13 +3,16 @@ import Flex from "../../../../components/Flex";
 import RoundedButton from '../../../../components/Buttons/RoundedButton'
 import { LeftIcon } from "../../../../components/icons";
 import SimpleButton from "../../../../components/Buttons/SimpleButton";
+import { useNavigate } from "react-router-dom";
 
 
 const LeftAside = () => {
+    const navigate = useNavigate()
+
     return (
         <LeftAsideWrapper>
             <Flex gap='28' direction='column' alignItems='flex-start'>
-                <RoundedButton>
+                <RoundedButton onClick={() => navigate(-1)}>
                     <LeftIcon />
                     Назад
                 </RoundedButton>
