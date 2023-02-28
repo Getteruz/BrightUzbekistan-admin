@@ -9,7 +9,7 @@ import BtnGroup from '../../../../components/Form/BtnGroup';
 import Input from '../../../../components/Form/Input';
 import RichText from '../../../../components/Form/RichText';
 import TextArea from '../../../../components/Form/TextArea';
-import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square/Index.jsx';
+import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../loader';
 import cls from './Content.module.scss'
