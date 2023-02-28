@@ -9,7 +9,7 @@ const List = styled('div')`
 const TagsGroup = ({tags = []}) => {
     return (
         <List>
-            {tags?.length > 0 && tags.map((tag, index) => <Tag key={index}>{tag}</Tag>)}
+            {tags?.length > 0 && tags.map((tag, index) => <Tag key={index}>#{tag}</Tag>)}
         </List>
     );
 }

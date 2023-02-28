@@ -3,10 +3,10 @@ import cls from './Button.module.scss'
 
 const Button = () => {
     return (
-        <label className={cls.btn}>
+        <div className={cls.btn}>
             <UploadIcon />
-            <input type="file" accept='image/*' />
-        </label>
+            {/* <input type="file" accept='image/*' /> */}
+        </div>
     );
 }
 

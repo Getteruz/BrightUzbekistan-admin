@@ -8,8 +8,10 @@ import InputMask from "../../../../components/Form/InputMask";
 import Select from "../../../../components/Form/Select";
 import { roles, regions } from "./data";
 import cls from './Content.module.scss'
+import { useForm } from "react-hook-form";
 
 const Content = () => {
+    const { register, formState: { errors, isValid }, handleSubmit } = useForm({ mode: 'onChange' })
     return (
         <ContentWrapper navbar={<div style={{ width: '100%', display: 'flex', gap: '5px', alignItems: 'center' }}>
             <RedButton>Сохранить</RedButton>
