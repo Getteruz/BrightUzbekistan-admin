@@ -9,7 +9,14 @@ const Roles = () => {
             <div>
                 {
                     roles?.length > 0 && roles.map(role =>
-                        <RoleInfo key={role.id} title={role.title} desc={role.desc} label={role.label} />
+                        <RoleInfo 
+                            key={role.id} 
+                            roleId={role.roleId}
+                            title={role.title} 
+                            desc={role.desc} 
+                            label={role.label} 
+                            replaceUrl={false}
+                        />
                     )
                 }
             </div>

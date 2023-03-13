@@ -1,6 +1,13 @@
 import cls from './Input.module.scss'
 
-const Input = ({type = 'text', placeholder = '', label = '', register, ...other}) => {
+const Input = ({
+    name = '',
+    type = 'text', 
+    placeholder = '', 
+    label = '', 
+    register = {}, 
+    ...other
+}) => {
     return (
         <label className={cls.label}>
             {label}

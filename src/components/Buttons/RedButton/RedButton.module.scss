@@ -12,4 +12,8 @@
     line-height: 16px;
     color: #FFFFFF;
     align-items: center;
+
+    &:disabled{
+        opacity: 0.4;
+    }
 }

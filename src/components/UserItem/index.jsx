@@ -1,16 +1,21 @@
 import { useNavigate } from 'react-router-dom';
+import LetteredAvatar from 'react-lettered-avatar';
 import Avatar from '../Avatar';
 import cls from './UserItem.module.scss'
 
-const UserItem = () => {
+const UserItem = ({
+    image = '',
+    name = '',
+    role = ''
+}) => {
     const navigate = useNavigate()
 
     return (
         <div className={cls.item} onClick={() => navigate('/users/1')}>
-            <Avatar src='/avatar.png' />
+            {image ? <Avatar src={image} /> : <LetteredAvatar size={40} name='Letter avatar' />}
             <div className={cls.item__info}>
-                <span className={cls.item__info__name}>Убайдулла Ахмедов</span>
-                <span className={cls.item__info__role}>Руководитель</span>
+                <span className={cls.item__info__name}>{name}</span>
+                <span className={cls.item__info__role}>{role}</span>
             </div>
         </div>
     );

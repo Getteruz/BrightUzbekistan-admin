@@ -26,4 +26,8 @@
             outline: none;
         }
     }
+
+    & > span{
+        color: red;
+    }
 }

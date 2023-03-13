@@ -1,13 +1,16 @@
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import LeftAsideWrapper from "../../../../components/Aside/LeftAsideWrapper";
 import WhiteButton from "../../../../components/Buttons/WhiteButton";
 import { PlusIcon } from "../../../../components/icons";
-import UserItem from "../../../../components/UserItem";
 import UsersGroup from "../../../../components/UsersGroup";
+import { getAdmins } from "../../../../services/admin";
 import cls from './LeftAside.module.scss'
 
 const LeftAside = () => {
     const navigate = useNavigate()
+    const {data} = useQuery('admins', getAdmins)
+    console.log(data);
     return (
         <LeftAsideWrapper>
             <WhiteButton style={{padding: '11px 19px'}} onClick={() => navigate('/adduser')}>

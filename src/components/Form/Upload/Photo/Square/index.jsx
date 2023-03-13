@@ -4,12 +4,12 @@ import Button from '../../Button';
 import cls from './Square.module.scss'
 
 const SquarePhotoUpload = ({ register }) => {
-    const [file, setFile] = useState({})
+    const [selectedfile, setSelectedFile] = useState({})
 
     const handleChange = (e) => {
         const file = e.target.files[0]
         if(file) {
-            setFile({name: file.name, img: file})
+            setSelectedFile({name: file.name, img: file})
         }
     }
 
@@ -19,10 +19,10 @@ const SquarePhotoUpload = ({ register }) => {
             <div className={cls.box}>
                 <div className={cls.box__preview}>
                     {
-                        !file?.img ? (
+                        !selectedfile?.img ? (
                             <span>Нет фото</span>
                         ) : (
-                            <img src={URL.createObjectURL(file.img)} alt="" /> 
+                            <img src={URL.createObjectURL(selectedfile.img)} alt={selectedfile?.name || ''} /> 
                         )
                     }
                 </div>
@@ -31,7 +31,7 @@ const SquarePhotoUpload = ({ register }) => {
                     <Button />
                     <Flex direction='column' gap='2'>
                         <p className={cls.box__title}>Загрузить фото</p>
-                        <span className={cls.box__name}>{file.name}</span>
+                        <span className={cls.box__name}>{selectedfile.name}</span>
                     </Flex>
                 </label>
             </div>
