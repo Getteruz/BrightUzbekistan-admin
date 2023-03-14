@@ -10,7 +10,12 @@ import cls from './LeftAside.module.scss'
 const LeftAside = () => {
     const navigate = useNavigate()
     const {data} = useQuery('admins', getAdmins)
-    console.log(data);
+    const admins = data?.reduce((acc, admin) => {
+        const role = admin.position?.title
+        acc[role]?.length > 0 ? acc[role] = [...acc[role], admin] : acc[role] = [admin]
+        return acc
+    }, {})
+    
     return (
         <LeftAsideWrapper>
             <WhiteButton style={{padding: '11px 19px'}} onClick={() => navigate('/adduser')}>
@@ -18,9 +23,11 @@ const LeftAside = () => {
                 Создать пользователя
             </WhiteButton>
             <div className={cls.aside__contacts}>
-                <UsersGroup label="Глава организации" users={Array(4).fill(null)} />
-                <UsersGroup label="Журналисты" users={Array(6).fill(null)} />
-                <UsersGroup label="Репортёры" users={Array(2).fill(null)} />
+                {
+                    data?.length > 0 && Object.entries(admins)?.map((admin, index) => 
+                        <UsersGroup key={index} label={admin[0]} users={admin[1]} />
+                    )
+                }
             </div>
         </LeftAsideWrapper>
     );

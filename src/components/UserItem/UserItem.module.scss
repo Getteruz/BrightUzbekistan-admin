@@ -5,6 +5,10 @@
     gap: 10px;
     cursor: pointer;
 
+    & > div > div{
+        font-size: 18px!important;
+    }
+
     &__info{
         display: flex;
         flex-direction: column;

@@ -6,6 +6,10 @@
     align-items: flex-start;
     padding: 33px 40px!important;
 
+    & > div > div > div{
+        font-size: 52px!important;
+    }
+
     & > div{
         display: flex;
         align-items: flex-start;
@@ -23,6 +27,7 @@
         flex-direction: column;
 
         &__desc{
+            min-height: 40px;
             max-width: 395px;
             font-weight: 500;
             font-size: 13px;

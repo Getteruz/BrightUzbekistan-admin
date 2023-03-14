@@ -6,6 +6,7 @@ export const login = async (data) => {
         console.log(res);
         return res?.data
     } catch (error) {
+        console.log(error);
         return error
     }
 }

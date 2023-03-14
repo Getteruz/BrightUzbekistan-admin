@@ -1,12 +1,17 @@
 import { useEffect } from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import RightAsideWrapper from "../../../../components/Aside/RightAsideWrapper";
 import Switch from "../../../../components/Form/Switch";
 import SwitchGroup from "../../../../components/SwitchGroup";
-import { roles, permissions } from "./data";
+import { getPermissions } from "../../../../services/permissions";
+import { getRoles } from "../../../../services/roles";
+// import { permissions } from "./data";
 
 const RightAside = ({ useForm = {} }) => {
     const navigate = useNavigate()
+    const {data: roles} = useQuery('roles', getRoles)
+    const {data: permissions} = useQuery('permissions', getPermissions)
     const {getValues, setValue} = useForm
     const query = new URLSearchParams(window.location.search);
 
@@ -22,7 +27,7 @@ const RightAside = ({ useForm = {} }) => {
 
     const hanldeRadioChange = (e, role) => {
         if (e.target.checked) {
-            query.set('role', role.value)
+            query.set('role', role.id)
         } else {
             query.set('role', '')
         }
@@ -39,9 +44,9 @@ const RightAside = ({ useForm = {} }) => {
                 {roles?.length > 0 && roles.map(role =>
                     <Switch
                         key={role.id}
-                        label={role.label}
-                        value={role.value}
-                        checked={query.get('role') === role.value}
+                        label={role.title}
+                        value={role.id}
+                        checked={query.get('role') === role.id}
                         onChange={(e) => hanldeRadioChange(e, role)}
                     />
                 )}
@@ -50,8 +55,8 @@ const RightAside = ({ useForm = {} }) => {
                 {permissions?.length > 0 && permissions.map(permission =>
                     <Switch
                         key={permission.id}
-                        label={permission.label}
-                        value={permission.value}
+                        label={permission.title}
+                        value={permission.id}
                         name='permissions'
                         onChange={handleCheckboxChange}
                     />

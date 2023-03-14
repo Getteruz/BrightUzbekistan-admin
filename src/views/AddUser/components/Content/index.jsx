@@ -13,29 +13,57 @@ import cls from './Content.module.scss'
 import Loader from "../../../../components/Loader";
 import Modal from "../../../../components/Modal";
 import { useState } from "react";
+import { createAdmin } from "../../../../services/admin";
 
 const Content = ({
     useForm = {}
 }) => {
     const navigate = useNavigate()
     const [openModal, setOpenModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const { register, formState: { isValid }, handleSubmit, setValue, control } = useForm
 
-    const sendForm = (data) => {
-        data.phoneNumber = data?.phoneNumber?.replace(/[^0-9]+/g, '')
-        if(!data.role) {
-            toast.error('Вы должны выбрать роль !')
-            return 
-        } else if (data.permissions?.length < 1){
-            toast.error('Пользователь должен иметь минимум 1 разрешение !')
-            return
-        } else if(data.phoneNumber?.length < 12) {
-            toast.error('Вы ввели неправильный фотмат номера !')
-        } else if(data.password !== data.repeat_password){
-            toast.error('Пароли не совпадают.')
-        } else {
-            alert(JSON.stringify(data, null, 4))
+    const sendForm = async (data) => {
+        try {
+            setLoading(true)
+            data.phoneNumber = data?.phoneNumber?.replace(/[^0-9]+/g, '')
+            if(!data.role) {
+                toast.error('Вы должны выбрать роль !')
+                return 
+            } else if (data.permissions?.length < 1){
+                toast.error('Пользователь должен иметь минимум 1 разрешение !')
+                return
+            } else if(data.phoneNumber?.length < 12) {
+                toast.error('Вы ввели неправильный фотмат номера !')
+            } else if(data.password !== data.repeat_password){
+                toast.error('Пароли не совпадают.')
+            } else {
+                // alert(JSON.stringify(data, null, 4))
+                const fd =new FormData()
+                fd.append('fullName', data?.fullName)
+                fd.append('city', data?.city)
+                fd.append('education', data?.education)
+                fd.append('login', data?.login)
+                fd.append('phone', data?.phone)
+                fd.append('password', data?.password)
+                fd.append('position', data?.role)
+                fd.append('permissions', JSON.stringify(data?.permissions))
+                fd.append('avatar', data?.avatar)
+        
+                const res = await createAdmin(fd)
+                console.log(res);
+                if(res?.error) {
+                    toast.error(res?.message)
+                } else {
+                    setOpenModal(true)
+                }
+            }
+        } catch (error) {
+            alert(error)
+        } finally {
+            setLoading(false)
         }
+
     }
 
     const redirectFunc = () => {
@@ -49,10 +77,10 @@ const Content = ({
         </div>}>
 
             <Toaster />
-            {/* <Loader text="Идет обработка данных, пожалуйста подождите..." /> */}
+            {loading && <Loader text="Идет создание пользователя, пожалуйста подождите..." />}
             {openModal && <Modal title={'Пользователь успешно создан!'} onClose={redirectFunc} onOk={redirectFunc} />}
 
-            <div className={cls.box}>
+            <div className={cls.box}>   
                 <div>
                     <Circle label="Аватарка" setValue={setValue} />
                 </div>

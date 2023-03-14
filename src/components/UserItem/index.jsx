@@ -4,6 +4,7 @@ import Avatar from '../Avatar';
 import cls from './UserItem.module.scss'
 
 const UserItem = ({
+    id = '',
     image = '',
     name = '',
     role = ''
@@ -11,8 +12,8 @@ const UserItem = ({
     const navigate = useNavigate()
 
     return (
-        <div className={cls.item} onClick={() => navigate('/users/1')}>
-            {image ? <Avatar src={image} /> : <LetteredAvatar size={40} name='Letter avatar' />}
+        <div className={cls.item} onClick={() => navigate(`/users/${id}`)}>
+            {image ? <Avatar src={image} /> : <LetteredAvatar size={40} name={name} />}
             <div className={cls.item__info}>
                 <span className={cls.item__info__name}>{name}</span>
                 <span className={cls.item__info__role}>{role}</span>

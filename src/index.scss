@@ -105,6 +105,6 @@ p{
   box-shadow: 0 0 2px $green-color;
 }
 
-.lettered-avatar{
-  font-size: 19px!important;
+.lettered-avatar-wrapper{
+  flex-shrink: 0;
 }
