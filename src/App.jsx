@@ -1,31 +1,15 @@
-import { Provider } from "react-redux"
+import { useQuery } from "react-query"
 import { BrowserRouter } from "react-router-dom"
-import { QueryClientProvider } from "react-query"
-import { PersistGate } from "redux-persist/integration/react"
-import AlertProvider from "./providers/AlertProvider"
 import Router from "./router"
-import { persistor, store } from "./store"
-// import "./i18next"
-import { Suspense } from "react"
-import { queryClient } from "./services/api"
+import { getAdminInfo } from "./services/admin"
 
 function App() {
+  const { data } = useQuery('me', getAdminInfo)
+  
   return (
-    <Suspense fallback={<></>} >
-      <div className="App">
-        <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <QueryClientProvider client={queryClient}>
-              <AlertProvider>
-                <BrowserRouter>
-                  <Router />
-                </BrowserRouter>
-              </AlertProvider>
-            </QueryClientProvider>
-          </PersistGate>
-        </Provider>
-      </div>
-    </Suspense>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   )
 }
 

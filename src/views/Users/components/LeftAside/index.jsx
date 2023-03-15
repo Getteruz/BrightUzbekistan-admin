@@ -15,7 +15,7 @@ const LeftAside = () => {
         acc[role]?.length > 0 ? acc[role] = [...acc[role], admin] : acc[role] = [admin]
         return acc
     }, {})
-    
+    console.log(admins);
     return (
         <LeftAsideWrapper>
             <WhiteButton style={{padding: '11px 19px'}} onClick={() => navigate('/adduser')}>

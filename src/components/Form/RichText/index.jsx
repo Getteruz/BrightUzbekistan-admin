@@ -5,6 +5,11 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/js/plugins.pkgd.min.js";
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
+import GetterFileUpload from "getter-fileupload-client";
+import { Buffer } from "buffer";
+import axios from "axios";
+
+const fileServise = new GetterFileUpload('https://storage.bright.getter.uz')
 
 const config = {
     enter: Froalaeditor.ENTER_BR,
@@ -48,22 +53,33 @@ const config = {
         blur: () => {
             console.log(replyEditor.html.get(true));
         },
-        'image.beforeUpload': (e, editor) => {
-            console.log('image upload');
-            // console.log(e);
-            // console.log(editor);
-            replyEditor.image.insert('https://images.unsplash.com/photo-1661961110144-12ac85918e40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60', null, null, replyEditor.image.get());
-            return false
+        'image.beforeUpload': function(e, editor) {
+            const fd = new FormData()
+            fd.append('image', e[0])
+
+            axios.post('https://storage.bright.getter.uz/upload/image', fd, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            }).then(res =>  replyEditor.image.insert(String(res?.data?.url), null, null, replyEditor.image.get()))
         },
         'video.beforeUpload': (e, editor) => {
-            console.log(replyEditor.video);
-            replyEditor.video.insert('https://youtu.be/w4lbJZ8OPMk', null, null, replyEditor.video.get());
-            replyEditor.video.get()
+            const file = e[0];
+            const fd = new FormData()
+            fd.append('video', file)
+
+            axios.post('https://storage.bright.getter.uz/upload/video', fd, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            }).then(res => replyEditor.video.insert(String(res?.data?.url), null, null, replyEditor.video.get()))
+            // .then(() => replyEditor.video.get());
             return false
         },
         'paste.beforeCleanup': function (clipboardHtml) {
             return _convertHtmlToPlainText(clipboardHtml);
-        }
+        },
+
     }
 }
 

@@ -1,10 +1,11 @@
-// import Alerts from "../components/Alerts"
+import { useSelector } from "react-redux"
+import Alerts from "../components/Alerts"
 
 
 const AlertProvider = ({children}) => {
   return (
     <>
-      {/* <Alerts /> */}
+      <Alerts />
       {children}
     </>
   )

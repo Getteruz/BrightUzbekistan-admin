@@ -23,6 +23,12 @@ const Router = () => {
           <Route path=":id" element={<UserInfo />} />
         </Route>
         <Route path="/adduser" element={<AddUser />} />
+        <Route path="/adduser" element={<AddUser />} />
+        <Route path="/general-access" element={<></>} />
+        <Route path="/dop-pages" element={<></>} />
+        <Route path="/reklama" element={<></>} />
+        <Route path="/statistika" element={<></>} />
+        <Route path="/archive" element={<></>} />
       </Route>
       <Route path="/auth" element={<AuthPage />} />
     </Routes>

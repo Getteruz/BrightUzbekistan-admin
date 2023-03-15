@@ -1,26 +1,37 @@
-
-.item{
+.item {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 10px;
     cursor: pointer;
 
-    & > div > div{
-        font-size: 18px!important;
+    &>div>div {
+        font-size: 18px !important;
     }
 
-    &__info{
+    &__info {
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
         gap: 3px;
 
-        &__name{
+        &__name {
+            max-width: 100%;
+            width: 100%;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-weight: 500;
             font-size: 12px;
             line-height: 16px;
         }
 
-        &__role{
+        &__role {
+            min-height: 15px;
             font-weight: 500;
             font-size: 11px;
             line-height: 15px;

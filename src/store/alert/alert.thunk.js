@@ -1,12 +1,16 @@
+import { useDispatch } from "react-redux";
 import { alertActions } from "./alert.slice";
 
 let _id = 1
 
-export const showAlert = (title = "", type = "error") => dispatch => {
+export const useShowAlert = (dispatch) => {
+  // const dispatch = useDispatch()
   let id = _id
-  dispatch(alertActions.addAlert({title, type, id}))
-  setTimeout(() => {
-    dispatch(alertActions.deleteAlert(id))
-  }, 4000);
-  _id++
+  return ({ message = "", type = "error" }) => {
+    dispatch(alertActions.addAlert({ message, type, id }))
+    setTimeout(() => {
+      dispatch(alertActions.deleteAlert(id))
+    }, 4000);
+    _id++
+  }
 }

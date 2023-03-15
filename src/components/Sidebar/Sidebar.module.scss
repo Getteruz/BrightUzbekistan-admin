@@ -22,6 +22,10 @@
         display: flex;
         flex-direction: column;
         gap: 30px;
+
+        & > a:hover{
+            opacity: 1;
+        }
     }
 
 
@@ -35,6 +39,7 @@
         color: #FFFFFF;
         opacity: 0.6;
         cursor: pointer;
+        transition: all 0.3s;
     }
 
     &__button{

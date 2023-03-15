@@ -15,8 +15,8 @@ const UserItem = ({
         <div className={cls.item} onClick={() => navigate(`/users/${id}`)}>
             {image ? <Avatar src={image} /> : <LetteredAvatar size={40} name={name} />}
             <div className={cls.item__info}>
-                <span className={cls.item__info__name}>{name}</span>
-                <span className={cls.item__info__role}>{role}</span>
+                <p className={cls.item__info__name}>{name}</p>
+                <p className={cls.item__info__role}>{role}</p>
             </div>
         </div>
     );

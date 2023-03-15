@@ -9,9 +9,15 @@ export const links = [
     },
     {
         id: 2,
-        label: 'Новости',
+        label: 'Мои новости',
         icon: DocIcon,
         link: '/news'
+    },
+    {
+        id: 8,
+        label: 'Общий доступ',
+        icon: DocIcon,
+        link: '/general-access'
     },
     {
         id: 3,

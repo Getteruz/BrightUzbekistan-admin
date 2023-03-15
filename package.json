@@ -16,6 +16,8 @@
     "@reduxjs/toolkit": "^1.7.1",
     "antd": "^5.1.5",
     "axios": "^0.26.1",
+    "buffer": "^6.0.3",
+    "getter-fileupload-client": "^1.0.9",
     "i18next": "^21.6.16",
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-http-backend": "^1.4.0",
