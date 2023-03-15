@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
@@ -13,14 +15,23 @@ import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../loader';
 import cls from './Content.module.scss'
+import { langs } from './data';
 
-const Content = ({ register, handleSubmit }) => {
+const Content = ({ register, handleSubmit, setValue }) => {
+    const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        if(!params.get('lang')){
+            setSearchParams({lang: 'uz'}, {replace: true})
+        }
+    }, [!!params.get('lang')])
 
     const func = async (data) => {
         try {
             setIsLoading(true)
             const fd = new FormData()
+            alert(JSON.stringify(data, null, 4))
             fd.append('img', data.img[0])
             fd.append('title', data.title)
             fd.append('shortDesc', data.shortDesc)
@@ -30,15 +41,9 @@ const Content = ({ register, handleSubmit }) => {
             data.categories && data.categories?.forEach(el => {
                 fd.append('categories', el)
             })
-
-            let res = await axios.post(('https://bright-test.onrender.com/news' || "http://localhost:8080/news"), fd)
-
-            if(res.status === 200) {
-                alert('News created')
-            }
         } catch (error) {
             console.log(error);
-        } finally{
+        } finally {
             setIsLoading(false)
         }
     }
@@ -56,10 +61,17 @@ const Content = ({ register, handleSubmit }) => {
             {isLoading && <Loader />}
             <div className={cls.content__form}>
                 <BtnGroup>
-                    <button type='button'>O‘zbekcha</button>
-                    <button type='button'>Ўзбекча</button>
-                    <button type='button'>Русский</button>
-                    <button type='button'>English</button>
+                    {
+                        langs?.length > 0 && langs.map(lang =>
+                            <button
+                                key={lang.id}
+                                onClick={() => setSearchParams({lang: lang.lang}, {replace: true})}
+                                className={lang?.lang === params.get('lang') ? cls.active__btn : ""}
+                            >
+                                {lang?.label}
+                            </button>
+                        )
+                    }
                 </BtnGroup>
                 <div className={cls.content__form__wrapper}>
                     <Flex direction='column' gap='20'>
@@ -69,7 +81,11 @@ const Content = ({ register, handleSubmit }) => {
                     </Flex>
                     <SquarePhotoUpload register={{ ...register('img') }} />
                 </div>
-                <RichText />
+                <RichText 
+                    register={register} 
+                    setValue={setValue}
+                    name='description'
+                />
             </div>
         </ContentWrapper>
     );

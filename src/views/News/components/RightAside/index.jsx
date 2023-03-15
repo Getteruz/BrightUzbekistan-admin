@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
 import DateGroup from '../../../../components/DateGroup';
 import Flex from '../../../../components/Flex';
@@ -9,24 +9,29 @@ import Switch from '../../../../components/Form/Switch';
 import Timepicker from '../../../../components/Form/Timepicker';
 import SwitchGroup from '../../../../components/SwitchGroup';
 import TagsGroup from '../../../../components/TagsGroup';
+import { getCategories } from '../../../../services/category';
 
-const RightAside = ({register, setValue}) => {
+const RightAside = ({ register, setValue }) => {
     const [hashTags, setHashtags] = useState([])
+    const { data: categories } = useQuery('categories', getCategories)
 
     useEffect(() => {
         setValue('hashtags', hashTags)
     }, [hashTags]);
-    
+
     return (
         <RightAsideWrapper>
             <SwitchGroup label='Выберите категорию'>
-                <Switch register={{...register('categories')}} value='Последние новости' label='Последние новости' />
-                <Switch register={{...register('categories')}} value='Мир' label='Мир' />
-                <Switch register={{...register('categories')}} value='Экономика' label='Экономика' />
-                <Switch register={{...register('categories')}} value='Политика' label='Политика' />
-                <Switch register={{...register('categories')}} value='Общество' label='Общество' />
-                <Switch register={{...register('categories')}} value='Бизнес' label='Бизнес' />
-                <Switch register={{...register('categories')}} value='Спорт' label='Спорт' />
+                {
+                    categories?.length > 0 && categories.map(ctg =>
+                        <Switch
+                            key={ctg.id}
+                            register={{ ...register('categories') }}
+                            value={ctg.id}
+                            label={ctg.ru}
+                        />
+                    )
+                }
             </SwitchGroup>
             <DateGroup label='Дата публикации'>
                 <Timepicker label='от' />

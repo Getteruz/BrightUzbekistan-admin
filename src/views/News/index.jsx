@@ -10,7 +10,7 @@ const AddNews = () => {
     return (
         <ComponentsWrapper>
             <LeftAside />
-            <Content register={register} handleSubmit={handleSubmit} />
+            <Content register={register} handleSubmit={handleSubmit} setValue={setValue} />
             <RightAside register={register} setValue={setValue} />
         </ComponentsWrapper>
     );

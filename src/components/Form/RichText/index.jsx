@@ -53,7 +53,7 @@ const config = {
         blur: () => {
             console.log(replyEditor.html.get(true));
         },
-        'image.beforeUpload': function(e, editor) {
+        'image.beforeUpload': function (e, editor) {
             const fd = new FormData()
             fd.append('image', e[0])
 
@@ -61,7 +61,8 @@ const config = {
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 }
-            }).then(res =>  replyEditor.image.insert(String(res?.data?.url), null, null, replyEditor.image.get()))
+            }).then(res => replyEditor.image.insert(String(res?.data?.url), null, null, replyEditor.image.get()))
+            return false
         },
         'video.beforeUpload': (e, editor) => {
             const file = e[0];
@@ -85,10 +86,13 @@ const config = {
 
 let replyEditor = "";
 
-const RichText = () => {
+const RichText = ({ register, setValue, name }) => {
     return (
         <FroalaEditor
+            name={name}
+            onModelChange={(model) => setValue(name, model)}
             config={config}
+            ref={register()}
         />
     );
 }
