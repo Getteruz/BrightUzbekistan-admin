@@ -1,7 +1,6 @@
 import { useQuery } from "react-query"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
-import {set} from 'react-cookies'
 import Router from "./router"
 import { getAdminInfo } from "./services/admin"
 import { useEffect } from "react"
@@ -23,10 +22,7 @@ function App() {
   useEffect(() => {
     if(data) {
       console.log(data);
-      set('user', JSON.stringify(data), { 
-        path: '/',
-      })
-      // setCookie('user', data)
+      setCookie('user', JSON.stringify(data), {path: '/'})
     } else {
       refetch()
     }
