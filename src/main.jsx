@@ -9,6 +9,7 @@ import AlertProvider from './providers/AlertProvider'
 import { PersistGate } from 'redux-persist/integration/react'
 import './index.scss'
 import { BrowserRouter } from 'react-router-dom'
+import AuthProvider from './providers/AuthProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -19,7 +20,7 @@ root.render(
         <QueryClientProvider client={queryClient}>
           <AlertProvider>
             <BrowserRouter>
-              <App />
+                <App />
             </BrowserRouter>
           </AlertProvider>
         </QueryClientProvider>

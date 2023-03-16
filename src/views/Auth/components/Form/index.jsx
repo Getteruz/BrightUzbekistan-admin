@@ -9,9 +9,12 @@ import { RightIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import { login } from '../../../../services/auth';
 import cls from './Form.module.scss'
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../../../store/auth/auth.slice';
 
 const AuthForm = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [loading, setLoading] = useState()
     const [cookies, setCookie] = useCookies(['access_token_admin', 'refresh_token_admin'])
     const { register, formState: { isValid }, handleSubmit } = useForm({ mode: 'onChange' })
@@ -25,6 +28,7 @@ const AuthForm = () => {
             } else {
                 setCookie('access_token_admin', res?.access_token_admin, { path: '/' })
                 setCookie('refresh_token_admin', res?.refresh_token_admin, { path: '/' })
+                dispatch(authActions.login())
                 navigate('/', { replace: false })
             }
         } catch (error) {
@@ -50,7 +54,7 @@ const AuthForm = () => {
                     placeholder='Пароль'
                     type='password'
                     label='Введите пароль'
-                    register={{ ...register('password', { required: true, minLength: 8 }) }}
+                    register={{ ...register('password', { required: true, minLength: 1 }) }}
                 />
                 <RedButton disabled={!isValid} type='submit'>
                     Вход в аккаунт

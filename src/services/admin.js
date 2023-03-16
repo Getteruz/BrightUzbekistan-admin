@@ -34,6 +34,7 @@ export const getAdminById = async (id) => {
 export const getAdminInfo = async () => {
     try {
         const res = await api.get('/admin/me')
+        console.log(res);
         return res?.data
     } catch (error) {
         showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})

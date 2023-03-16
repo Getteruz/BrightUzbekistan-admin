@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import {useCookies} from 'react-cookie'
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
@@ -14,14 +14,17 @@ import RichText from '../../../../components/Form/RichText';
 import TextArea from '../../../../components/Form/TextArea';
 import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
+import Loader from '../../../../components/Loader';
+import Modal from '../../../../components/Modal';
 import { createNews } from '../../../../services/news';
-import Loader from '../loader';
 import cls from './Content.module.scss'
 import { langs } from './data';
 
 const Content = ({ register, handleSubmit, setValue }) => {
     const [params, setSearchParams] = useSearchParams()
+    const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     const [cookie, setCookie] = useCookies(['user'])
 
     useEffect(() => {
@@ -47,7 +50,9 @@ const Content = ({ register, handleSubmit, setValue }) => {
             
             const res = await createNews(fd)
 
-            console.log(res);
+            if(!res?.error){
+                setOpenModal(true)
+            }
 
         } catch (error) {
             console.log(error);
@@ -66,7 +71,8 @@ const Content = ({ register, handleSubmit, setValue }) => {
                 <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
             </div>
         }>
-            {isLoading && <Loader />}
+            {isLoading && <Loader text='Идет создание новости' />}
+            {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
             <div className={cls.content__form}>
                 <BtnGroup>
                     {

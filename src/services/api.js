@@ -12,9 +12,9 @@ api.interceptors.request.use(
   (config) => {
     let cookie = document.cookie.split(';')
     cookie = cookie.map(c => c.split('='))
-    cookie = cookie?.reduce((acc, c) => {acc[c[0]] = c[1]; return acc}, {})
-
+    cookie = cookie?.reduce((acc, c) => {acc[c[0]?.trim()] = c[1]; return acc}, {})
     config.headers.access_token_admin = cookie.access_token_admin
+    console.log(config.headers);
     config.withCredentials = true
     return config
   },
