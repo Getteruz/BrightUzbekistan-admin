@@ -21,3 +21,12 @@ export const getNews = async () => {
         showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
     }
 }
+
+export const getNewsByCategory = async(id) => {
+    try {
+        const res = await api.get(`/news/category/${id}`)
+        return res?.data
+    } catch (error) {
+        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
+    }
+}

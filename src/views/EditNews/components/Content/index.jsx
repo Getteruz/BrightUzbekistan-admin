@@ -35,11 +35,11 @@ const Content = ({ register, handleSubmit, setValue }) => {
 
     const func = async (data) => {
         try {
+            const creator = cookie?.user?.id
             setIsLoading(true)
             const fd = new FormData()
-
             fd.append(params.get('lang') + '_img', data.img[0])
-            fd.append('categories', JSON.stringify(data?.categories))
+            fd.append('creator', creator)
             fd.append(params.get('lang'), JSON.stringify({
                 title: data.title, 
                 description: data.description, 

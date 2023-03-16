@@ -20,6 +20,7 @@ function App() {
 
   useEffect(() => {
     if(data) {
+      console.log(data);
       setCookie('user', data)
     } else {
       refetch()

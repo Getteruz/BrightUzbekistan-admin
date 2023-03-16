@@ -9,6 +9,7 @@ import Users from "../views/Users"
 import UserInfo from "../views/Users/components/UserInfo"
 import Roles from "../views/Users/components/Roles"
 import AddNews from "../views/News"
+import EditNews from "../views/EditNews"
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="" element={<Main />} />
         <Route path="news" element={<MyNews />} />
         <Route path="addnews" element={<AddNews />} />
+        <Route path="news/edit/:id" element={<EditNews />} />
         <Route path="messages" element={<Messages />} />
         <Route path="users" element={<Users />}>
           <Route path="" element={<Roles />} />

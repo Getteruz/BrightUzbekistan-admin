@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import WhiteButton from '../../../../components/Buttons/WhiteButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton'
 import Flex from '../../../../components/Flex';
@@ -9,6 +9,7 @@ import { getCategories } from '../../../../services/category';
 
 const LeftAside = () => {
     const navigate = useNavigate()
+    const [params] = useSearchParams()
     const {data: categories} = useQuery('categories', getCategories)
 
     return (
@@ -22,6 +23,7 @@ const LeftAside = () => {
                     categories?.length > 0 && categories?.map(ctg => 
                         <SimpleButton 
                             key={ctg.id} 
+                            active={params.get('category') === ctg.id}
                             onClick={() => navigate(`?category=${ctg?.id}`, {replace: true})}
                         >
                             {ctg?.ru}
