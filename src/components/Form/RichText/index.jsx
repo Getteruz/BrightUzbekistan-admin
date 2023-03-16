@@ -58,11 +58,13 @@ const config = {
             fd.append('image', e[0])
 
             axios.post('https://storage.bright.getter.uz/upload/image', fd, {
+                withCredentials: true,
                 headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+                }                
             }).then(res => replyEditor.image.insert(String(res?.data?.url), null, null, replyEditor.image.get()))
-            return false
+            // return false
         },
         'video.beforeUpload': (e, editor) => {
             const file = e[0];

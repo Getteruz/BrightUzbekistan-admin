@@ -6,12 +6,15 @@ axios.defaults.withCredentials = true
 export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
-  headers: { 'Access-Control-Allow-Origin': '*' },
-  credentials: 'include',
 })
 
 api.interceptors.request.use(
   (config) => {
+    let cookie = document.cookie.split(';')
+    cookie = cookie.map(c => c.split('='))
+    cookie = cookie?.reduce((acc, c) => {acc[c[0]] = c[1]; return acc}, {})
+
+    config.headers.access_token_admin = cookie.access_token_admin
     config.withCredentials = true
     return config
   },

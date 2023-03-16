@@ -9,7 +9,7 @@ export const createAdmin = async (data) => {
         const res = await api.post('/admin', data, { withCredentials: true })
         return res?.data
     } catch (error) {
-        showAlert({message:  error.response !== undefined ? error?.response?.data?.message : error?.message})
+        showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})
     }
 }
 
@@ -34,12 +34,8 @@ export const getAdminById = async (id) => {
 export const getAdminInfo = async () => {
     try {
         const res = await api.get('/admin/me')
-        if(res?.data?.error){
-            showAlert({message: res?.data?.message})
-        }
         return res?.data
     } catch (error) {
-        console.log('error' + error);
-        showAlert({message:  error.response !== undefined ? error?.response?.data?.message : error?.message})
+        showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})
     }
 }

@@ -11,9 +11,19 @@ import SwitchGroup from '../../../../components/SwitchGroup';
 import TagsGroup from '../../../../components/TagsGroup';
 import { getCategories } from '../../../../services/category';
 
-const RightAside = ({ register, setValue }) => {
+const RightAside = ({ register, setValue, getValues }) => {
     const [hashTags, setHashtags] = useState([])
     const { data: categories } = useQuery('categories', getCategories)
+
+    const handleCheckboxChange = (e) => {
+        const values = getValues()
+        const categories = values?.categories || []
+        if (e.target.checked) {
+            setValue('categories', [...categories, e.target.value])
+        } else {
+            setValue('categories', categories?.filter(category => category !== e.target.value))
+        }
+    }
 
     useEffect(() => {
         setValue('hashtags', hashTags)
@@ -26,7 +36,7 @@ const RightAside = ({ register, setValue }) => {
                     categories?.length > 0 && categories.map(ctg =>
                         <Switch
                             key={ctg.id}
-                            register={{ ...register('categories') }}
+                            onChange={handleCheckboxChange}
                             value={ctg.id}
                             label={ctg.ru}
                         />

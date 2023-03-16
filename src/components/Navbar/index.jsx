@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import {useCookies} from 'react-cookie'
+import LetterAvatar from 'react-lettered-avatar'
 import Avatar from '../Avatar';
 import MessageButton from '../Buttons/MessageButton';
 import WhiteButton from '../Buttons/WhiteButton';
@@ -10,9 +12,11 @@ import { SearchIcon } from '../icons';
 import cls from './Navbar.module.scss'
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false)
     const location = useLocation()
     const navigate = useNavigate()
+    const [isOpen, setIsOpen] = useState(false)
+    const [cookie, setCookie] = useCookies(['user'])
+    const user = cookie?.user
 
     return (
         <div className={cls.nav} id='navbar'>
@@ -27,9 +31,9 @@ const Navbar = () => {
                         onClick={() => navigate('/messages')}
                         notification 
                     />
-                    <WhiteButton>id: 98234-ad33</WhiteButton>
+                    <WhiteButton>{user?.fullName}</WhiteButton>
                     <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setIsOpen(state => !state)}>
-                        <Avatar src='/avatar.png' />
+                        {user?.avatar ? <Avatar src={user?.avatar} /> : <LetterAvatar size={40} name={user?.fullName}/>}
                         <Wrapper bottom='-10px'>
                             {isOpen && <ProfileDrobdown />}
                         </Wrapper>

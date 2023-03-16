@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import {useCookies} from 'react-cookie'
 import { useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
@@ -13,6 +14,7 @@ import RichText from '../../../../components/Form/RichText';
 import TextArea from '../../../../components/Form/TextArea';
 import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
+import { createNews } from '../../../../services/news';
 import Loader from '../loader';
 import cls from './Content.module.scss'
 import { langs } from './data';
@@ -20,6 +22,7 @@ import { langs } from './data';
 const Content = ({ register, handleSubmit, setValue }) => {
     const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
+    const [cookie, setCookie] = useCookies(['user'])
 
     useEffect(() => {
         if(!params.get('lang')){
@@ -29,18 +32,23 @@ const Content = ({ register, handleSubmit, setValue }) => {
 
     const func = async (data) => {
         try {
+            const creator = cookie?.user?.id
             setIsLoading(true)
             const fd = new FormData()
-            alert(JSON.stringify(data, null, 4))
-            fd.append('img', data.img[0])
-            fd.append('title', data.title)
-            fd.append('shortDesc', data.shortDesc)
-            fd.append('shortLink', data.shortLink)
-            fd.append('hastags', data.hashtags)
+            fd.append(params.get('lang') + '_img', data.img[0])
+            fd.append('creator', creator)
+            fd.append(params.get('lang'), JSON.stringify({
+                title: data.title, 
+                description: data.description, 
+                shortDescription: data.shortDesc,
+                shortLink: data.shortLink,
+                tags: data.hashtags
+            }))
+            
+            const res = await createNews(fd)
 
-            data.categories && data.categories?.forEach(el => {
-                fd.append('categories', el)
-            })
+            console.log(res);
+
         } catch (error) {
             console.log(error);
         } finally {

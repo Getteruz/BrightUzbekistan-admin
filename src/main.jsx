@@ -8,6 +8,7 @@ import { QueryClientProvider } from 'react-query'
 import AlertProvider from './providers/AlertProvider'
 import { PersistGate } from 'redux-persist/integration/react'
 import './index.scss'
+import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -17,7 +18,9 @@ root.render(
       <PersistGate persistor={persistor}>
         <QueryClientProvider client={queryClient}>
           <AlertProvider>
-            <App />
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
           </AlertProvider>
         </QueryClientProvider>
       </PersistGate>

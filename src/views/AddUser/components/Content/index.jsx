@@ -26,7 +26,7 @@ const Content = ({
     const sendForm = async (data) => {
         try {
             setLoading(true)
-            data.phoneNumber = data?.phoneNumber?.replace(/[^0-9]+/g, '')
+            data.phone = data?.phone.replace(/[^0-9]+/g, '')
             if(!data.role) {
                 toast.error('Вы должны выбрать роль !')
                 return 
@@ -38,7 +38,6 @@ const Content = ({
             } else if(data.password !== data.repeat_password){
                 toast.error('Пароли не совпадают.')
             } else {
-                // alert(JSON.stringify(data, null, 4))
                 const fd =new FormData()
                 fd.append('fullName', data?.fullName)
                 fd.append('city', data?.city)
@@ -51,7 +50,6 @@ const Content = ({
                 fd.append('avatar', data?.avatar)
         
                 const res = await createAdmin(fd)
-                console.log(res);
                 if(res?.error) {
                     toast.error(res?.message)
                 } else {
@@ -123,7 +121,7 @@ const Content = ({
                             <InputMask
                                 mask='+\9\9\8 (99) 999-99-99'
                                 placeholder="+998 (  ) ___ __ __"
-                                name="phoneNumber"
+                                name="phone"
                                 control={control}
                                 rules={{ required: true }}
                             />
