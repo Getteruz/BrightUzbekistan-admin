@@ -1,3 +1,4 @@
+import axios from "axios"
 import { store } from "../store"
 import { useShowAlert } from "../store/alert/alert.thunk"
 import { api } from "./api"
@@ -33,10 +34,9 @@ export const getAdminById = async (id) => {
 
 export const getAdminInfo = async () => {
     try {
-        const res = await api.get('/admin/me')
-        console.log(res);
+        const res = await api.get('http://localhost:4000/admin/me')
         return res?.data
     } catch (error) {
-        showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})
+        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
     }
 }

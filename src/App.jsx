@@ -41,9 +41,7 @@ function App() {
   }, [auth.isAuth])
 
   return (
-    // <AuthProvider>
       <Router />
-    // </AuthProvider>
   )
 }
 

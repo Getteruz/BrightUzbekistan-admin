@@ -5,7 +5,11 @@ const NewsList = ({news = []}) => {
     return (
         <Flex direction='column' gap='20'>
             {
-                news?.length > 0 && news.map((_, index) => <ListItem key={index} />)
+                news?.length > 0 && news.map((news, index) => 
+                    <ListItem 
+                        key={news?.id} 
+                        title={news?.ru?.title}
+                    />)
             }
         </Flex>
     );

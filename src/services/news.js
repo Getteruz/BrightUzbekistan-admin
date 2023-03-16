@@ -12,3 +12,12 @@ export const createNews = async (data) => {
         showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
     }
 }
+
+export const getNews = async () => {
+    try {
+        const res = await api.get('/news')
+        return res?.data
+    } catch (error) {
+        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
+    }
+}

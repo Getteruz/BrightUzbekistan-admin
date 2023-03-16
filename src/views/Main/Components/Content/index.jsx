@@ -1,12 +1,16 @@
+import { useQuery } from 'react-query';
 import GreyButton from '../../../../components/Buttons/GreyButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
 import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
+import { getNews } from '../../../../services/news';
 import cls from './Content.module.scss'
 
 const Content = () => {
+    const {data: news} = useQuery('news', getNews)
+    
     return (
         <ContentWrapper navbar={
             <div className={cls.content__menu} id='content-menu'>
@@ -23,7 +27,7 @@ const Content = () => {
                 </Flex>
             </div>
         }>
-            <NewsList news={Array(10).fill(null)} />
+            <NewsList news={news} />
         </ContentWrapper>
     );
 }

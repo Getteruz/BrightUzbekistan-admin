@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import cls from './WhiteInput.module.scss'
 
 const WhiteInput = ({
@@ -7,10 +8,18 @@ const WhiteInput = ({
     register = {},
     ...other
 }) => {
+    const [viewPlaceholder, setViewPlaceholder] = useState(true)
     return (
         <label className={cls.label} {...other}>
-            <input type={type} className={cls.input} placeholder={placeholder} {...register} />
             <span className={cls.label__text}>{label}</span>
+            <input 
+                type={type} 
+                className={cls.input} 
+                placeholder={viewPlaceholder ? placeholder : ''} 
+                {...register} 
+                onFocus={() => setViewPlaceholder(false)} 
+                onBlur={() => setViewPlaceholder(true)}
+            />
         </label>
     );
 }

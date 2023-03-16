@@ -23,6 +23,7 @@ const AuthForm = () => {
         try {
             setLoading(true)
             const res = await login(data)
+            console.log(res);
             if (res?.error) {
                 toast.error(res?.message)
             } else {

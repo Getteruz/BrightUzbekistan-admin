@@ -21,7 +21,7 @@ const Content = () => {
                 </Flex>
             </div>
         }>
-            <NewsList news={Array(10).fill(null)}/>
+            {/* <NewsList news={Array(10).fill(null)}/> */}
         </ContentWrapper>
     );
 }
