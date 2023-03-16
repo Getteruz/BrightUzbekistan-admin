@@ -1,4 +1,5 @@
 import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import GreyButton from '../../../../components/Buttons/GreyButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
 import Flex from '../../../../components/Flex';
@@ -9,7 +10,8 @@ import { getNews } from '../../../../services/news';
 import cls from './Content.module.scss'
 
 const Content = () => {
-    const {data: news} = useQuery('news', getNews)
+    const [params] = useSearchParams()
+    const {data: news} = useQuery(['news', params.get('category') || ''], getNews)
     
     return (
         <ContentWrapper navbar={

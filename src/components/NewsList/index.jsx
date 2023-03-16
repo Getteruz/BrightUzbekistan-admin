@@ -9,6 +9,8 @@ const NewsList = ({news = []}) => {
                     <ListItem 
                         key={news?.id} 
                         title={news?.ru?.title}
+                        creator={news?.creator?.fullName}
+                        date={news.created_at}
                     />)
             }
         </Flex>

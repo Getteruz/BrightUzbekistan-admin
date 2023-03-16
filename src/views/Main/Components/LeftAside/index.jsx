@@ -4,9 +4,12 @@ import SimpleButton from '../../../../components/Buttons/SimpleButton'
 import Flex from '../../../../components/Flex';
 import { PlusIcon } from '../../../../components/icons';
 import LeftAsideWrapper from '../../../../components/Aside/LeftAsideWrapper';
+import { useQuery } from 'react-query';
+import { getCategories } from '../../../../services/category';
 
 const LeftAside = () => {
     const navigate = useNavigate()
+    const {data: categories} = useQuery('categories', getCategories)
 
     return (
         <LeftAsideWrapper>
@@ -15,12 +18,16 @@ const LeftAside = () => {
                 Добавить новости
             </WhiteButton>
             <Flex gap='15' direction='column' alignItems='flex-start'>
-                <SimpleButton>Последние новости</SimpleButton>
-                <SimpleButton>Мир</SimpleButton>
-                <SimpleButton>Экономика</SimpleButton>
-                <SimpleButton>Бизнес</SimpleButton>
-                <SimpleButton>Общество</SimpleButton>
-                <SimpleButton>Спорт</SimpleButton>
+                {
+                    categories?.length > 0 && categories?.map(ctg => 
+                        <SimpleButton 
+                            key={ctg.id} 
+                            onClick={() => navigate(`?category=${ctg?.id}`, {replace: true})}
+                        >
+                            {ctg?.ru}
+                        </SimpleButton>
+                    )
+                }
             </Flex>
             <Flex gap='11' direction='column' alignItems='flex-start'>
                 <SimpleButton>Создать категорию!</SimpleButton>
