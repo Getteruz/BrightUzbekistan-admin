@@ -1,12 +1,14 @@
 import { useQuery } from "react-query"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useCookies } from "react-cookie"
+import {set} from 'react-cookies'
 import Router from "./router"
 import { getAdminInfo } from "./services/admin"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { authActions } from "./store/auth/auth.slice"
 import AuthProvider from "./providers/AuthProvider"
+
 
 function App() {
   const location = useLocation()
@@ -21,7 +23,10 @@ function App() {
   useEffect(() => {
     if(data) {
       console.log(data);
-      setCookie('user', data)
+      set('user', JSON.stringify(data), { 
+        path: '/',
+      })
+      // setCookie('user', data)
     } else {
       refetch()
     }

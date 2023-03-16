@@ -7,11 +7,11 @@ const NewsList = ({news = []}) => {
             {
                 news?.length > 0 && news.map((news) => 
                     <ListItem 
-                        id={news.id}
+                        id={news?.id}
                         key={news?.id} 
                         title={news?.ru?.title}
                         creator={news?.creator?.fullName}
-                        date={news.created_at}
+                        date={news?.created_at}
                         categories={news?.categories?.map(ctg => ctg?.ru)}
                     />)
             }

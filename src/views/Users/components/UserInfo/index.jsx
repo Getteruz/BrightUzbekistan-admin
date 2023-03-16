@@ -12,7 +12,7 @@ import Loader from '../../../../components/Loader';
 const UserInfo = () => {
     const { id } = useParams()
     const { data: admin, isLoading } = useQuery(['admin', id], async () => await getAdminById(id))
-    console.log(admin);
+    
     return (
         <div className={cls.box}>
             <span></span>
