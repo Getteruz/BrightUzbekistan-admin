@@ -23,14 +23,15 @@ const AuthForm = () => {
         try {
             setLoading(true)
             const res = await login(data)
-            console.log(res);
-            if (res?.error) {
-                toast.error(res?.message)
-            } else {
+
+            if (res?.access_token_admin) {
+                console.log(cookies);
                 setCookie('access_token_admin', res?.access_token_admin, { path: '/' })
                 setCookie('refresh_token_admin', res?.refresh_token_admin, { path: '/' })
+                console.log(cookies);
                 dispatch(authActions.login())
                 navigate('/', { replace: false })
+            } else {
             }
         } catch (error) {
             console.log(error);

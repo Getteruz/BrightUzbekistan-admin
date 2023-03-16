@@ -10,7 +10,7 @@ export const createAdmin = async (data) => {
         const res = await api.post('/admin', data, { withCredentials: true })
         return res?.data
     } catch (error) {
-        showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})
+        showAlert({ message: error.data !== undefined ? error?.data?.message : error?.message })
     }
 }
 
@@ -19,7 +19,7 @@ export const getAdmins = async () => {
         const res = await api.get('/admin')
         return res?.data
     } catch (error) {
-
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
 
@@ -28,15 +28,15 @@ export const getAdminById = async (id) => {
         const res = await api.get(`/admin/${id}`)
         return res?.data
     } catch (error) {
-        console.log(error)
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
 
 export const getAdminInfo = async () => {
     try {
-        const res = await api.get('http://localhost:4000/admin/me')
+        const res = await api.get('/admin/me', { withCredentials: true, headers: {access_token_admin: "nma"} })
         return res?.data
     } catch (error) {
-        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
