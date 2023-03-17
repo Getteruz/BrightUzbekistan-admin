@@ -20,13 +20,14 @@ import { createNews } from '../../../../services/news';
 import cls from './Content.module.scss'
 import { langs } from './data';
 
-const Content = ({ register, handleSubmit, setValue }) => {
-    const [params, setSearchParams] = useSearchParams()
+const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
+    const {register, handleSubmit, setValue, watch} = useForm
+    const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
-    const [cookie, setCookie] = useCookies(['user'])
-
+    const watchedFiles = watch()
+    console.log(watchedFiles);
     useEffect(() => {
         if(!params.get('lang')){
             setSearchParams({lang: 'uz'}, {replace: true})

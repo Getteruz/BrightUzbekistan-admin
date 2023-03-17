@@ -5,11 +5,7 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/js/plugins.pkgd.min.js";
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
-import GetterFileUpload from "getter-fileupload-client";
-import { Buffer } from "buffer";
 import axios from "axios";
-
-const fileServise = new GetterFileUpload('https://storage.bright.getter.uz')
 
 const config = {
     enter: Froalaeditor.ENTER_BR,
@@ -58,13 +54,12 @@ const config = {
             fd.append('image', e[0])
 
             axios.post('https://storage.bright.getter.uz/upload/image', fd, {
-                withCredentials: true,
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
                 }                
             }).then(res => replyEditor.image.insert(String(res?.data?.url), null, null, replyEditor.image.get()))
-            // return false
+            
         },
         'video.beforeUpload': (e, editor) => {
             const file = e[0];
@@ -94,7 +89,7 @@ const RichText = ({ register, setValue, name }) => {
             name={name}
             onModelChange={(model) => setValue(name, model)}
             config={config}
-            ref={register()}
+            ref={register('description')}
         />
     );
 }

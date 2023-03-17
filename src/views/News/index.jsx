@@ -5,13 +5,13 @@ import ComponentsWrapper from '../../components/ComponentsWrapper';
 import { useForm } from 'react-hook-form';
 
 const AddNews = () => {
-    const { register, formState: { errors, isValid }, handleSubmit, setValue, getValues } = useForm({ mode: 'onChange' })
+    const Form = useForm({ mode: 'onChange' })
 
     return (
         <ComponentsWrapper>
             <LeftAside />
-            <Content register={register} handleSubmit={handleSubmit} setValue={setValue} />
-            <RightAside register={register} setValue={setValue} getValues={getValues} />
+            <Content useForm={Form} />
+            <RightAside useForm={Form} />
         </ComponentsWrapper>
     );
 }

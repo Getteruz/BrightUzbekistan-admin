@@ -11,7 +11,8 @@ import SwitchGroup from '../../../../components/SwitchGroup';
 import TagsGroup from '../../../../components/TagsGroup';
 import { getCategories } from '../../../../services/category';
 
-const RightAside = ({ register, setValue, getValues }) => {
+const RightAside = ({ useForm = {} }) => {
+    const { setValue, getValues } = useForm
     const [hashTags, setHashtags] = useState([])
     const { data: categories } = useQuery('categories', getCategories)
 
