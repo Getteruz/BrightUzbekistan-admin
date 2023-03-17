@@ -24,7 +24,7 @@ export const getNews = async () => {
 
 export const getNewsByCategory = async (id) => {
     try {
-        const res = await api.get(`/news/category/${id}`)
+        const res = await api.get(`/news/?categoryId=${id}`)
         return res?.data
     } catch (error) {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
