@@ -6,7 +6,6 @@ import Switch from "../../../../components/Form/Switch";
 import SwitchGroup from "../../../../components/SwitchGroup";
 import { getPermissions } from "../../../../services/permissions";
 import { getRoles } from "../../../../services/roles";
-// import { permissions } from "./data";
 
 const RightAside = ({ useForm = {} }) => {
     const navigate = useNavigate()

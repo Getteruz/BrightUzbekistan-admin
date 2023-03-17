@@ -8,19 +8,22 @@ import Circle from "../../../../components/Form/Upload/Photo/Circle";
 import RoleInfo from "../../../../components/RoleInfo";
 import InputMask from "../../../../components/Form/InputMask";
 import Select from "../../../../components/Form/Select";
-import { roles, regions } from "./data";
+import { regions } from "./data";
 import cls from './Content.module.scss'
 import Loader from "../../../../components/Loader";
 import Modal from "../../../../components/Modal";
 import { useState } from "react";
 import { createAdmin } from "../../../../services/admin";
+import { useQuery } from "react-query";
+import { getRoles } from "../../../../services/roles";
 
 const Content = ({
     useForm = {}
 }) => {
     const navigate = useNavigate()
-    const [openModal, setOpenModal] = useState(false)
+    const {data: roles} = useQuery('roles', getRoles)
     const [loading, setLoading] = useState(false)
+    const [openModal, setOpenModal] = useState(false)
     const { register, formState: { isValid }, handleSubmit, setValue, control } = useForm
 
     const sendForm = async (data) => {
@@ -152,10 +155,9 @@ const Content = ({
                             roles?.length > 0 && roles.map(role =>
                                 <RoleInfo
                                     key={role.id}
-                                    roleId={role.roleId}
+                                    id={role.id}
                                     title={role.title}
-                                    desc={role.desc}
-                                    label={role.label}
+                                    desc={role.description}
                                 />
                             )
                         }

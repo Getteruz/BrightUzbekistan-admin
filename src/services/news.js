@@ -9,7 +9,7 @@ export const createNews = async (data) => {
         const res = await api.post('/news', data)
         return res?.data
     } catch (error) {
-        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
 
@@ -18,15 +18,28 @@ export const getNews = async () => {
         const res = await api.get('/news')
         return res?.data
     } catch (error) {
-        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
 
-export const getNewsByCategory = async(id) => {
+export const getNewsByCategory = async (id) => {
     try {
         const res = await api.get(`/news/category/${id}`)
         return res?.data
     } catch (error) {
-        showAlert({message:  error?.data !== undefined ? error?.data?.message : error?.message})
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
+
+export const getMyNews = async () => {
+    try {
+        const res = await api.get('/news/my-news')
+        if (res?.data?.error) {
+            showAlert({ message: res?.data?.message })
+        }
+        return res?.data
+    } catch (error) {
+        console.log(error);
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }

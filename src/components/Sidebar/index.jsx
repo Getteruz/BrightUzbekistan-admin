@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { logout } from '../../services/auth';
 import { LogOutIcon } from '../icons';
 import { links } from './data';
 import cls from './Sidebar.module.scss'

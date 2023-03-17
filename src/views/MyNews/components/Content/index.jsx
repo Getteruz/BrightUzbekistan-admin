@@ -1,3 +1,4 @@
+import { useQuery } from "react-query";
 import RedButton from "../../../../components/Buttons/RedButton";
 import SimpleButton from "../../../../components/Buttons/SimpleButton";
 import ContentWrapper from "../../../../components/ContentWrapper";
@@ -5,8 +6,11 @@ import Flex from "../../../../components/Flex";
 import Checkbox from "../../../../components/Form/Checkbox";
 import { PlayIcon } from "../../../../components/icons";
 import NewsList from "../../../../components/NewsList";
+import { getMyNews } from "../../../../services/news";
 
 const Content = () => {
+    const {data: mynews} = useQuery('my-news', getMyNews)
+    
     return (
         <ContentWrapper navbar={
             <div style={{ width: '100%', display: 'flex', gap: '20px', alignItems: 'center'}}>
@@ -21,7 +25,7 @@ const Content = () => {
                 </Flex>
             </div>
         }>
-            {/* <NewsList news={Array(10).fill(null)}/> */}
+            <NewsList news={mynews}/>
         </ContentWrapper>
     );
 }

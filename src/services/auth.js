@@ -12,3 +12,13 @@ export const login = async (data) => {
         showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})
     }
 }
+
+export const logout = async () => {
+    try {
+        const res = await api.post('/auth/logout')
+        console.log(res);
+    } catch (error) {
+        console.log(error);
+        showAlert({message:  error.data !== undefined ? error?.data?.message : error?.message})
+    }
+}

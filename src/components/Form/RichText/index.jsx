@@ -4,10 +4,12 @@ import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
 import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/js/plugins.pkgd.min.js";
+// import 'froala-editor/js/plugins/image.min.js';
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
 
 const config = {
+    key: null,
     enter: Froalaeditor.ENTER_BR,
     tableStyles: {
         "no-border": "No border"
@@ -53,7 +55,7 @@ const config = {
             const fd = new FormData()
             fd.append('image', e[0])
 
-            axios.post(`${proccess.env.VITE_STORE_API}/upload/image`, fd, {
+            axios.post(`${import.meta.env.VITE_STORE_API}/upload/image`, fd, {
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
@@ -66,7 +68,7 @@ const config = {
             const fd = new FormData()
             fd.append('video', file)
 
-            axios.post(`${proccess.env.VITE_STORE_API}/upload/video`, fd, {
+            axios.post(`${import.meta.env.VITE_STORE_API}/upload/video`, fd, {
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 }

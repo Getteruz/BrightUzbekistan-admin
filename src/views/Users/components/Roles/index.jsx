@@ -1,8 +1,12 @@
+import { useQuery } from "react-query";
 import RoleInfo from "../../../../components/RoleInfo";
-import { roles } from "./data";
+import { getRoles } from "../../../../services/roles";
+// import { roles } from "./data";
 import cls from './Roles.module.scss'
 
 const Roles = () => {
+    const {data: roles} = useQuery('roles', getRoles)
+    console.log(roles);
     return (
         <div className={cls.box}>
             <span>Информация о ролях</span>
@@ -11,10 +15,9 @@ const Roles = () => {
                     roles?.length > 0 && roles.map(role =>
                         <RoleInfo 
                             key={role.id} 
-                            roleId={role.roleId}
+                            id={role.id}
                             title={role.title} 
-                            desc={role.desc} 
-                            label={role.label} 
+                            desc={role.description} 
                             replaceUrl={false}
                         />
                     )
