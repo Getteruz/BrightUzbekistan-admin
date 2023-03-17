@@ -7,7 +7,8 @@ export const {
 } = createSlice({
   name: "auth",
   initialState: {
-    isAuth: true
+    isAuth: true,
+    user: {}
   },
   reducers: {
     login: (state) => {
@@ -15,6 +16,9 @@ export const {
     },
     logout: (state) => {
       state.isAuth = false
+    },
+    setUser: (state, {payload}) => {
+      state.user = payload
     }
   }
 })

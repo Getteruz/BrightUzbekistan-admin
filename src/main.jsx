@@ -2,14 +2,15 @@ import App from './App'
 import { Suspense } from 'react'
 import { Provider } from 'react-redux'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
+import { QueryClientProvider } from 'react-query'
+import { PersistGate } from 'redux-persist/integration/react'
+import { CookiesProvider } from 'react-cookie'
 import { persistor, store } from './store'
 import { queryClient } from './services/api'
-import { QueryClientProvider } from 'react-query'
 import AlertProvider from './providers/AlertProvider'
-import { PersistGate } from 'redux-persist/integration/react'
 import './index.scss'
-import { BrowserRouter } from 'react-router-dom'
-import AuthProvider from './providers/AuthProvider'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -18,11 +19,13 @@ root.render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <QueryClientProvider client={queryClient}>
-          <AlertProvider>
-            <BrowserRouter>
+            <AlertProvider>
+              <BrowserRouter>
+              <CookiesProvider>
                 <App />
-            </BrowserRouter>
-          </AlertProvider>
+              </CookiesProvider>
+              </BrowserRouter>
+            </AlertProvider>
         </QueryClientProvider>
       </PersistGate>
     </Provider>

@@ -6,7 +6,6 @@ import { getAdminInfo } from "./services/admin"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { authActions } from "./store/auth/auth.slice"
-import AuthProvider from "./providers/AuthProvider"
 
 
 function App() {
@@ -21,8 +20,7 @@ function App() {
 
   useEffect(() => {
     if(data) {
-      console.log(data);
-      setCookie('user', JSON.stringify(data), {path: '/'})
+      dispatch(authActions.setUser(data))
     } else {
       refetch()
     }

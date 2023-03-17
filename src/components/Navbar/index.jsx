@@ -10,13 +10,13 @@ import ProfileDrobdown from '../Drobdowns/ProfileDrobdown';
 import Wrapper from '../Drobdowns/Wrapper';
 import { SearchIcon } from '../icons';
 import cls from './Navbar.module.scss'
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
-    const [cookie, setCookie] = useCookies(['user'])
-    const user = cookie?.user
+    const {user} = useSelector(state => state.auth)
 
     return (
         <div className={cls.nav} id='navbar'>
