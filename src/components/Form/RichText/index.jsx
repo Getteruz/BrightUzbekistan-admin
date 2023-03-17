@@ -53,7 +53,7 @@ const config = {
             const fd = new FormData()
             fd.append('image', e[0])
 
-            axios.post('https://storage.bright.getter.uz/upload/image', fd, {
+            axios.post(`${proccess.env.VITE_STORE_API}/upload/image`, fd, {
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
@@ -66,7 +66,7 @@ const config = {
             const fd = new FormData()
             fd.append('video', file)
 
-            axios.post('https://storage.bright.getter.uz/upload/video', fd, {
+            axios.post(`${proccess.env.VITE_STORE_API}/upload/video`, fd, {
                 headers: {
                     "Access-Control-Allow-Origin": "*"
                 }
