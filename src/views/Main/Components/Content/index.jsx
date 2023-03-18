@@ -6,14 +6,14 @@ import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
-import { getNews, getNewsByCategory } from '../../../../services/news';
+import { getPublishedNews } from '../../../../services/news';
 import cls from './Content.module.scss'
 
 const Content = () => {
     const [params, setSearchParams] = useSearchParams()
     const {data: news} = useQuery(
         ['news', params.get('category') || ''], 
-        async({queryKey}) => queryKey[1] ? await getNewsByCategory(queryKey[1]) : await getNews()
+        async({queryKey}) => await getPublishedNews({categoryId: queryKey[1] || ''})
     )
 
     const handleCheck = (e) => {

@@ -50,7 +50,7 @@ const RightAside = ({ useForm = {} }) => {
             </DateGroup>
             <Flex gap='15' direction='column'>
                 <RoundedInput placeholder='Название тега' label='Теги' setHashtags={setHashtags} />
-                <TagsGroup tags={hashTags} />
+                <TagsGroup tags={hashTags} setHashtags={setHashtags} />
             </Flex>
         </RightAsideWrapper>
     );

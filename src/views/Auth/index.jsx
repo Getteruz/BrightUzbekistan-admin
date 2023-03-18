@@ -12,9 +12,6 @@ const AuthPage = () => {
           <span className={cls.auth__help__text}>Нужна помощь?</span>
           <a className={cls.auth__help__link} href='tel:+9989012345067'>+998 90 123-45067</a>
         </div>
-        <div className={cls.auth__bgimage}>
-          <GlobusIcon />
-        </div>
     </div>
   );
 }

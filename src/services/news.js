@@ -13,33 +13,39 @@ export const createNews = async (data) => {
     }
 }
 
-export const getNews = async () => {
+export const getPublishedNews = async (params) => {
     try {
-        const res = await api.get('/news')
+        params = Object.entries(params)?.map(param => param.join('='))?.join('&')
+        const res = await api.get(`/news/published?${params}`)
         return res?.data
     } catch (error) {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
 
-export const getNewsByCategory = async (id) => {
-    try {
-        const res = await api.get(`/news/?categoryId=${id}`)
-        return res?.data
-    } catch (error) {
-        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
-    }
-}
 
-export const getMyNews = async () => {
+export const getMyNews = async (params) => {
     try {
-        const res = await api.get('/news/my-news')
+        params = Object.entries(params)?.map(param => param.join('='))?.join('&')
+        const res = await api.get(`/news/my-news?${params}`)
         if (res?.data?.error) {
             showAlert({ message: res?.data?.message })
         }
         return res?.data
     } catch (error) {
         console.log(error);
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
+
+export const publishNews = async (newsIds) => {
+    try {
+        const res = await api.patch('/news/published', {newsIds})
+        if (res?.data?.error) {
+            showAlert({ message: res?.data?.message })
+        }
+        return res?.data
+    } catch (error) {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }

@@ -25,8 +25,8 @@ const AuthForm = () => {
             const res = await login(data)
 
             if (res?.access_token_admin) {
-                setCookie('access_token_admin', res?.access_token_admin, { path: '/' })
-                setCookie('refresh_token_admin', res?.refresh_token_admin, { path: '/' })
+                // setCookie('access_token_admin', res?.access_token_admin, { path: '/' })
+                // setCookie('refresh_token_admin', res?.refresh_token_admin, { path: '/' })
                 dispatch(authActions.login())
                 navigate('/', { replace: false })
             } else {

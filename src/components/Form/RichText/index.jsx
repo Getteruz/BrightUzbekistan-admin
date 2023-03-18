@@ -9,7 +9,6 @@ import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
 
 const config = {
-    key: null,
     enter: Froalaeditor.ENTER_BR,
     tableStyles: {
         "no-border": "No border"
@@ -60,8 +59,11 @@ const config = {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
                 }                
-            }).then(res => replyEditor.image.insert(String(res?.data?.url), null, null, replyEditor.image.get()))
+            }).then(res => replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get()))
             
+        },
+        'image.uploaded': (e, editor, res) => {
+            console.log(res);
         },
         'video.beforeUpload': (e, editor) => {
             const file = e[0];

@@ -5,11 +5,12 @@ const CTag = styled('span')`
     font-size: 13px;
     line-height: 18px;
     color: #001AFF;
+    cursor: pointer;
 `
 
-const Tag = ({ children }) => {
+const Tag = ({ children, onClick = () => {} }) => {
     return (
-        <CTag>
+        <CTag onClick={onClick}>
             {children}
         </CTag>
     )

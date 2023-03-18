@@ -9,7 +9,7 @@ const RoundedInput = ({placeholder, type = 'text', label = '', setHashtags, ...o
             <input type={type} placeholder={placeholder} className={cls.input}
                 onKeyUp={(e) => {
                     if(e.keyCode === 13) {
-                        setHashtags(state => [...state, e.target.value])
+                        setHashtags(state => Array.from(new Set([...state, e.target.value])))
                         e.target.value = ''
                     }
                 }}

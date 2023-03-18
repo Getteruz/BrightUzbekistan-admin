@@ -53,4 +53,16 @@
             color: #FFFFFF;
         }
     }
+
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: -21%;
+        right: -3%;
+        background-image: url('/globus.svg');
+        background-repeat: no-repeat;
+        width: 656px;
+        height: 656px;
+        z-index: 1;
+    }
 }
