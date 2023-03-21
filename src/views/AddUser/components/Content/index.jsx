@@ -83,7 +83,7 @@ const Content = ({
 
             <div className={cls.box}>   
                 <div>
-                    <Circle label="Аватарка" setValue={setValue} />
+                    <Circle label="Аватарка" setValue={setValue} name='avatar' />
                 </div>
                 <div className={cls.form}>{ }
                     <Input

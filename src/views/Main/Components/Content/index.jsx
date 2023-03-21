@@ -7,6 +7,7 @@ import Checkbox from '../../../../components/Form/Checkbox';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
 import { getPublishedNews } from '../../../../services/news';
+import getQueryInArray from '../../../../utils/getQueryInArray';
 import cls from './Content.module.scss'
 
 const Content = () => {
@@ -15,7 +16,7 @@ const Content = () => {
         ['news', params.get('category') || ''], 
         async({queryKey}) => await getPublishedNews({categoryId: queryKey[1] || ''})
     )
-
+    
     const handleCheck = (e) => {
         if(e.target.checked) {
             setSearchParams({checked: news?.map(news => news?.id)?.join(',')})
@@ -27,7 +28,11 @@ const Content = () => {
     return (
         <ContentWrapper navbar={
             <div className={cls.content__menu} id='content-menu'>
-                <Checkbox label='Выбрать все' onChange={handleCheck} />
+                <Checkbox 
+                    label='Выбрать все' 
+                    onChange={handleCheck} 
+                    checked={getQueryInArray('checked')?.length === news?.length} 
+                />
                 <Flex gap='5'>
                     <GreyButton>
                         <DeleteIcon />

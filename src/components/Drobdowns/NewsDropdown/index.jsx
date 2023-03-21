@@ -12,7 +12,7 @@ const NewsDropdown = ({}) => {
         <div className={cls.wrapper} >
             <div style={{translate: `calc((-100% / ${pageCount}) * (${page} - 1))`}}>
                 <AllNews setPage={setPage}/>
-                <SingleNews setPage={setPage}/>
+                <SingleNews setPage={setPage} />
             </div>
         </div>
     );

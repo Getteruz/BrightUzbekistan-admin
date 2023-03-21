@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useLocation, useSearchParams } from "react-router-dom";
 import RedButton from "../../../../components/Buttons/RedButton";
@@ -11,12 +10,13 @@ import { PlayIcon } from "../../../../components/icons";
 import Loader from "../../../../components/Loader";
 import NewsList from "../../../../components/NewsList";
 import { getMyNews, publishNews } from "../../../../services/news";
+import getQueryInArray from "../../../../utils/getQueryInArray";
 
 const Content = () => {
     const location = useLocation()
-    const [isDisabled, setIsDisabled] = useState(true)
     const [loading, setLoading] = useState(false)
-    const [params] = useSearchParams()
+    const [isDisabled, setIsDisabled] = useState(true)
+    const [params, setSearchParams] = useSearchParams()
     const {data: mynews} = useQuery(
         ['my-news', params.get('category') || ''], 
         async({queryKey}) => await getMyNews({categoryId: queryKey[1] || ''})
@@ -25,12 +25,20 @@ const Content = () => {
     const handleClick = async () => {
         try {
             setLoading(true)
-            const ids = params.get('checked')?.split(',')
+            const ids = getQueryInArray('checked')
             const res = await publishNews(ids)
         } catch (error) {
-            
+            console.log(error);
         } finally {
             setLoading(false)
+        }
+    }
+
+    const handleCheck = (e) => {
+        if(e.target.checked) {
+            setSearchParams({checked: mynews?.map(news => news?.id)?.join(',')})
+        } else {
+            setSearchParams({checked: ''})
         }
     }
 
@@ -42,7 +50,11 @@ const Content = () => {
         <ContentWrapper navbar={
             <div style={{ width: '100%', display: 'flex', gap: '20px', alignItems: 'center'}}>
                 <Flex gap='20' style={{width: 'auto'}}>
-                    <Checkbox label="Выбрать все" />
+                    <Checkbox 
+                        label="Выбрать все" 
+                        onChange={handleCheck} 
+                        checked={getQueryInArray('checked')?.length === mynews?.length} 
+                    />
                     <RedButton disabled={isDisabled} onClick={handleClick}>
                         Опубликовать
                     </RedButton>

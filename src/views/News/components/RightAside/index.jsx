@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
+import { useSearchParams } from 'react-router-dom';
 import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
 import DateGroup from '../../../../components/DateGroup';
 import Flex from '../../../../components/Flex';
@@ -10,20 +11,35 @@ import Timepicker from '../../../../components/Form/Timepicker';
 import SwitchGroup from '../../../../components/SwitchGroup';
 import TagsGroup from '../../../../components/TagsGroup';
 import { getCategories } from '../../../../services/category';
+import getQueryInArray from '../../../../utils/getQueryInArray';
+import paramsToObject from '../../../../utils/paramsToObject';
+import cls from './RightAside.module.scss'
 
 const RightAside = ({ useForm = {} }) => {
-    const { setValue, getValues } = useForm
+    const { setValue } = useForm
     const [hashTags, setHashtags] = useState([])
+    const [activeCtg, setActiveCtg] = useState()
+    const [params, setSearchParams] = useSearchParams()
     const { data: categories } = useQuery('categories', getCategories)
 
     const handleCheckboxChange = (e) => {
-        const values = getValues()
-        const categories = values?.categories || []
+        let categories = getQueryInArray('categories') || []
+
         if (e.target.checked) {
-            setValue('categories', [...categories, e.target.value])
+            categories = categories.slice(
+                0,
+                categories.some(ctg => ctg === import.meta.env.VITE_LAST_NEWS_ID || e.target.value === import.meta.env.VITE_LAST_NEWS_ID) ? 3 : 2)
+            categories?.push(e.target.value)
         } else {
-            setValue('categories', categories?.filter(category => category !== e.target.value))
+            categories = categories?.filter(ctg => ctg !== e.target.value)
         }
+
+        if (!categories?.includes(activeCtg)) {
+            setActiveCtg(categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID))
+        }
+
+        setValue('categories', categories)
+        setSearchParams({ ...paramsToObject(params.entries()), 'categories': categories?.join(',') || '' }, { replace: true })
     }
 
     useEffect(() => {
@@ -35,12 +51,26 @@ const RightAside = ({ useForm = {} }) => {
             <SwitchGroup label='Выберите категорию'>
                 {
                     categories?.length > 0 && categories.map(ctg =>
-                        <Switch
-                            key={ctg.id}
-                            onChange={handleCheckboxChange}
-                            value={ctg.id}
-                            label={ctg.ru}
-                        />
+                        <div className={cls.checkbox} key={ctg.id}>
+                            {
+                                getQueryInArray('categories')?.some(category => category == ctg.id) &&
+                                    ctg.id !== import.meta.env.VITE_LAST_NEWS_ID ? (
+                                    <span
+                                        className={activeCtg === ctg.id ? cls.active : ""}
+                                        onClick={() => setActiveCtg(ctg.id)}
+                                    >*</span>
+                                ) : (
+                                    <span className={cls.disabled}>*</span>
+                                )
+                            }
+                            <Switch
+                                key={ctg.id}
+                                onChange={handleCheckboxChange}
+                                checked={getQueryInArray('categories')?.some(category => category === ctg.id)}
+                                value={ctg.id}
+                                label={ctg.ru}
+                            />
+                        </div>
                     )
                 }
             </SwitchGroup>

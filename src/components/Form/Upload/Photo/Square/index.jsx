@@ -3,13 +3,16 @@ import Flex from '../../../../Flex';
 import Button from '../../Button';
 import cls from './Square.module.scss'
 
-const SquarePhotoUpload = ({ register }) => {
+const SquarePhotoUpload = ({ register, setValue = () => {}, name = '' }) => {
     const [selectedfile, setSelectedFile] = useState({})
 
     const handleChange = (e) => {
         const file = e.target.files[0]
         if (file) {
+            setValue(name, file)
             setSelectedFile({ name: file.name, img: file })
+        } else {
+            setValue(name, null)
         }
     }
 
@@ -18,7 +21,7 @@ const SquarePhotoUpload = ({ register }) => {
             <label style={{ cursor: 'pointer' }}>
                 <span className={cls.text}>Фото к зоголовку</span>
                 <div className={cls.box}>
-                    <div className={cls.box__preview}>
+                    <div className={cls.box__preview} onDoubleClick={() => {setSelectedFile({}); setValue(name, null)}}>
                         {
                             !selectedfile?.img ? (
                                 <span>Нет фото</span>
@@ -28,7 +31,7 @@ const SquarePhotoUpload = ({ register }) => {
                         }
                     </div>
                     <label>
-                        <input type="file" accept='image/png, image/jpeg' className={cls.input} {...register} onChange={handleChange} />
+                        {!selectedfile?.img && <input type="file" accept='image/png, image/jpeg, image/jpg' className={cls.input} {...register} onChange={handleChange} />}
                         <Button />
                         <Flex direction='column' gap='2'>
                             <p className={cls.box__title}>Загрузить фото</p>

@@ -5,8 +5,6 @@ import ContentWrapper from "../../../../components/ContentWrapper";
 import Flex from "../../../../components/Flex";
 import Checkbox from "../../../../components/Form/Checkbox";
 import { PlayIcon } from "../../../../components/icons";
-import NewsList from "../../../../components/NewsList";
-
 
 const Content = forwardRef(({}, ref) => {
     return (
@@ -23,7 +21,7 @@ const Content = forwardRef(({}, ref) => {
                 </Flex>
             </div>
         }>
-            <NewsList news={Array(5).fill(null)}/>
+            {/* <NewsList news={Array(5).fill(null)}/> */}
         </ContentWrapper>
     );
 })

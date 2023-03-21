@@ -2,17 +2,17 @@ import { useRef, useState } from 'react';
 import Button from '../../Button';
 import cls from './Circle.module.scss'
 
-const Circle = ({ label = '', register = {}, setValue = () => {} }) => {
+const Circle = ({ label = '', register = {}, setValue = () => {}, name = 'avatar' }) => {
     const inputRef = useRef()
     const [selectedFile, setSelectedFile] = useState(null)
 
     const handleChange = (e) => {
         const file = e.target.files[0]
         if(file) {
-            setValue('avatar', file)
+            setValue(name, file)
             setSelectedFile({name: file.name, img: file})
         } else {
-            setValue('avatar', null)
+            setValue(name, null)
         }
     }
 
@@ -23,7 +23,7 @@ const Circle = ({ label = '', register = {}, setValue = () => {} }) => {
                 <div className={cls.label__circle}>
                     {selectedFile ? (
                         <img 
-                            onDoubleClick={() => {setSelectedFile(null); setValue('avatar', null)}}
+                            onDoubleClick={() => {setSelectedFile(null); setValue(name, null)}}
                             className={cls.label__circle__avatar} 
                             src={URL.createObjectURL(selectedFile?.img)} 
                             alt={selectedFile?.name || ''} 

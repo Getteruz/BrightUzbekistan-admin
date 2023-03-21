@@ -72,14 +72,15 @@ const config = {
 
             axios.post(`${import.meta.env.VITE_STORE_API}/upload/video`, fd, {
                 headers: {
-                    "Access-Control-Allow-Origin": "*"
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
                 }
             }).then(res => replyEditor.video.insert(String(res?.data?.url), null, null, replyEditor.video.get()))
             // .then(() => replyEditor.video.get());
-            return false
+            // return false
         },
         'paste.beforeCleanup': function (clipboardHtml) {
-            return _convertHtmlToPlainText(clipboardHtml);
+            return replyEditor.html.setValue(clipboardHtml)
         },
 
     }
@@ -93,7 +94,7 @@ const RichText = ({ register, setValue, name }) => {
             name={name}
             onModelChange={(model) => setValue(name, model)}
             config={config}
-            ref={register('description')}
+            {...register('description')}
         />
     );
 }
