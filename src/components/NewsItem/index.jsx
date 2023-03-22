@@ -1,4 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
+import paramsToObject from '../../utils/paramsToObject';
 import parseTimestapm from '../../utils/parseTimestamp';
 import Flex from '../Flex';
 import Checkbox from '../Form/Checkbox';
@@ -22,7 +23,7 @@ const NewsItem = ({
         } else {
             checkedNews = checkedNews?.filter(newsId => newsId !== id)
         }
-        setSearchParams({'checked': checkedNews?.join(',')})
+        setSearchParams({...paramsToObject(params.entries()), 'checked': checkedNews?.join(',')})
     }
 
     return (

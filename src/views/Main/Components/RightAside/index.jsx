@@ -25,11 +25,6 @@ const RightAside = () => {
             <Flex direction='column' gap='15'>
                 <RoundedInput placeholder='username' label='По пользователю' />
                 <Flex gap='7' rowCount={4}>
-                    {/* <Avatar src='/avatar.png' />
-                    <Avatar src='/avatar.png' />
-                    <Avatar src='/avatar.png' />
-                    <Avatar src='/avatar.png' />
-                    <Avatar src='/avatar.png' /> */}
                 </Flex>
             </Flex>
             <SwitchGroup label='Сортировка'>

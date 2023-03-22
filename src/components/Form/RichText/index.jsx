@@ -65,6 +65,9 @@ const config = {
         'image.uploaded': (e, editor, res) => {
             console.log(res);
         },
+        'image.uploadError': () => {
+
+        },
         'video.beforeUpload': (e, editor) => {
             const file = e[0];
             const fd = new FormData()
