@@ -1,18 +1,27 @@
-@use '../../scss/colors' as v;
+@use '../../scss/colors'as v;
 
 .nav {
     width: 100%;
+
     border-bottom: 1px solid v.$border-color;
-    
+
+    &__img {
+        display: none;
+    }
+
     &__container {
-        padding: 10px 0 10px 31px;
+        max-width: 1515px;
+        width: 100%;
+        padding: 10px 40px 10px 31px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 50px;
+        gap: 20px;
+
     }
 
     &__input {
+        display: inline-block;
         width: 100%;
         border: none;
         background: transparent;
@@ -25,7 +34,7 @@
             opacity: 0.3;
         }
 
-        &:focus{
+        &:focus {
             outline: none;
         }
     }
@@ -34,6 +43,8 @@
         flex-grow: 1;
         display: flex;
         align-items: center;
+        width: 100%;
+        max-width: 600px;
         gap: 7px;
     }
 
@@ -43,7 +54,23 @@
         gap: 5px;
     }
 
-    &__msg__btn{
+    &__msg__btn {
         margin-right: 15px;
+    }
+}
+
+
+@media screen and (min-width:400px) and (max-width: 1140px) {
+    .nav {
+        &__container {
+            padding-right: 25px;
+            padding-left: 76px;
+        }
+
+        &__img {
+            display: inline-block;
+            width: 100%;
+            max-width: 108px;
+        }
     }
 }

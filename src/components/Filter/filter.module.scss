@@ -1,0 +1,16 @@
+.filter {
+    display: none;
+}
+
+@media screen and(max-width: 1000px) {
+    .filter {
+        width: 100%;
+        display: block;
+        background: #FFFFFF;
+        border-radius: 10px;
+        margin-bottom: 26px;
+        padding: 10px;
+        padding-top: 0;
+    }
+
+}

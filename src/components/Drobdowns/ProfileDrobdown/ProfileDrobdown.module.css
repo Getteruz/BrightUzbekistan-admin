@@ -1,0 +1,35 @@
+.block {
+  width: 185px;
+  background: #0B212B;
+  box-shadow: -2px 7px 20px rgba(4, 33, 59, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.block__list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px 25px;
+  background: white;
+  align-items: flex-start;
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+}
+.block__button {
+  border: none;
+  background: transparent;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+}
+.block__logout {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 18px;
+  color: white;
+  border: none;
+  background: transparent;
+  padding: 7px 25px;
+  cursor: pointer;
+}/*# sourceMappingURL=ProfileDrobdown.module.css.map */

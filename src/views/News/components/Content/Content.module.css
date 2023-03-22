@@ -1,0 +1,36 @@
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content__group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.content__group > div {
+  width: auto;
+}
+.content__form {
+  width: 100%;
+  padding-bottom: 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.content__form__wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.content__form__wrapper > div:first-child {
+  width: 100%;
+  flex-grow: 1;
+}
+.content__form__wrapper > div:nth-child(2) {
+  width: 220px !important;
+}
+
+.active__btn {
+  color: #F3715B !important;
+}/*# sourceMappingURL=Content.module.css.map */

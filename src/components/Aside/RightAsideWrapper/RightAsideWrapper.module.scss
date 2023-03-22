@@ -1,5 +1,4 @@
-
-.aside{
+.aside {
     margin-top: 88px;
     padding: 25px 30px;
     background: #FFFFFF;
@@ -9,4 +8,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 30px;
+
+    @media screen and(max-width: 1000px) {
+     display: none;
+ }
 }

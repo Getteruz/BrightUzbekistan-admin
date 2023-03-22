@@ -1,14 +1,17 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {useCookies} from 'react-cookie'
+import { useCookies } from 'react-cookie'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
+import DateGroup from '../../../../components/DateGroup';
+import Filter from '../../../../components/Filter/Filter';
 import Flex from '../../../../components/Flex';
 import BtnGroup from '../../../../components/Form/BtnGroup';
+import Datapicker from '../../../../components/Form/Datapicker';
 import Input from '../../../../components/Form/Input';
 import RichText from '../../../../components/Form/RichText';
 import TextArea from '../../../../components/Form/TextArea';
@@ -22,15 +25,15 @@ import { langs } from './data';
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
-    const {register, handleSubmit, setValue, watch} = useForm
+    const { register, handleSubmit, setValue, watch } = useForm
     const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const watchedFiles = watch()
     console.log(watchedFiles);
     useEffect(() => {
-        if(!params.get('lang')){
-            setSearchParams({lang: 'uz'}, {replace: true})
+        if (!params.get('lang')) {
+            setSearchParams({ lang: 'uz' }, { replace: true })
         }
     }, [!!params.get('lang')])
 
@@ -42,16 +45,16 @@ const Content = ({ useForm = {} }) => {
             fd.append(params.get('lang') + '_img', data.img[0])
             fd.append('categories', JSON.stringify(data?.categories))
             fd.append(params.get('lang'), JSON.stringify({
-                title: data.title, 
-                description: data.description, 
+                title: data.title,
+                description: data.description,
                 shortDescription: data.shortDesc,
                 shortLink: data.shortLink,
                 tags: data.hashtags
             }))
-            
+
             const res = await createNews(fd)
 
-            if(!res?.error){
+            if (!res?.error) {
                 setOpenModal(true)
             }
 
@@ -64,23 +67,30 @@ const Content = ({ useForm = {} }) => {
 
     return (
         <ContentWrapper navbar={
-            <div className={cls.content__group} id='news_nav'>
-                <Flex gap='5' rowCount='2' alignItems='center'>
-                    <RedButton onClick={handleSubmit(func)}>Сохранить</RedButton>
-                    <RoundedButton><BookIcon /> Избранные</RoundedButton>
-                </Flex>
-                <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
-            </div>
+            <>
+                <div className={cls.content__group} id='news_nav'>
+                    <Flex gap='5' rowCount='2' alignItems='center'>
+                        <RedButton onClick={handleSubmit(func)}>Сохранить</RedButton>
+                        <RoundedButton><BookIcon /> Избранные</RoundedButton>
+                    </Flex>
+                    <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
+                </div>
+
+            </>
+
         }>
             {isLoading && <Loader text='Идет создание новости' />}
             {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
+
+
+
             <div className={cls.content__form}>
                 <BtnGroup>
                     {
                         langs?.length > 0 && langs.map(lang =>
                             <button
                                 key={lang.id}
-                                onClick={() => setSearchParams({lang: lang.lang}, {replace: true})}
+                                onClick={() => setSearchParams({ lang: lang.lang }, { replace: true })}
                                 className={lang?.lang === params.get('lang') ? cls.active__btn : ""}
                             >
                                 {lang?.label}
@@ -96,8 +106,8 @@ const Content = ({ useForm = {} }) => {
                     </Flex>
                     <SquarePhotoUpload register={{ ...register('img') }} />
                 </div>
-                <RichText 
-                    register={register} 
+                <RichText
+                    register={register}
                     setValue={setValue}
                     name='description'
                 />

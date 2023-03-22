@@ -1,0 +1,16 @@
+.btn {
+  max-width: 36px;
+  max-height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 50%;
+  background: #0066FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn > input {
+  display: none;
+  opacity: 0;
+}/*# sourceMappingURL=Button.module.css.map */

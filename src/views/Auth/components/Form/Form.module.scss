@@ -1,8 +1,9 @@
-.form{
+.form {
     display: flex;
     gap: 95px;
+    z-index: 2;
 
-    &__title{
+    &__title {
         max-width: 759px;
         font-weight: 700;
         font-size: 60px;
@@ -11,7 +12,7 @@
         font-family: 'Old Standard TT';
     }
 
-    &__inputs{
+    &__inputs {
         max-width: 339px;
         display: flex;
         flex-direction: column;
