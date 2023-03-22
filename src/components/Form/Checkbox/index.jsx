@@ -5,11 +5,12 @@ const Checkbox = ({
     label = '', 
     light = false, 
     onChange = () => {},
-    defaultChecked = false
+    defaultChecked,
+    checked,
 }) => {
     return (
         <label className={`${cls.label} ${light ? cls.light : ''}`}>
-            <input type="checkbox" onChange={onChange} defaultChecked={defaultChecked} />
+            <input type="checkbox" onChange={onChange} defaultChecked={defaultChecked} checked={checked} />
             <div className={cls.label__box}>
                 <CheckIcon />
             </div>

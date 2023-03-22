@@ -33,9 +33,11 @@ const Messages = () => {
             <Content ref={btnref} />
             <div style={{ position: 'relative' }} ref={drobPage}>
                 {
-                    open && <Wrapper>
-                        <NewsDropdown onClickOutside={onClick} />
-                    </Wrapper>
+                    open && (
+                        <Wrapper>
+                            <NewsDropdown onClickOutside={onClick} />
+                        </Wrapper>
+                    )
                 }
             </div>
         </ComponentsWrapper>

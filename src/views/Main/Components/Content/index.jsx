@@ -10,7 +10,7 @@ import Datapicker from '../../../../components/Form/Datapicker';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
 import { getPublishedNews } from '../../../../services/news';
-import RightAside from '../RightAside';
+import getQueryInArray from '../../../../utils/getQueryInArray';
 import cls from './Content.module.scss'
 
 const Content = () => {
@@ -31,7 +31,11 @@ const Content = () => {
     return (
         <ContentWrapper navbar={
             <div className={cls.content__menu} id='content-menu'>
-                <Checkbox label='Выбрать все' onChange={handleCheck} />
+                <Checkbox
+                    label='Выбрать все'
+                    onChange={handleCheck}
+                    checked={getQueryInArray('checked')?.length === news?.length}
+                />
                 <Flex gap='5'>
                     <GreyButton>
                         <DeleteIcon />

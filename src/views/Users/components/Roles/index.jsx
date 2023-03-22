@@ -6,7 +6,7 @@ import cls from './Roles.module.scss'
 
 const Roles = () => {
     const {data: roles} = useQuery('roles', getRoles)
-    console.log(roles);
+
     return (
         <div className={cls.box}>
             <span>Информация о ролях</span>

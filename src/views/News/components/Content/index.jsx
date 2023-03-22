@@ -1,7 +1,5 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useCookies } from 'react-cookie'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
@@ -20,17 +18,18 @@ import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
 import { createNews } from '../../../../services/news';
+import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 import { langs } from './data';
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
-    const { register, handleSubmit, setValue, watch } = useForm
-    const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
+    const [params, setSearchParams] = useSearchParams()
+    const { register, handleSubmit, setValue, watch } = useForm
     const watchedFiles = watch()
-    console.log(watchedFiles);
+
     useEffect(() => {
         if (!params.get('lang')) {
             setSearchParams({ lang: 'uz' }, { replace: true })
@@ -41,22 +40,22 @@ const Content = ({ useForm = {} }) => {
         try {
             setIsLoading(true)
             const fd = new FormData()
+            console.log(data);
+            // fd.append(params.get('lang') + '_img', data.img[0])
+            // fd.append('categories', JSON.stringify(data?.categories))
+            // fd.append(params.get('lang'), JSON.stringify({
+            //     title: data.title, 
+            //     description: data.description, 
+            //     shortDescription: data.shortDesc,
+            //     shortLink: data.shortLink,
+            //     tags: data.hashtags
+            // }))
 
-            fd.append(params.get('lang') + '_img', data.img[0])
-            fd.append('categories', JSON.stringify(data?.categories))
-            fd.append(params.get('lang'), JSON.stringify({
-                title: data.title,
-                description: data.description,
-                shortDescription: data.shortDesc,
-                shortLink: data.shortLink,
-                tags: data.hashtags
-            }))
+            // const res = await createNews(fd)
 
-            const res = await createNews(fd)
-
-            if (!res?.error) {
-                setOpenModal(true)
-            }
+            // if(!res?.error){
+            //     setOpenModal(true)
+            // }
 
         } catch (error) {
             console.log(error);
@@ -90,7 +89,7 @@ const Content = ({ useForm = {} }) => {
                         langs?.length > 0 && langs.map(lang =>
                             <button
                                 key={lang.id}
-                                onClick={() => setSearchParams({ lang: lang.lang }, { replace: true })}
+                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), lang: lang.lang }, { replace: true })}
                                 className={lang?.lang === params.get('lang') ? cls.active__btn : ""}
                             >
                                 {lang?.label}
@@ -104,7 +103,7 @@ const Content = ({ useForm = {} }) => {
                         <TextArea placeholder='Краткое описание' label='Краткое описание' register={{ ...register('shortDesc') }} />
                         <Input placeholder='Короткий линк' label='Короткий линк' register={{ ...register('shortLink') }} />
                     </Flex>
-                    <SquarePhotoUpload register={{ ...register('img') }} />
+                    <SquarePhotoUpload setValue={setValue} name='img' />
                 </div>
                 <RichText
                     register={register}

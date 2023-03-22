@@ -20,6 +20,12 @@ export const links = [
         link: '/general-access'
     },
     {
+        id: 9,
+        label: 'Избранные',
+        icon: DocIcon,
+        link: '/general-access'
+    },
+    {
         id: 3,
         label: 'Пользователи',
         icon: StatistikaIcon,

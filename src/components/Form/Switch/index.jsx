@@ -1,11 +1,13 @@
 import cls from './Switch.module.scss'
 
-const Switch = ({
+const Switch = ( {
     label = '', 
     type = 'checkbox', 
     value = '', 
     name = '', 
     register = {},  
+    defaultChecked,
+    checked,
     onClick = () => {},
     onChange = () => {},
     ...other
@@ -13,7 +15,7 @@ const Switch = ({
     
     return (
         <label className={cls.checkbox} onClick={onClick}>
-            <input type={type} name={name} value={value} {...register} onChange={onChange} {...other}/>
+            <input type={type} name={name} value={value} checked={checked} defaultChecked={defaultChecked} {...register} onChange={onChange} {...other}/>
             <div className={cls.checkbox__check}>
                 <div className={cls.checkbox__check__circle}></div>
             </div>

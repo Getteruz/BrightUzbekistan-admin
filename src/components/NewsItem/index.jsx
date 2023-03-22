@@ -31,6 +31,7 @@ const NewsItem = ({
                 label={`${hours}:${minutes}`} 
                 light={true} 
                 onChange={handleCheck} 
+                checked={(params.get('checked') || '')?.split(',')?.includes(id)}
                 defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
             />
             <Flex gap='10' direction='column'>

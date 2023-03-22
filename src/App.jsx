@@ -20,7 +20,6 @@ function App() {
 
   useEffect(() => {
     if(data) {
-      console.log(1);
       setCookie('user', data, {path: '/'})
       dispatch(authActions.setUser(data))
     } else {
