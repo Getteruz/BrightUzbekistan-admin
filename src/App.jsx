@@ -19,8 +19,8 @@ function App() {
   })
 
   useEffect(() => {
-    if(data) {
-      setCookie('user', data, {path: '/'})
+    if (data) {
+      setCookie('user', data, { path: '/' })
       dispatch(authActions.setUser(data))
     } else {
       refetch()
@@ -28,21 +28,21 @@ function App() {
   }, [data])
 
   useEffect(() => {
-    if(cookie?.access_token_admin) {
+    if (cookie?.access_token_admin) {
       dispatch(authActions.login())
     } else {
       dispatch(authActions.logout())
     }
   }, [])
 
-  useEffect(() => {
-    if(!auth.isAuth) {
-      navigate('/auth')
-    }
-  }, [auth.isAuth])
+  // useEffect(() => {
+  //   if(!auth.isAuth) {
+  //     navigate('/auth')
+  //   }
+  // }, [auth.isAuth])
 
   return (
-      <Router />
+    <Router />
   )
 }
 

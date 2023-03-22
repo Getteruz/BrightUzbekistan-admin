@@ -11,6 +11,7 @@ import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
 import { getPublishedNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
+import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 
 const Content = () => {
@@ -22,9 +23,9 @@ const Content = () => {
 
     const handleCheck = (e) => {
         if (e.target.checked) {
-            setSearchParams({ checked: news?.map(news => news?.id)?.join(',') })
+            setSearchParams({ ...paramsToObject(params.entries()), checked: news?.map(news => news?.id)?.join(',') })
         } else {
-            setSearchParams({ checked: '' })
+            setSearchParams({ ...paramsToObject(params.entries()), checked: '' })
         }
     }
 
@@ -34,7 +35,7 @@ const Content = () => {
                 <Checkbox
                     label='Выбрать все'
                     onChange={handleCheck}
-                    checked={getQueryInArray('checked')?.length === news?.length}
+                    checked={news?.length > 0 && getQueryInArray('checked')?.length === news?.length}
                 />
                 <Flex gap='5'>
                     <GreyButton>
