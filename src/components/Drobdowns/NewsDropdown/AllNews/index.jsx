@@ -1,7 +1,7 @@
+import Instagram from '../../../Buttons/Instagram';
+import Telegram from '../../../Buttons/Telegram';
 import OrangeBlurButton from '../../../Buttons/OrangeBlurButton';
 import PrimaryButton from '../../../Buttons/PrimaryButton';
-import Instagram from '../Buttons/Instagram';
-import Telegram from '../Buttons/Telegram';
 import Card from '../Card';
 import cls from './AllNews.module.scss'
 

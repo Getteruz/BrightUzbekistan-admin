@@ -1,6 +1,6 @@
-import axios from "axios"
 import { store } from "../store"
 import { useShowAlert } from "../store/alert/alert.thunk"
+import { authActions } from "../store/auth/auth.slice"
 import { api } from "./api"
 
 const showAlert = useShowAlert(store.dispatch)
@@ -34,9 +34,10 @@ export const getAdminById = async (id) => {
 
 export const getAdminInfo = async () => {
     try {
-        const res = await api.get('/admin/me', { withCredentials: true, headers: {access_token_admin: "nma"} })
+        const res = await api.get('/admin/me', { withCredentials: true })
         return res?.data
     } catch (error) {
+        store.dispatch(authActions.logout())
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }

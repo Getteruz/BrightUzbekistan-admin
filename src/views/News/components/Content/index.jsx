@@ -33,26 +33,26 @@ const Content = ({ useForm = {} }) => {
         }
     }, [!!params.get('lang')])
 
-    const func = async (data) => {
+    const func = async (data, state) => {
         try {
             setIsLoading(true)
             const fd = new FormData()
-            console.log(data);
-            // fd.append(params.get('lang') + '_img', data.img[0])
-            // fd.append('categories', JSON.stringify(data?.categories))
-            // fd.append(params.get('lang'), JSON.stringify({
-            //     title: data.title, 
-            //     description: data.description, 
-            //     shortDescription: data.shortDesc,
-            //     shortLink: data.shortLink,
-            //     tags: data.hashtags
-            // }))
+            fd.append('state', state)
+            fd.append(params.get('lang') + '_img', data.img[0])
+            fd.append('categories', JSON.stringify(data?.categories))
+            fd.append(params.get('lang'), JSON.stringify({
+                title: data.title, 
+                description: data.description, 
+                shortDescription: data.shortDesc,
+                shortLink: data.shortLink,
+                tags: data.hashtags
+            }))
             
-            // const res = await createNews(fd)
+            const res = await createNews(fd)
 
-            // if(!res?.error){
-            //     setOpenModal(true)
-            // }
+            if(!res?.error){
+                setOpenModal(true)
+            }
 
         } catch (error) {
             console.log(error);
@@ -65,8 +65,8 @@ const Content = ({ useForm = {} }) => {
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>
                 <Flex gap='5' rowCount='2' alignItems='center'>
-                    <RedButton onClick={handleSubmit(func)}>Сохранить</RedButton>
-                    <RoundedButton><BookIcon /> Избранные</RoundedButton>
+                    <RedButton onClick={handleSubmit((data) => func(data, 'general access'))}>Сохранить</RedButton>
+                    <RoundedButton onClick={handleSubmit((data) => func(data, 'favorites'))}><BookIcon /> Избранные</RoundedButton>
                 </Flex>
                 <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
             </div>

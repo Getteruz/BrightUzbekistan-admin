@@ -8,7 +8,7 @@ import "froala-editor/js/plugins.pkgd.min.js";
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
 
-const config = {
+const config = (setValue) => ({
     enter: Froalaeditor.ENTER_BR,
     tableStyles: {
         "no-border": "No border"
@@ -48,12 +48,11 @@ const config = {
             replyEditor = this;
         },
         blur: () => {
-            console.log(replyEditor.html.get(true));
+            // console.log(replyEditor.html.get(true));
         },
         'image.beforeUpload': function (e, editor) {
             const fd = new FormData()
             fd.append('image', e[0])
-
             axios.post(`${import.meta.env.VITE_STORE_API}/upload/image`, fd, {
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -64,8 +63,14 @@ const config = {
         },
         'image.uploaded': (e, editor, res) => {
             console.log(res);
+            console.log(e);
+            // setValue('images', )
         },
-        'image.uploadError': () => {
+        'image.removed': (img) => {
+            console.log(img[0]?.currentSrc);
+            axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, {data: {url: img[0]?.currentSrc}})
+        },
+        'image.error': () => {
 
         },
         'video.beforeUpload': (e, editor) => {
@@ -87,16 +92,16 @@ const config = {
         },
 
     }
-}
+})
 
 let replyEditor = "";
 
-const RichText = ({ register, setValue, name }) => {
+const RichText = ({ register, setValue = () => {}, name }) => {
     return (
         <FroalaEditor
             name={name}
             onModelChange={(model) => setValue(name, model)}
-            config={config}
+            config={config(setValue)}
             {...register('description')}
         />
     );

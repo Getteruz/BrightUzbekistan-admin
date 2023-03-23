@@ -14,26 +14,17 @@ function App() {
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
   const [cookie, setCookie] = useCookies(['user', 'access_token_admin'])
-  const { data, refetch } = useQuery('me', getAdminInfo, {
-    enabled: location.pathname !== '/auth' && !!cookie.access_token_admin
+  const { data, refetch, isLoading } = useQuery('me', getAdminInfo, {
+    enabled: location.pathname !== '/auth'
   })
 
   useEffect(() => {
-    if(data) {
-      setCookie('user', data, {path: '/'})
+    if(!isLoading && data) {
       dispatch(authActions.setUser(data))
-    } else {
-      refetch()
-    }
-  }, [data])
-
-  useEffect(() => {
-    if(cookie?.access_token_admin) {
-      dispatch(authActions.login())
-    } else {
+    } else if (!isLoading && !data) {
       dispatch(authActions.logout())
     }
-  }, [])
+  }, [data])
 
   useEffect(() => {
     if(!auth.isAuth) {

@@ -15,18 +15,20 @@ import getQueryInArray from "../../../../utils/getQueryInArray";
 import paramsToObject from "../../../../utils/paramsToObject";
 import { btns } from "./data";
 import cls from './Content.module.scss';
+import NewsConfirm from "../../../../components/NewsConfirm";
 
 const Content = () => {
     const location = useLocation()
     const [loading, setLoading] = useState(false)
     const [isDisabled, setIsDisabled] = useState(true)
+    const [isOpenModal, setIsOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
     const { data: mynews } = useQuery(
         ['my-news', params.get('category') || '', params.get('page') || ''],
         async ({ queryKey }) => await getMyNews({ categoryId: queryKey[1] || '', state: queryKey[2] || '' })
     )
-console.log(mynews);
-    const handleClick = async () => {
+
+    const publishCheckedNews = async () => {
         try {
             setLoading(true)
             const ids = getQueryInArray('checked')
@@ -36,6 +38,10 @@ console.log(mynews);
         } finally {
             setLoading(false)
         }
+    }
+
+    const handleClick = () => {
+        setIsOpenModal(true)
     }
 
     const handleCheck = (e) => {
@@ -63,7 +69,10 @@ console.log(mynews);
                             onChange={handleCheck}
                             checked={mynews?.length > 0 && getQueryInArray('checked')?.length === mynews?.length}
                         />
-                        <RedButton disabled={isDisabled} onClick={handleClick}>
+                        <RedButton 
+                            disabled={isDisabled || !['general access', 'favorites']?.includes(params.get('page'))} 
+                            onClick={handleClick}
+                        >
                             Опубликовать
                         </RedButton>
                     </Flex>
@@ -77,7 +86,7 @@ console.log(mynews);
                             <button
                                 key={btn.id}
                                 className={params.get('page') === btn.link ? cls.active__btn : ''}
-                                onClick={() => setSearchParams({ page: btn.link }, {replace: true})}
+                                onClick={() => setSearchParams({ page: btn.link }, { replace: true })}
                             >
                                 {btn.label}
                             </button>
@@ -88,6 +97,10 @@ console.log(mynews);
         }>
             <NewsList news={mynews} />
             {loading && <Loader text="Идёт публикация новостей" />}
+            {isOpenModal &&
+                <NewsConfirm
+                    onClickOutside={() => setIsOpenModal(false)}
+                />}
         </ContentWrapper>
     );
 }

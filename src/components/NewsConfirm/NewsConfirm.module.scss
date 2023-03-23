@@ -1,0 +1,57 @@
+
+.wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal{
+    max-width: 586px;
+    width: 100%;
+    padding: 40px 34px 50px 34px;
+    background: #EEEEEE;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    filter: drop-shadow(-16px 34px 64px rgba(4, 33, 59, 0.16));
+
+    &__title{
+        font-family: 'Inter';
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        margin-bottom: 12px;
+    }
+
+    &__desc{
+        font-size: 13px;
+        line-height: 18px;
+        margin-bottom: 20px;
+    }
+
+    &__btnwrapper{
+        margin: 43px 0;
+        padding: 17px;
+        display: flex;
+        align-items: center;
+        background: #FFFFFF;
+        border-radius: 12px;
+        gap: 23px;
+        margin-bottom: 40px;
+
+        & > div{
+            width: 205px;
+        }
+    }
+
+    &__btns{
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+}

@@ -10,7 +10,7 @@ const Checkbox = ({
 }) => {
     return (
         <label className={`${cls.label} ${light ? cls.light : ''}`}>
-            <input type="checkbox" onChange={onChange} defaultChecked={defaultChecked} checked={checked} />
+            <input type="checkbox" onChange={onChange} checked={checked} defaultChecked={defaultChecked} />
             <div className={cls.label__box}>
                 <CheckIcon />
             </div>
