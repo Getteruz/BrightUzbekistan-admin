@@ -22,7 +22,6 @@ function App() {
     if(!isLoading && data) {
       dispatch(authActions.setUser(data))
     } else if (!isLoading && !data) {
-      console.log(13);
       dispatch(authActions.logout())
     }
   }, [data])
