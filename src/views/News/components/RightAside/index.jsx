@@ -46,6 +46,13 @@ const RightAside = ({ useForm = {} }) => {
         setValue('hashtags', hashTags)
     }, [hashTags]);
 
+    useEffect(() => {
+        setSearchParams({
+            ...paramsToObject(params.entries()), 
+            'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(',')
+        }, {replace: true})
+    }, [])
+
     return (
         <RightAsideWrapper>
             <SwitchGroup label='Выберите категорию'>

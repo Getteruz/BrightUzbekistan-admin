@@ -38,9 +38,11 @@ export const getMyNews = async (params) => {
     }
 }
 
-export const publishNews = async (newsIds) => {
+export const publishNews = async (body) => {
     try {
-        const res = await api.patch('/news/published', {newsIds})
+        const res = await api.patch('/news/published', body, { responseType: 'blob' })
+        var file = window.URL.createObjectURL(res.data);
+        window.location.assign(file);
         if (res?.data?.error) {
             showAlert({ message: res?.data?.message })
         }

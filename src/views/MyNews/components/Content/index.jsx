@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useLocation, useSearchParams } from "react-router-dom";
 import RedButton from "../../../../components/Buttons/RedButton";
 import SimpleButton from "../../../../components/Buttons/SimpleButton";
@@ -23,6 +23,7 @@ const Content = () => {
     const [isDisabled, setIsDisabled] = useState(true)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
+    const query = new useQueryClient()
     const { data: mynews } = useQuery(
         ['my-news', params.get('category') || '', params.get('page') || ''],
         async ({ queryKey }) => await getMyNews({ categoryId: queryKey[1] || '', state: queryKey[2] || '' })
@@ -31,8 +32,11 @@ const Content = () => {
     const publishCheckedNews = async () => {
         try {
             setLoading(true)
-            const ids = getQueryInArray('checked')
-            const res = await publishNews(ids)
+            setIsOpenModal(false)
+            const newsIds = getQueryInArray('checked')
+            const res = await publishNews({newsIds, tg: params.get('telegram'), inst: params.get('insta')})
+            query.invalidateQueries(['my-news', params.get('category') || '', params.get('page') || ''])
+            setSearchParams({...paramsToObject(params.entries()), checked: ''})
         } catch (error) {
             console.log(error);
         } finally {
@@ -100,6 +104,7 @@ const Content = () => {
             {isOpenModal &&
                 <NewsConfirm
                     onClickOutside={() => setIsOpenModal(false)}
+                    onOk={publishCheckedNews}
                 />}
         </ContentWrapper>
     );
