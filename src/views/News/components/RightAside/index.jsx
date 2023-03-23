@@ -46,13 +46,6 @@ const RightAside = ({ useForm = {} }) => {
         setValue('hashtags', hashTags)
     }, [hashTags]);
 
-    useEffect(() => {
-        setSearchParams({
-            ...paramsToObject(params.entries()), 
-            'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(',')
-        }, {replace: true})
-    }, [])
-
     return (
         <RightAsideWrapper>
             <SwitchGroup label='Выберите категорию'>
@@ -82,8 +75,8 @@ const RightAside = ({ useForm = {} }) => {
                 }
             </SwitchGroup>
             <DateGroup label='Дата публикации'>
-                <Timepicker label='от' />
-                <Datapicker label='до' />
+                <Timepicker label='Время' />
+                <Datapicker label='Дата' />
             </DateGroup>
             <Flex gap='15' direction='column'>
                 <RoundedInput placeholder='Название тега' label='Теги' setHashtags={setHashtags} />

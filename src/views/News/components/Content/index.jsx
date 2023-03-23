@@ -15,6 +15,7 @@ import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
 import { createNews } from '../../../../services/news';
+import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 import { langs } from './data';
@@ -26,13 +27,7 @@ const Content = ({ useForm = {} }) => {
     const [params, setSearchParams] = useSearchParams()
     const {register, handleSubmit, setValue, watch} = useForm
     const watchedFiles = watch()
-
-    useEffect(() => {
-        if(!params.get('lang')){
-            setSearchParams({lang: 'uz'}, {replace: true})
-        }
-    }, [!!params.get('lang')])
-
+    
     const func = async (data, state) => {
         try {
             setIsLoading(true)
@@ -49,17 +44,30 @@ const Content = ({ useForm = {} }) => {
             }))
             
             const res = await createNews(fd)
-
+            
             if(!res?.error){
                 setOpenModal(true)
             }
-
+            
         } catch (error) {
             console.log(error);
         } finally {
             setIsLoading(false)
         }
     }
+
+    useEffect(() => {
+        if(!params.get('lang')){
+            setSearchParams({...paramsToObject(params.entries()), lang: 'uz'}, {replace: true})
+        }
+    }, [!!params.get('lang')])
+
+    useEffect(() => {
+        setSearchParams({
+            ...paramsToObject(params.entries()), 
+            'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(',')
+        }, {replace: true})
+    }, [])
 
     return (
         <ContentWrapper navbar={

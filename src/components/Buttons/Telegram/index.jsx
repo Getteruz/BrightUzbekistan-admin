@@ -14,7 +14,7 @@ const Telegram = ({label}) => {
         } else {
             urlParams = {...urlParams, telegram: ''}
         }
-        setSearchParams(urlParams)
+        setSearchParams(urlParams, {replace: true})
     }
 
     return (

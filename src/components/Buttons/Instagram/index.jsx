@@ -14,7 +14,7 @@ const Instagram = ({label}) => {
         } else {
             urlParams = {...urlParams, insta: ''}
         }
-        setSearchParams(urlParams)
+        setSearchParams(urlParams, {replace: true})
     }
 
     return (

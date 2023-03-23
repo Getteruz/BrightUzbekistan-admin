@@ -13,7 +13,7 @@ function App() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
-  const [cookie, setCookie] = useCookies(['user', 'access_token_admin'])
+  // const [cookie, setCookie] = useCookies(['user', 'access_token_admin'])
   const { data, refetch, isLoading } = useQuery('me', getAdminInfo, {
     enabled: location.pathname !== '/auth'
   })
@@ -22,6 +22,7 @@ function App() {
     if(!isLoading && data) {
       dispatch(authActions.setUser(data))
     } else if (!isLoading && !data) {
+      console.log(13);
       dispatch(authActions.logout())
     }
   }, [data])
