@@ -25,7 +25,6 @@ api.interceptors.response.use(
   response => response,
   error => {
     showAlert({ message: error?.response?.data ? error?.response?.data?.message : error?.message })
-    Promise.reject(error.response)
   }
 )
 

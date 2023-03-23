@@ -1,6 +1,5 @@
 import { useQuery } from "react-query"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useCookies } from "react-cookie"
 import Router from "./router"
 import { getAdminInfo } from "./services/admin"
 import { useEffect } from "react"
@@ -13,8 +12,7 @@ function App() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
-  // const [cookie, setCookie] = useCookies(['user', 'access_token_admin'])
-  const { data, refetch, isLoading } = useQuery('me', getAdminInfo, {
+  const { data, isLoading } = useQuery('me', getAdminInfo, {
     enabled: location.pathname !== '/auth'
   })
 

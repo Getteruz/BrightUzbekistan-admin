@@ -35,9 +35,11 @@ export const getAdminById = async (id) => {
 export const getAdminInfo = async () => {
     try {
         const res = await api.get('/admin/me', { withCredentials: true })
+        if(!res) {
+            store.dispatch(authActions.logout())
+        }
         return res?.data
     } catch (error) {
-        store.dispatch(authActions.logout())
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
