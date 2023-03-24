@@ -41,8 +41,23 @@ export const getMyNews = async (params) => {
 export const publishNews = async (body) => {
     try {
         const res = await api.patch('/news/published', body, { responseType: 'blob' })
-        var file = window.URL.createObjectURL(res.data);
-        window.location.assign(file);
+        if (res?.data?.error) {
+            showAlert({ message: res?.data?.message })
+        } else {
+            if(res.data?.type === 'application/zip'){
+                var file = window.URL.createObjectURL(res.data);
+                if(file) window.location.assign(file);
+            }
+        }
+        return res?.data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
+
+export const deleteNews = async (body) => {
+    try {
+        const res = await api.delete('/news', {data: body})
         if (res?.data?.error) {
             showAlert({ message: res?.data?.message })
         }

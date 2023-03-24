@@ -12,7 +12,6 @@ import Loader from '../../../../components/Loader';
 const UserInfo = () => {
     const { id } = useParams()
     const { data: admin, isLoading } = useQuery(['admin', id], async () => await getAdminById(id))
-    
     return (
         <div className={cls.box}>
             <span></span>
@@ -43,7 +42,7 @@ const UserInfo = () => {
                             <button>Инфо</button>
                         </BtnGroup>
                     </div>
-                    <NewsList news={Array(4).fill(null)} />
+                    <NewsList news={admin?.news} />
                 </div>
             </div>
         </div>

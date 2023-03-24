@@ -5,6 +5,8 @@ import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
+import NewsDropdown from '../../../../components/Drobdowns/NewsDropdown';
+import Wrapper from '../../../../components/Drobdowns/Wrapper';
 import Flex from '../../../../components/Flex';
 import BtnGroup from '../../../../components/Form/BtnGroup';
 import Input from '../../../../components/Form/Input';
@@ -25,7 +27,7 @@ const Content = ({ useForm = {} }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
-    const {register, handleSubmit, setValue, watch} = useForm
+    const {register, handleSubmit, setValue, watch, getValues} = useForm
     const watchedFiles = watch()
     
     const func = async (data, state) => {
@@ -33,22 +35,22 @@ const Content = ({ useForm = {} }) => {
             setIsLoading(true)
             const fd = new FormData()
             fd.append('state', state)
-            fd.append(params.get('lang') + '_img', data.img[0])
-            fd.append('categories', JSON.stringify(data?.categories))
+            if(data?.mainCtg) fd.append('mainCategory', data?.mainCtg)
+            fd.append(params.get('lang') + '_img', data?.img)
+            fd.append('categories', JSON.stringify(data?.categories || []))
             fd.append(params.get('lang'), JSON.stringify({
-                title: data.title, 
-                description: data.description, 
-                shortDescription: data.shortDesc,
-                shortLink: data.shortLink,
-                tags: data.hashtags
+                title: data?.title, 
+                description: data?.description, 
+                shortDescription: data?.shortDesc,
+                shortLink: data?.shortLink,
+                tags: data?.hashtags || [],
+                descImg: data?.descImg || []
             }))
-            
             const res = await createNews(fd)
             
             if(!res?.error){
                 setOpenModal(true)
             }
-            
         } catch (error) {
             console.log(error);
         } finally {
@@ -57,15 +59,10 @@ const Content = ({ useForm = {} }) => {
     }
 
     useEffect(() => {
-        if(!params.get('lang')){
-            setSearchParams({...paramsToObject(params.entries()), lang: 'uz'}, {replace: true})
-        }
-    }, [!!params.get('lang')])
-
-    useEffect(() => {
         setSearchParams({
             ...paramsToObject(params.entries()), 
-            'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(',')
+            'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(','),
+            lang: 'uz'
         }, {replace: true})
     }, [])
 
@@ -81,6 +78,7 @@ const Content = ({ useForm = {} }) => {
         }>
             {isLoading && <Loader text='Идет создание новости' />}
             {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
+            {/* {<div style={{position: 'relative'}}><Wrapper><NewsDropdown news={[getValues()]} /></Wrapper></div>} */}
             <div className={cls.content__form}>
                 <BtnGroup>
                     {
@@ -106,6 +104,7 @@ const Content = ({ useForm = {} }) => {
                 <RichText 
                     register={register} 
                     setValue={setValue}
+                    getValues={getValues}
                     name='description'
                 />
             </div>

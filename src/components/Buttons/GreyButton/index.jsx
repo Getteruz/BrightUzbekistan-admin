@@ -1,8 +1,8 @@
 import cls from './GreyButton.module.scss'
 
-const GreyButton = ({children, ...other}) => {
+const GreyButton = ({children, active, ...other}) => {
     return (
-        <button className={cls.btn} {...other}>
+        <button className={`${cls.btn} ${active ? cls.active : ''}`} {...other}>
             {children}
         </button>
     );

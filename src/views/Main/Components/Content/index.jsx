@@ -1,18 +1,22 @@
-import { useQuery } from 'react-query';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import GreyButton from '../../../../components/Buttons/GreyButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
 import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
+import Loader from '../../../../components/Loader';
 import NewsList from '../../../../components/NewsList';
-import { getPublishedNews } from '../../../../services/news';
+import { deleteNews, getPublishedNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 
 const Content = () => {
+    const queryClient = useQueryClient()
     const [params, setSearchParams] = useSearchParams()
+    const [isLoading, setIsLoading] = useState(false)
     const { data: news } = useQuery(
         ['news', params.get('category') || ''],
         async ({ queryKey }) => await getPublishedNews({ categoryId: queryKey[1] || '' })
@@ -26,6 +30,17 @@ const Content = () => {
         }
     }
 
+    const handleDelete = async () => {
+        try {
+            setIsLoading(true)
+            await deleteNews({ids: getQueryInArray('checked')})
+            queryClient.invalidateQueries(['news', params.get('category') || ''])
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     return (
         <ContentWrapper navbar={
@@ -36,17 +51,18 @@ const Content = () => {
                     checked={news?.length > 0 && getQueryInArray('checked')?.length === news?.length}
                 />
                 <Flex gap='5'>
-                    <GreyButton>
+                    <GreyButton active={!!params?.get('checked')} onClick={handleDelete}>
                         <DeleteIcon />
                         Удалить
                     </GreyButton>
-                    <GreyButton>
+                    <GreyButton active={!!params?.get('checked')}>
                         <ArchiveIcon />
                         В архив
                     </GreyButton>
                 </Flex>
             </div>
         }>
+            {isLoading && <Loader text='Выполняется удаление новостей'/>}
             <NewsList news={news} />
         </ContentWrapper>
     );

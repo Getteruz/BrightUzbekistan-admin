@@ -8,7 +8,7 @@ import "froala-editor/js/plugins.pkgd.min.js";
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
 
-const config = (setValue) => ({
+const config = (setValue, getValues) => ({
     enter: Froalaeditor.ENTER_BR,
     tableStyles: {
         "no-border": "No border"
@@ -27,6 +27,7 @@ const config = (setValue) => ({
     toolbarSticky: true,
     toolbarInline: false,
     toolbarVisibleWithoutSelection: true,
+    imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     toolbarButtons: {
         'moreText': {
             'buttons': ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting']
@@ -38,7 +39,7 @@ const config = (setValue) => ({
             'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR']
         },
         'moreMisc': {
-            'buttons': ['undo', 'redo', 'fullscreen', 'print', 'spellChecker', 'selectAll', 'html', 'help'],
+            'buttons': ['undo', 'redo', 'spellChecker', 'selectAll', 'html', 'help'],
             'align': 'right',
             'buttonsVisible': 2
         }
@@ -61,13 +62,17 @@ const config = (setValue) => ({
             }).then(res => replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get()))
             
         },
-        'image.uploaded': (e, editor, res) => {
-            console.log(res);
-            console.log(e);
-            // setValue('images', )
+        'image.inserted': function(img) {
+            const values = getValues()
+            let descImg = values?.descImg || []
+            descImg?.push(img?.[0]?.src)
+            setValue('descImg', descImg)
         },
         'image.removed': (img) => {
-            console.log(img[0]?.currentSrc);
+            const values = getValues()
+            let descImg = values?.descImg || []
+            descImg = descImg?.filter(e => e !== img?.[0]?.currentSrc)
+            setValue('descImg', descImg)
             axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, {data: {url: img[0]?.currentSrc}})
         },
         'image.error': () => {
@@ -96,12 +101,12 @@ const config = (setValue) => ({
 
 let replyEditor = "";
 
-const RichText = ({ register, setValue = () => {}, name }) => {
+const RichText = ({ register, setValue = () => {}, getValues = () => {}, name }) => {
     return (
         <FroalaEditor
             name={name}
             onModelChange={(model) => setValue(name, model)}
-            config={config(setValue)}
+            config={config(setValue, getValues)}
             {...register('description')}
         />
     );

@@ -46,6 +46,10 @@ const RightAside = ({ useForm = {} }) => {
         setValue('hashtags', hashTags)
     }, [hashTags]);
 
+    useEffect(() => {
+        setValue('mainCtg', activeCtg)
+    }, [activeCtg])
+
     return (
         <RightAsideWrapper>
             <SwitchGroup label='Выберите категорию'>

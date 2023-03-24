@@ -14,3 +14,13 @@
     opacity: 0.5;
     cursor: pointer;
 }
+
+.active{
+    color: #F3715B;
+    border-color: #F3715B;
+    opacity: 1;
+
+    & > svg > path {
+        fill: #F3715B;
+    }
+}

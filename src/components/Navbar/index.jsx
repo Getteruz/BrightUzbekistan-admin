@@ -15,8 +15,11 @@ import { useSelector } from 'react-redux';
 const Navbar = () => {
     const location = useLocation()
     const navigate = useNavigate()
-    const [isOpen, setIsOpen] = useState(false)
     const {user} = useSelector(state => state.auth)
+
+    const handleClick = () => {
+        navigate(`/users/${user?.id}`)
+    }
 
     return (
         <div className={cls.nav} id='navbar'>
@@ -32,11 +35,10 @@ const Navbar = () => {
                         notification 
                     />
                     <WhiteButton>{user?.fullName}</WhiteButton>
-                    <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setIsOpen(state => !state)}>
-                        {user?.avatar ? <Avatar src={user?.avatar} /> : <LetterAvatar size={40} name={user?.fullName}/>}
-                        <Wrapper bottom='-10px'>
-                            {isOpen && <ProfileDrobdown />}
-                        </Wrapper>
+                    <div style={{ position: 'relative', cursor: 'pointer' }} onClick={handleClick}>
+                        {user?.avatar ? 
+                            <Avatar src={user?.avatar} /> : 
+                            <LetterAvatar size={40} name={user?.fullName}/>}
                     </div>
                 </div>
             </Container>

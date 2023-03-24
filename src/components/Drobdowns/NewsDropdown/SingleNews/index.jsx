@@ -6,10 +6,11 @@ import { LeftIcon, RightIcon } from '../../../icons';
 import SingleCard from '../SingleCard';
 import cls from './SingleNews.module.scss'
 
-const pagesCount = 4
 
-const SingleNews = ({setPage}) => {
+
+const SingleNews = ({setPage, news = []}) => {
     const [currentNews, setCurrentNews] = useState(1)
+    const pagesCount = news?.length
 
     return (
         <div className={cls.box}>
@@ -33,10 +34,7 @@ const SingleNews = ({setPage}) => {
             </div>
 
             <div className={cls.box__cardswrapper}>
-                <div style={{translate: `calc((-100% / ${pagesCount}) * (${currentNews - 1}))`}}>
-                    <SingleCard />
-                    <SingleCard />
-                    <SingleCard />
+                <div style={{width: '100%', display: 'flex', translate: `calc((-100% / ${pagesCount}) * (${currentNews - 1}))`}}>
                     <SingleCard />
                 </div>
             </div>

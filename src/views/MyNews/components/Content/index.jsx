@@ -34,7 +34,7 @@ const Content = () => {
             setLoading(true)
             setIsOpenModal(false)
             const newsIds = getQueryInArray('checked')
-            const res = await publishNews({newsIds, tg: params.get('telegram'), inst: params.get('insta')})
+            const res = await publishNews({newsIds, tg: !!params.get('telegram'), inst: !!params.get('insta')})
             query.invalidateQueries(['my-news', params.get('category') || '', params.get('page') || ''])
             setSearchParams({...paramsToObject(params.entries()), checked: ''})
         } catch (error) {
