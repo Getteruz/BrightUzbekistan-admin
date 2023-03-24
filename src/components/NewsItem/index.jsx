@@ -18,23 +18,32 @@ const NewsItem = ({
 
     const handleCheck = (e) => {
         let checkedNews = params.get('checked')?.split(',') || []
-        if(e.target.checked){
+        if (e.target.checked) {
             checkedNews = [...checkedNews, id]
         } else {
             checkedNews = checkedNews?.filter(newsId => newsId !== id)
         }
-        setSearchParams({...paramsToObject(params.entries()), 'checked': checkedNews?.join(',')})
+        setSearchParams({ ...paramsToObject(params.entries()), 'checked': checkedNews?.join(',') })
     }
 
     return (
         <div className={cls.item}>
-            <Checkbox 
-                label={`${hours}:${minutes}`} 
-                light={true} 
-                onChange={handleCheck} 
-                checked={(params.get('checked') || '')?.split(',')?.includes(id)}
-                defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
-            />
+            <div className={cls.item__wrap}>
+                <Checkbox
+                    label={`${hours}:${minutes}`}
+                    light={true}
+                    onChange={handleCheck}
+                    checked={(params.get('checked') || '')?.split(',')?.includes(id)}
+                    defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
+                />
+                <div className={cls.item__wrap2}>
+                    <span className={cls.item__author2}>{creator}</span>
+                    <button className={cls.item__dots2}>
+                        <DotsIcon />
+                    </button>
+                </div>
+
+            </div>
             <Flex gap='10' direction='column'>
                 <div className={cls.item__text__wrapper}>
                     <Link to={`/news/edit/${id}`}><h3 className={cls.item__title}>{title}</h3></Link>

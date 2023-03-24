@@ -10,7 +10,7 @@ const Main = () => {
             <LeftAside />
             <Content />
             <RightAside />
-            <SiteAdd />
+
         </ComponentsWrapper>
     );
 }

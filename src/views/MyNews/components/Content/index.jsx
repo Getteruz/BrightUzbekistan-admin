@@ -15,6 +15,7 @@ import getQueryInArray from "../../../../utils/getQueryInArray";
 import paramsToObject from "../../../../utils/paramsToObject";
 import { btns } from "./data";
 import cls from './Content.module.scss';
+import Filter from "../../../../components/Filter/Filter";
 
 const Content = () => {
     const location = useLocation()
@@ -25,7 +26,7 @@ const Content = () => {
         ['my-news', params.get('category') || '', params.get('page') || ''],
         async ({ queryKey }) => await getMyNews({ categoryId: queryKey[1] || '', state: queryKey[2] || '' })
     )
-console.log(mynews);
+    console.log(mynews);
     const handleClick = async () => {
         try {
             setLoading(true)
@@ -71,21 +72,26 @@ console.log(mynews);
                         <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
                     </Flex>
                 </div>
-                <BtnGroup>
-                    {
-                        btns?.length > 0 && btns.map(btn =>
-                            <button
-                                key={btn.id}
-                                className={params.get('page') === btn.link ? cls.active__btn : ''}
-                                onClick={() => setSearchParams({ page: btn.link }, {replace: true})}
-                            >
-                                {btn.label}
-                            </button>
-                        )
-                    }
-                </BtnGroup>
+                <div>
+                    <div className={cls.main__btnwrap}>
+                        <BtnGroup>
+                            {
+                                btns?.length > 0 && btns.map(btn =>
+                                    <button
+                                        key={btn.id}
+                                        className={params.get('page') === btn.link ? cls.active__btn : ''}
+                                        onClick={() => setSearchParams({ page: btn.link }, { replace: true })}
+                                    >
+                                        {btn.label}
+                                    </button>
+                                )
+                            }
+                        </BtnGroup>
+                    </div>
+                </div>
             </div>
         }>
+            <Filter />
             <NewsList news={mynews} />
             {loading && <Loader text="Идёт публикация новостей" />}
         </ContentWrapper>

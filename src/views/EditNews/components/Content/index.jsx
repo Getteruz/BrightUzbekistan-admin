@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import {useCookies} from 'react-cookie'
+import { useCookies } from 'react-cookie'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
+import Filter from '../../../../components/Filter/Filter';
 import Flex from '../../../../components/Flex';
 import BtnGroup from '../../../../components/Form/BtnGroup';
 import Input from '../../../../components/Form/Input';
@@ -28,8 +29,8 @@ const Content = ({ register, handleSubmit, setValue }) => {
     const [cookie, setCookie] = useCookies(['user'])
 
     useEffect(() => {
-        if(!params.get('lang')){
-            setSearchParams({lang: 'uz'}, {replace: true})
+        if (!params.get('lang')) {
+            setSearchParams({ lang: 'uz' }, { replace: true })
         }
     }, [!!params.get('lang')])
 
@@ -41,16 +42,16 @@ const Content = ({ register, handleSubmit, setValue }) => {
             fd.append(params.get('lang') + '_img', data.img[0])
             fd.append('creator', creator)
             fd.append(params.get('lang'), JSON.stringify({
-                title: data.title, 
-                description: data.description, 
+                title: data.title,
+                description: data.description,
                 shortDescription: data.shortDesc,
                 shortLink: data.shortLink,
                 tags: data.hashtags
             }))
-            
+
             const res = await createNews(fd)
 
-            if(!res?.error){
+            if (!res?.error) {
                 setOpenModal(true)
             }
 
@@ -79,7 +80,7 @@ const Content = ({ register, handleSubmit, setValue }) => {
                         langs?.length > 0 && langs.map(lang =>
                             <button
                                 key={lang.id}
-                                onClick={() => setSearchParams({lang: lang.lang}, {replace: true})}
+                                onClick={() => setSearchParams({ lang: lang.lang }, { replace: true })}
                                 className={lang?.lang === params.get('lang') ? cls.active__btn : ""}
                             >
                                 {lang?.label}
@@ -87,6 +88,7 @@ const Content = ({ register, handleSubmit, setValue }) => {
                         )
                     }
                 </BtnGroup>
+                <Filter />
                 <div className={cls.content__form__wrapper}>
                     <Flex direction='column' gap='20'>
                         <Input placeholder='Загаловок новости' label='Загаловок новости' register={{ ...register('title') }} />
@@ -95,8 +97,8 @@ const Content = ({ register, handleSubmit, setValue }) => {
                     </Flex>
                     <SquarePhotoUpload register={{ ...register('img') }} />
                 </div>
-                <RichText 
-                    register={register} 
+                <RichText
+                    register={register}
                     setValue={setValue}
                     name='description'
                 />

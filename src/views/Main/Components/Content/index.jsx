@@ -9,6 +9,7 @@ import Checkbox from '../../../../components/Form/Checkbox';
 import Datapicker from '../../../../components/Form/Datapicker';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
+import SiteAdd from '../../../../components/siteAdd/SiteAdd';
 import { getPublishedNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
@@ -52,6 +53,7 @@ const Content = () => {
             <Filter />
 
             <NewsList news={news} />
+            <SiteAdd />
         </ContentWrapper>
     );
 }

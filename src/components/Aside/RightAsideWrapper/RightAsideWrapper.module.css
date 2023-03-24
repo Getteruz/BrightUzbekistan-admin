@@ -9,7 +9,7 @@
   align-items: flex-start;
   gap: 30px;
 }
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1130px) {
   .aside {
     display: none;
   }

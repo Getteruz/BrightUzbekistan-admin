@@ -12,3 +12,9 @@
     gap: 7px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 650px) {
+    .btn {
+        display: none;
+    }
+}

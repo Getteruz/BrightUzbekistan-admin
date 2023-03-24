@@ -1,13 +1,18 @@
-@use '../../../scss/colors' as v;
+@use '../../../scss/colors'as v;
 
-.group{
+.group {
     width: 100%;
     display: flex;
     border: 1px solid v.$border-color;
     border-radius: 5px;
     padding: 13px 17px;
 
-    & > button{
+    @media screen and (max-width: 600px) {
+        width: 600px;
+        border: none;
+    }
+
+    &>button {
         padding: 0 20px;
         background: transparent;
         border: none;
@@ -18,11 +23,12 @@
         line-height: 16px;
         color: v.$green-color;
 
-        &:first-child{
+        &:first-child {
             border-left: none;
             padding-left: 0;
         }
-        &:last-child{
+
+        &:last-child {
             border-right: none;
             padding-right: 0;
         }

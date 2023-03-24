@@ -4,7 +4,6 @@ import cls from './SiteAdd.module.scss'
 export default function SiteAdd() {
     return (
         <div className={cls.SiteAdd}>
-
         </div>
     )
 }

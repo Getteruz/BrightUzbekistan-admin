@@ -70,7 +70,7 @@
 }
 
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1300px) {
     .sidebar {
         position: absolute;
         display: flex;
@@ -121,13 +121,32 @@
             opacity: 1;
             margin-top: auto;
         }
+
     }
+}
+
+@media screen and (max-width: 650px) {
+    .sidebar {
+        width: 70px;
+        height: 60px;
+        display: flex;
+        align-items: flex-start;
+
+        &__list2 {
+            display: none;
+        }
+
+        &__button2 {
+            display: none;
+        }
+    }
+
 }
 
 .openmadal {
 
     width: 220px !important;
-
+    height: 100vh;
 
     .sidebar__img {
         display: inline-block;
@@ -157,4 +176,10 @@
         display: none;
     }
 
+}
+
+@media screen and (max-width: 650px) {
+    .openmadal {
+        width: 363px !important;
+    }
 }

@@ -5,6 +5,12 @@
   border-radius: 5px;
   padding: 13px 17px;
 }
+@media screen and (max-width: 600px) {
+  .group {
+    width: 600px;
+    border: none;
+  }
+}
 .group > button {
   padding: 0 20px;
   background: transparent;
@@ -14,7 +20,7 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: rgba(11, 33, 43, 0.4);
+  color: #0B212B;
 }
 .group > button:first-child {
   border-left: none;

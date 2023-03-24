@@ -2,7 +2,11 @@
     display: none;
 }
 
-@media screen and(max-width: 1000px) {
+.filterSort {
+    display: none;
+}
+
+@media screen and(min-width: 768px) and(max-width: 1130px) {
     .filter {
         width: 100%;
         display: block;
@@ -11,6 +15,25 @@
         margin-bottom: 26px;
         padding: 10px;
         padding-top: 0;
+    }
+}
+
+@media screen and(max-width: 768px) {
+    .filterSort {
+        display: flex;
+        margin-bottom: 17px;
+
+        &__link {
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+            color: #0B212B;
+            border-bottom: 2px dotted black;
+            padding-bottom: 2px;
+            margin-right: 16px;
+        }
     }
 
 }

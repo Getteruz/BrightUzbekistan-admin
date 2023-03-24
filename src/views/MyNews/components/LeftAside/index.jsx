@@ -7,9 +7,11 @@ import LeftAsideWrapper from '../../../../components/Aside/LeftAsideWrapper';
 import { useQuery } from 'react-query';
 import { getCategories } from '../../../../services/category';
 import paramsToObject from '../../../../utils/paramsToObject';
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
 
 const LeftAside = () => {
     const navigate = useNavigate()
+    const windowWidth = useGetWindowWidth()
     const [params, setSearchParams] = useSearchParams()
     const { data: categories } = useQuery('categories', getCategories)
 
@@ -17,7 +19,7 @@ const LeftAside = () => {
         <LeftAsideWrapper>
             <WhiteButton onClick={() => navigate('/addnews')}>
                 <PlusIcon />
-                Добавить новости
+                Добавить {windowWidth > 1350 && 'новости'}
             </WhiteButton>
             <Flex gap='15' direction='column' alignItems='flex-start'>
                 {
@@ -25,7 +27,7 @@ const LeftAside = () => {
                         <SimpleButton
                             key={ctg.id}
                             active={params.get('category') === ctg.id}
-                            onClick={() => setSearchParams({...paramsToObject(params.entries()), category: ctg.id}, { replace: true })}
+                            onClick={() => setSearchParams({ ...paramsToObject(params.entries()), category: ctg.id }, { replace: true })}
                         >
                             {ctg?.ru}
                         </SimpleButton>

@@ -1,0 +1,22 @@
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.checkbox > span {
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.checkbox > span:hover {
+  opacity: 1;
+}
+
+.active {
+  opacity: 1 !important;
+  color: #F3715B;
+}
+
+.disabled {
+  visibility: hidden;
+}/*# sourceMappingURL=RightAside.module.css.map */

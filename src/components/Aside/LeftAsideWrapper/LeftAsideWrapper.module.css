@@ -12,12 +12,12 @@
   margin-top: auto;
 }
 
-@media screen and (min-width: 400px) and (max-width: 1140px) {
+@media screen and (min-width: 400px) and (max-width: 1300px) {
   .aside {
     margin-left: 70px;
   }
 }
-@media screen and (max-width: 615px) {
+@media screen and (max-width: 768px) {
   .aside {
     display: none;
   }

@@ -60,7 +60,7 @@
 }
 
 
-@media screen and (min-width:400px) and (max-width: 1140px) {
+@media screen and (max-width: 1300px) {
     .nav {
         &__container {
             padding-right: 25px;
@@ -71,6 +71,15 @@
             display: inline-block;
             width: 100%;
             max-width: 108px;
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .nav {
+        &__img {
+            display: inline-block;
+            width: 83px;
         }
     }
 }

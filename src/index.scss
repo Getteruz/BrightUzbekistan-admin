@@ -113,12 +113,12 @@ p {
   flex-shrink: 0;
 }
 
-.fr-wrapper > div:not(.fr-element):not(.fr-placeholder) {
-  display: none!important;
-  width: 0!important;
-  height: 0!important;
-  opacity: 0!important;
-  visibility: hidden!important;
+.fr-wrapper>div:not(.fr-element):not(.fr-placeholder) {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
 }
 
 .fr-box {
@@ -126,11 +126,12 @@ p {
     border: 1px solid #0B212B;
   }
 }
-@media screen and(max-width: 1000px) {
+
+@media screen and(max-width: 1300px) {
 
   ._datapicker_1gdxz_1 {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
 }

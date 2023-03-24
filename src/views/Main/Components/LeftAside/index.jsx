@@ -6,25 +6,28 @@ import { PlusIcon } from '../../../../components/icons';
 import LeftAsideWrapper from '../../../../components/Aside/LeftAsideWrapper';
 import { useQuery } from 'react-query';
 import { getCategories } from '../../../../services/category';
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
 
 const LeftAside = () => {
     const navigate = useNavigate()
     const [params] = useSearchParams()
-    const {data: categories} = useQuery('categories', getCategories)
+    const windowWidth = useGetWindowWidth()
+    const { data: categories } = useQuery('categories', getCategories)
 
     return (
         <LeftAsideWrapper>
             <WhiteButton onClick={() => navigate('/addnews')}>
                 <PlusIcon />
-                Добавить новости
+                Добавить {windowWidth > 1350 && 'новости'}
             </WhiteButton>
+
             <Flex gap='15' direction='column' alignItems='flex-start'>
                 {
-                    categories?.length > 0 && categories?.map(ctg => 
-                        <SimpleButton 
-                            key={ctg.id} 
+                    categories?.length > 0 && categories?.map(ctg =>
+                        <SimpleButton
+                            key={ctg.id}
                             active={params.get('category') === ctg.id}
-                            onClick={() => navigate(`?category=${ctg?.id}`, {replace: true})}
+                            onClick={() => navigate(`?category=${ctg?.id}`, { replace: true })}
                         >
                             {ctg?.ru}
                         </SimpleButton>

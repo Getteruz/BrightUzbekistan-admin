@@ -55,7 +55,7 @@
   opacity: 1;
 }
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1300px) {
   .sidebar {
     position: absolute;
     display: flex;
@@ -98,8 +98,23 @@
     margin-top: auto;
   }
 }
+@media screen and (max-width: 650px) {
+  .sidebar {
+    width: 70px;
+    height: 60px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .sidebar__list2 {
+    display: none;
+  }
+  .sidebar__button2 {
+    display: none;
+  }
+}
 .openmadal {
   width: 220px !important;
+  height: 100vh;
 }
 .openmadal .sidebar__img {
   display: inline-block;
@@ -121,4 +136,10 @@
 }
 .openmadal .sidebar__button2 {
   display: none;
+}
+
+@media screen and (max-width: 650px) {
+  .openmadal {
+    width: 363px !important;
+  }
 }/*# sourceMappingURL=Sidebar.module.css.map */
