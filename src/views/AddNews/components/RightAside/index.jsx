@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
@@ -16,9 +16,7 @@ import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './RightAside.module.scss'
 
 const RightAside = ({ useForm = {} }) => {
-    const { setValue } = useForm
-    const [hashTags, setHashtags] = useState([])
-    const [activeCtg, setActiveCtg] = useState()
+    const { setValue, getValues } = useForm
     const [params, setSearchParams] = useSearchParams()
     const { data: categories } = useQuery('categories', getCategories)
 
@@ -34,21 +32,33 @@ const RightAside = ({ useForm = {} }) => {
             categories = categories?.filter(ctg => ctg !== e.target.value)
         }
 
-        if (!categories?.includes(activeCtg)) {
-            setActiveCtg(categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID))
+        if (!categories?.includes(params.get('main'))) {
+            setSearchParams(params.set('main', categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID) || ''), {
+                replace: true
+            })
         }
+
+        categories = Array.from(new Set(categories))
 
         setValue('categories', categories)
         setSearchParams({ ...paramsToObject(params.entries()), 'categories': categories?.join(',') || '' }, { replace: true })
     }
 
-    useEffect(() => {
-        setValue('hashtags', hashTags)
-    }, [hashTags]);
+    const handleKeyUp = (e) => {
+        if(e.keyCode === 13 && !!e.target.value?.trim()) {
+            const values = getValues()
+            const hashtags = values?.[params.get('lang')]?.hashtags || []
+            hashtags.push(e.target.value?.trim())
+            setValue(`${params.get('lang')}.hashtags`, Array.from(new Set(hashtags)))
+        } 
+        if(e.keyCode === 13){
+            e.target.value = ''
+        }
+    }
 
     useEffect(() => {
-        setValue('mainCtg', activeCtg)
-    }, [activeCtg])
+        setValue('mainCtg', params.get('main'))
+    }, [params.get('main')])
 
     return (
         <RightAsideWrapper>
@@ -60,8 +70,8 @@ const RightAside = ({ useForm = {} }) => {
                                 getQueryInArray('categories')?.some(category => category == ctg.id) &&
                                     ctg.id !== import.meta.env.VITE_LAST_NEWS_ID ? (
                                     <span
-                                        className={activeCtg === ctg.id ? cls.active : ""}
-                                        onClick={() => setActiveCtg(ctg.id)}
+                                        className={params.get('main') === ctg.id ? cls.active : ""}
+                                        onClick={() => setSearchParams({...paramsToObject(params.entries()), 'main': ctg.id}, {replace: true})}
                                     >*</span>
                                 ) : (
                                     <span className={cls.disabled}>*</span>
@@ -83,8 +93,8 @@ const RightAside = ({ useForm = {} }) => {
                 <Datapicker label='Дата' />
             </DateGroup>
             <Flex gap='15' direction='column'>
-                <RoundedInput placeholder='Название тега' label='Теги' setHashtags={setHashtags} />
-                <TagsGroup tags={hashTags} setHashtags={setHashtags} />
+                <RoundedInput placeholder='Название тега' label='Теги' onKeyUp={handleKeyUp} />
+                <TagsGroup tags={getValues()?.[params.get('lang')]?.hashtags || []} setValue={setValue} />
             </Flex>
         </RightAsideWrapper>
     );

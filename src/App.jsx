@@ -13,7 +13,9 @@ function App() {
   const dispatch = useDispatch()
   const auth = useSelector((state) => state.auth)
   const { data, isLoading } = useQuery('me', getAdminInfo, {
-    enabled: location.pathname !== '/auth'
+    enabled: location.pathname !== '/auth',
+    staleTime: Infinity,
+    cacheTime: Infinity
   })
 
   useEffect(() => {

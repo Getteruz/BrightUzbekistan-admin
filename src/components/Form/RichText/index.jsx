@@ -20,6 +20,8 @@ const config = (setValue, getValues) => ({
     heightMax: 592,
     widthMax: '100%',
     linkInsertButtons: [],
+    imageResize: true,
+    imageDefaultWidth: '100%',
     fontFamilySelection: true,
     fontSizeSelection: true,
     paragraphFormatSelection: true,
@@ -101,13 +103,19 @@ const config = (setValue, getValues) => ({
 
 let replyEditor = "";
 
-const RichText = ({ register, setValue = () => {}, getValues = () => {}, name }) => {
+const RichText = ({ 
+    register, 
+    setValue = () => {}, 
+    getValues = () => {},
+    value = '' ,
+    name = ''
+}) => {
     return (
         <FroalaEditor
-            name={name}
+            model={value}
             onModelChange={(model) => setValue(name, model)}
             config={config(setValue, getValues)}
-            {...register('description')}
+            {...register}
         />
     );
 }

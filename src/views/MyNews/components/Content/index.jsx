@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { useLocation, useSearchParams } from "react-router-dom";
 import RedButton from "../../../../components/Buttons/RedButton";
 import SimpleButton from "../../../../components/Buttons/SimpleButton";
@@ -47,7 +47,7 @@ const Content = () => {
     const handleClick = () => {
         setIsOpenModal(true)
     }
-
+ 
     const handleCheck = (e) => {
         if (e.target.checked) {
             setSearchParams({ ...paramsToObject(params.entries()), checked: mynews?.map(news => news?.id)?.join(',') })
@@ -73,7 +73,7 @@ const Content = () => {
                             onChange={handleCheck}
                             checked={mynews?.length > 0 && getQueryInArray('checked')?.length === mynews?.length}
                         />
-                        <RedButton 
+                        <RedButton
                             disabled={isDisabled || !['general access', 'favorites']?.includes(params.get('page'))} 
                             onClick={handleClick}
                         >

@@ -8,7 +8,7 @@ import MyNews from "../views/MyNews"
 import Users from "../views/Users"
 import UserInfo from "../views/Users/components/UserInfo"
 import Roles from "../views/Users/components/Roles"
-import AddNews from "../views/News"
+import AddNews from "../views/AddNews"
 import EditNews from "../views/EditNews"
 
 const Router = () => {

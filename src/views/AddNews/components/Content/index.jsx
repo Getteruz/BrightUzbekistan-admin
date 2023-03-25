@@ -18,6 +18,7 @@ import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
 import { createNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
+import { saveToLocalStorage } from '../../../../utils/localStorageService';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 import { langs } from './data';
@@ -27,28 +28,28 @@ const Content = ({ useForm = {} }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
-    const {register, handleSubmit, setValue, watch, getValues} = useForm
+    const { register, handleSubmit, setValue, watch, getValues } = useForm
     const watchedFiles = watch()
-    
+
     const func = async (data, state) => {
         try {
             setIsLoading(true)
             const fd = new FormData()
             fd.append('state', state)
-            if(data?.mainCtg) fd.append('mainCategory', data?.mainCtg)
+            if (data?.mainCtg) fd.append('mainCategory', data?.mainCtg)
             fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
             fd.append(params.get('lang'), JSON.stringify({
-                title: data?.title, 
-                description: data?.description, 
+                title: data?.title,
+                description: data?.description,
                 shortDescription: data?.shortDesc,
                 shortLink: data?.shortLink,
                 tags: data?.hashtags || [],
                 descImg: data?.descImg || []
             }))
             const res = await createNews(fd)
-            
-            if(!res?.error){
+
+            if (!res?.error) {
                 setOpenModal(true)
             }
         } catch (error) {
@@ -59,12 +60,22 @@ const Content = ({ useForm = {} }) => {
     }
 
     useEffect(() => {
-        setSearchParams({
-            ...paramsToObject(params.entries()), 
-            'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(','),
-            lang: 'uz'
-        }, {replace: true})
+        const categories = getQueryInArray('categories') || []
+        if (!categories?.includes(import.meta.env.VITE_LAST_NEWS_ID)) {
+            setSearchParams({
+                ...paramsToObject(params.entries()),
+                'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(','),
+            }, { replace: true })
+        }
+        if (!params.get('lang')) {
+            setSearchParams({ ...paramsToObject(params.entries()), lang: 'uz' }, { replace: true })
+        }
+        setValue('categories', getQueryInArray('categories') || [])
     }, [])
+
+    useEffect(() => {
+        saveToLocalStorage('new_news', watchedFiles)
+    }, [watchedFiles])
 
     return (
         <ContentWrapper navbar={
@@ -85,7 +96,7 @@ const Content = ({ useForm = {} }) => {
                         langs?.length > 0 && langs.map(lang =>
                             <button
                                 key={lang.id}
-                                onClick={() => setSearchParams({...paramsToObject(params.entries()), lang: lang.lang}, {replace: true})}
+                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), lang: lang.lang }, { replace: true })}
                                 className={lang?.lang === params.get('lang') ? cls.active__btn : ""}
                             >
                                 {lang?.label}
@@ -95,17 +106,37 @@ const Content = ({ useForm = {} }) => {
                 </BtnGroup>
                 <div className={cls.content__form__wrapper}>
                     <Flex direction='column' gap='20'>
-                        <Input placeholder='Загаловок новости' label='Загаловок новости' register={{ ...register('title') }} />
-                        <TextArea placeholder='Краткое описание' label='Краткое описание' register={{ ...register('shortDesc') }} />
-                        <Input placeholder='Короткий линк' label='Короткий линк' register={{ ...register('shortLink') }} />
+                        <Input
+                            placeholder='Загаловок новости'
+                            label='Загаловок новости'
+                            value={watchedFiles?.[params.get('lang')]?.['title'] || ''}
+                            register={{ ...register(`${params.get('lang')}.title`) }}
+                        />
+                        <TextArea
+                            placeholder='Краткое описание'
+                            label='Краткое описание'
+                            value={watchedFiles?.[params.get('lang')]?.['shortDesc'] || ''}
+                            register={{ ...register(`${params.get('lang')}.shortDesc`) }}
+                        />
+                        <Input
+                            placeholder='Короткий линк'
+                            label='Короткий линк'
+                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
+                            register={{ ...register(`${params.get('lang')}.shortLink`) }}
+                        />
                     </Flex>
-                    <SquarePhotoUpload setValue={setValue}  name='img' />
+                    <SquarePhotoUpload
+                        setValue={setValue}
+                        name={`${params.get('lang')}_img`}
+                        // value={watchedFiles?.[`${params.get('lang')}_img`] ? watchedFiles?.[`${params.get('lang')}_img`] : {}}
+                    />
                 </div>
-                <RichText 
-                    register={register} 
+                <RichText
+                    value={watchedFiles?.[params.get('lang')]?.['description'] || ''}
+                    register={{ ...register(`${params.get('lang')}.description`) }} 
                     setValue={setValue}
                     getValues={getValues}
-                    name='description'
+                    name={`${params.get('lang')}.description`}
                 />
             </div>
         </ContentWrapper>
