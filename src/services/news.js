@@ -66,3 +66,15 @@ export const deleteNews = async (body) => {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
+
+export const getNewsById = async (id) => {
+    try {
+        const res = await api.get(`/single-news/${id}`)
+        if (res?.data?.error) {
+            showAlert({ message: res?.data?.message })
+        }
+        return res?.data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}

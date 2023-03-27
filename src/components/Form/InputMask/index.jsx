@@ -7,7 +7,7 @@ const InputMask = ({
     mask = '',
     name = '',
     rules,
-    control
+    control,
 }) => {
     return (
         <Controller

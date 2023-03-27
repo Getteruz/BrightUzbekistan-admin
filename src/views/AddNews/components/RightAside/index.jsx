@@ -32,8 +32,8 @@ const RightAside = ({ useForm = {} }) => {
             categories = categories?.filter(ctg => ctg !== e.target.value)
         }
 
-        if (!categories?.includes(params.get('main'))) {
-            setSearchParams(params.set('main', categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID) || ''), {
+        if (!categories?.includes(params.get('mainCategory'))) {
+            setSearchParams(params.set('mainCategory', categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID) || ''), {
                 replace: true
             })
         }
@@ -47,18 +47,26 @@ const RightAside = ({ useForm = {} }) => {
     const handleKeyUp = (e) => {
         if(e.keyCode === 13 && !!e.target.value?.trim()) {
             const values = getValues()
-            const hashtags = values?.[params.get('lang')]?.hashtags || []
+            const hashtags = values?.[params.get('lang')]?.tags || []
             hashtags.push(e.target.value?.trim())
-            setValue(`${params.get('lang')}.hashtags`, Array.from(new Set(hashtags)))
+            setValue(`${params.get('lang')}.tags`, Array.from(new Set(hashtags)))
         } 
         if(e.keyCode === 13){
             e.target.value = ''
         }
     }
 
+    const onTimeChange = (e) => {
+        console.log(e);
+    }
+
+    const onDateChange = (e) => {
+        console.log(e);
+    }
+
     useEffect(() => {
-        setValue('mainCtg', params.get('main'))
-    }, [params.get('main')])
+        setValue('mainCategory', params.get('mainCategory'))
+    }, [params.get('mainCategory')])
 
     return (
         <RightAsideWrapper>
@@ -70,8 +78,8 @@ const RightAside = ({ useForm = {} }) => {
                                 getQueryInArray('categories')?.some(category => category == ctg.id) &&
                                     ctg.id !== import.meta.env.VITE_LAST_NEWS_ID ? (
                                     <span
-                                        className={params.get('main') === ctg.id ? cls.active : ""}
-                                        onClick={() => setSearchParams({...paramsToObject(params.entries()), 'main': ctg.id}, {replace: true})}
+                                        className={params.get('mainCategory') === ctg.id ? cls.active : ""}
+                                        onClick={() => setSearchParams({...paramsToObject(params.entries()), 'mainCategory': ctg.id}, {replace: true})}
                                     >*</span>
                                 ) : (
                                     <span className={cls.disabled}>*</span>
@@ -89,12 +97,12 @@ const RightAside = ({ useForm = {} }) => {
                 }
             </SwitchGroup>
             <DateGroup label='Дата публикации'>
-                <Timepicker label='Время' />
-                <Datapicker label='Дата' />
+                <Timepicker label='Время' onChange={onTimeChange} />
+                <Datapicker label='Дата' onChange={onDateChange} />
             </DateGroup>
             <Flex gap='15' direction='column'>
                 <RoundedInput placeholder='Название тега' label='Теги' onKeyUp={handleKeyUp} />
-                <TagsGroup tags={getValues()?.[params.get('lang')]?.hashtags || []} setValue={setValue} />
+                <TagsGroup tags={getValues()?.[params.get('lang')]?.tags || []} setValue={setValue} />
             </Flex>
         </RightAsideWrapper>
     );

@@ -29,6 +29,7 @@ const config = (setValue, getValues) => ({
     toolbarSticky: true,
     toolbarInline: false,
     toolbarVisibleWithoutSelection: true,
+    imageManagerDeleteMethod: false,
     imageAllowedTypes: ['jpeg', 'jpg', 'png'],
     toolbarButtons: {
         'moreText': {
@@ -91,8 +92,6 @@ const config = (setValue, getValues) => ({
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
                 }
             }).then(res => replyEditor.video.insert(String(res?.data?.url), null, null, replyEditor.video.get()))
-            // .then(() => replyEditor.video.get());
-            // return false
         },
         'paste.beforeCleanup': function (clipboardHtml) {
             return replyEditor.html.setValue(clipboardHtml)

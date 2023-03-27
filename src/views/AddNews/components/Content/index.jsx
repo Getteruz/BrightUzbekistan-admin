@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
@@ -17,11 +16,12 @@ import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
 import { createNews } from '../../../../services/news';
+import { removeFile, uploadImage } from '../../../../services/upload';
 import getQueryInArray from '../../../../utils/getQueryInArray';
-import { saveToLocalStorage } from '../../../../utils/localStorageService';
 import paramsToObject from '../../../../utils/paramsToObject';
-import cls from './Content.module.scss'
+import { saveToLocalStorage } from '../../../../utils/localStorageService';
 import { langs } from './data';
+import cls from './Content.module.scss'
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
@@ -36,17 +36,10 @@ const Content = ({ useForm = {} }) => {
             setIsLoading(true)
             const fd = new FormData()
             fd.append('state', state)
-            if (data?.mainCtg) fd.append('mainCategory', data?.mainCtg)
+            if (data?.mainCtg) fd.append('mainCategory', data?.mainCategory)
             fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append(params.get('lang'), JSON.stringify({
-                title: data?.title,
-                description: data?.description,
-                shortDescription: data?.shortDesc,
-                shortLink: data?.shortLink,
-                tags: data?.hashtags || [],
-                descImg: data?.descImg || []
-            }))
+            fd.append(params.get('lang'), JSON.stringify(data?.[params.get('lang')]))
             const res = await createNews(fd)
 
             if (!res?.error) {
@@ -59,19 +52,21 @@ const Content = ({ useForm = {} }) => {
         }
     }
 
-    useEffect(() => {
-        const categories = getQueryInArray('categories') || []
-        if (!categories?.includes(import.meta.env.VITE_LAST_NEWS_ID)) {
-            setSearchParams({
-                ...paramsToObject(params.entries()),
-                'categories': [...(getQueryInArray('categories') || []), import.meta.env.VITE_LAST_NEWS_ID]?.join(','),
-            }, { replace: true })
+    const uploadSelectedImage = async (e) => {
+        const file = e.target?.files?.[0]
+        if (file) {
+            const data = await uploadImage(file)
+            if(data?.url){
+                setValue(`${params.get('lang')}.file`, data?.url)
+            }
         }
-        if (!params.get('lang')) {
-            setSearchParams({ ...paramsToObject(params.entries()), lang: 'uz' }, { replace: true })
-        }
-        setValue('categories', getQueryInArray('categories') || [])
-    }, [])
+    }
+
+    const deleteImage = async (url) => {
+        await removeFile(url)
+        setValue(`${params.get('lang')}.file`, null)
+    }
+
 
     useEffect(() => {
         saveToLocalStorage('new_news', watchedFiles)
@@ -81,7 +76,7 @@ const Content = ({ useForm = {} }) => {
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>
                 <Flex gap='5' rowCount='2' alignItems='center'>
-                    <RedButton onClick={handleSubmit((data) => func(data, 'general access'))}>Сохранить</RedButton>
+                    <RedButton onClick={handleSubmit((data) => func(data, 'general access'))} disabled={!watchedFiles?.ru?.title}>Сохранить</RedButton>
                     <RoundedButton onClick={handleSubmit((data) => func(data, 'favorites'))}><BookIcon /> Избранные</RoundedButton>
                 </Flex>
                 <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
@@ -115,8 +110,8 @@ const Content = ({ useForm = {} }) => {
                         <TextArea
                             placeholder='Краткое описание'
                             label='Краткое описание'
-                            value={watchedFiles?.[params.get('lang')]?.['shortDesc'] || ''}
-                            register={{ ...register(`${params.get('lang')}.shortDesc`) }}
+                            value={watchedFiles?.[params.get('lang')]?.['shortDescription'] || ''}
+                            register={{ ...register(`${params.get('lang')}.shortDescription`) }}
                         />
                         <Input
                             placeholder='Короткий линк'
@@ -127,8 +122,9 @@ const Content = ({ useForm = {} }) => {
                     </Flex>
                     <SquarePhotoUpload
                         setValue={setValue}
-                        name={`${params.get('lang')}_img`}
-                        // value={watchedFiles?.[`${params.get('lang')}_img`] ? watchedFiles?.[`${params.get('lang')}_img`] : {}}
+                        onChange={uploadSelectedImage}
+                        onDelete={deleteImage}
+                        url={watchedFiles?.[params.get('lang')]?.file}
                     />
                 </div>
                 <RichText

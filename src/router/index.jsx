@@ -10,6 +10,7 @@ import UserInfo from "../views/Users/components/UserInfo"
 import Roles from "../views/Users/components/Roles"
 import AddNews from "../views/AddNews"
 import EditNews from "../views/EditNews"
+import EditUser from "../views/EditUser"
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
           <Route path="" element={<Roles />} />
           <Route path=":id" element={<UserInfo />} />
         </Route>
+        <Route path="/user/edit/:id" element={<EditUser />} />
         <Route path="/adduser" element={<AddUser />} />
         <Route path="/adduser" element={<AddUser />} />
         <Route path="/general-access" element={<></>} />

@@ -6,12 +6,13 @@ const Input = ({
     placeholder = '', 
     label = '', 
     register = {}, 
+    value = '',
     ...other
 }) => {
     return (
         <label className={cls.label}>
             {label}
-            <input type={type} placeholder={placeholder} {...register} {...other} />
+            <input type={type} placeholder={placeholder} value={value} {...register} {...other} />
         </label>
     );
 }

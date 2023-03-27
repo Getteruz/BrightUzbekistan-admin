@@ -8,7 +8,7 @@ const UsersGroup = ({users = [], label = ''}) => {
             <h4>{label}</h4>
             <Flex direction='column' gap='10'>
                 {
-                    users?.length > 0 && users.map((user, index) => 
+                    users?.length > 0 && users.map((user) => 
                         <UserItem 
                             key={user?.id} 
                             id={user?.id}

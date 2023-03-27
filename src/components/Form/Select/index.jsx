@@ -9,7 +9,8 @@ const Select = ({
     options = [], 
     placeholder = '',
     rules,
-    control
+    control,
+    value = ''
 }) => {
     return (
         <label className={cls.label}>
@@ -17,11 +18,11 @@ const Select = ({
             <Controller 
                 name={name}
                 control={control}
-                defaultValue=''
                 rules={rules}
                 render={({field}) => (
                     <CSelect 
                         onChange={field.onChange}
+                        {...{[value && 'value']: value}}
                         onBlur={field.onBlur}
                         options={options}
                         suffixIcon={<SelectIcon />}

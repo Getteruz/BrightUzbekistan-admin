@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LetteredAvatar from 'react-lettered-avatar';
 import Avatar from '../../../../components/Avatar';
 import BtnGroup from '../../../../components/Form/BtnGroup';
@@ -11,6 +11,7 @@ import Loader from '../../../../components/Loader';
 
 const UserInfo = () => {
     const { id } = useParams()
+    const navigate = useNavigate()
     const { data: admin, isLoading } = useQuery(['admin', id], async () => await getAdminById(id))
     return (
         <div className={cls.box}>
@@ -23,7 +24,7 @@ const UserInfo = () => {
                         <h4>{admin?.fullName}</h4>
                         <div>
                             <button>Удалить</button>
-                            <button>Изменить</button>
+                            <button onClick={() => navigate(`/user/edit/${id}`)}>Изменить</button>
                         </div>
                     </div>
                     <p className={cls.box__info__desc}>{admin?.education}</p>

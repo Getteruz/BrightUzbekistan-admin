@@ -13,7 +13,7 @@ const TagsGroup = ({tags = [], setValue = () => {}}) => {
             {tags?.length > 0 && tags.map((tag, index) => 
                 <Tag 
                     key={index} 
-                    onClick={() => setValue(`${params.get('lang')}.hashtags`, tags.filter((_, stateIndex) => stateIndex !== index))}
+                    onClick={() => setValue(`${params.get('lang')}.tags`, tags.filter((_, stateIndex) => stateIndex !== index))}
                 >
                     #{tag}
                 </Tag>
