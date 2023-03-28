@@ -36,7 +36,8 @@ const EditGeneralAccess = () => {
 
     useEffect(() => {
         socket.emit('create', id)
-        socket.on('event', id => alert(id))
+
+        return () => socket.emit('leave', id)
     }, [])
 
     return (

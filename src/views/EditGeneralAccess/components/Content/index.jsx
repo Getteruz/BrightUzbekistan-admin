@@ -86,7 +86,7 @@ const Content = ({ useForm = {} }) => {
     useEffect(() => {
     }, [formState.isDirty])
     
-    console.log(formState.touchedFields);
+    
     return (
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>
@@ -128,12 +128,14 @@ const Content = ({ useForm = {} }) => {
                             label='Краткое описание'
                             value={watchedFiles?.[params.get('lang')]?.['shortDescription'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortDescription`) }}
+                            onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.shortDescription`, value: e.target.value})}
                         />
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
                             value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortLink`) }}
+                            onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value})}
                         />
                     </Flex>
                     <SquarePhotoUpload
@@ -146,6 +148,7 @@ const Content = ({ useForm = {} }) => {
                 <RichText
                     value={watchedFiles?.[params.get('lang')]?.['description'] || ''}
                     register={{ ...register(`${params.get('lang')}.description`) }} 
+                    onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.description`, value: e})}
                     setValue={setValue}
                     getValues={getValues}
                     name={`${params.get('lang')}.description`}
