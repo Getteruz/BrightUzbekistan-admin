@@ -9,22 +9,28 @@ const Input = ({
     label = '',
     register = {},
     value = '',
+    users = [],
     ...other
 }) => {
     return (
         <label className={cls.label}>
             <div className={cls.label__wrapper}>
                 {label}
-                {/* <Avatar.Group>
-                    <Tooltip title="It's me">
-                        <Avatar size={'default'} src={'https://storage.bright.getter.uz/image/c0c9af14-c613-4546-9d7b-67ef08c359ecphoto_2020-11-26_10-00-17.jpg'}>
-                        </Avatar>
-                    </Tooltip>
-                    <Tooltip title="It's me">
-                        <Avatar size={'default'} icon={<LetteredAvatar size="14" />}>
-                        </Avatar>
-                    </Tooltip>
-                </Avatar.Group> */}
+                {users?.length > 0 &&
+                    <Avatar.Group>
+                        {
+                            users?.map(user => (
+                                <Tooltip title={user?.fullName} key={user?.id}>
+                                    <Avatar 
+                                        size={'default'} 
+                                        {...{[user?.avatar && 'src']: user?.avatar}}
+                                        {...{[!user?.avatar && 'icon']: <LetteredAvatar size="14" name={user?.fullName} />}}
+                                    />
+                                </Tooltip>
+                            ))
+                        }
+                    </Avatar.Group>
+                }
             </div>
             <input type={type} placeholder={placeholder} {...{ [value && 'value']: value }} {...register} {...other} />
         </label>
