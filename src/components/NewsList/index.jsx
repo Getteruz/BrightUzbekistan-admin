@@ -8,6 +8,7 @@ const NewsList = ({news = []}) => {
                 news?.length > 0 && news.map((news) => 
                     <ListItem 
                         id={news?.id}
+                        link={`/news/edit/${news?.id}`}
                         key={news?.id} 
                         title={news?.ru?.title}
                         creator={news?.creator?.fullName}

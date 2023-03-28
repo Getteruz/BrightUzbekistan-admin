@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
@@ -19,32 +20,41 @@ import { createNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
-import { saveToLocalStorage } from '../../../../utils/localStorageService';
 import { langs } from './data';
 import cls from './Content.module.scss'
+import useSocket from '../../../../hooks/useSocket';
 
 const Content = ({ useForm = {} }) => {
+    const socket = useSocket()
+    const {id} = useParams()
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
-    const { register, handleSubmit, setValue, watch, getValues } = useForm
+    const { register, handleSubmit, setValue, watch, getValues, formState } = useForm
     const watchedFiles = watch()
-
+    
     const func = async (data, state) => {
         try {
             setIsLoading(true)
             const fd = new FormData()
             fd.append('state', state)
-            if (data?.mainCategory) fd.append('mainCategory', data?.mainCategory)
+            if (data?.mainCtg) fd.append('mainCategory', data?.mainCategory)
             fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append(params.get('lang'), JSON.stringify(data?.[params.get('lang')]))
-            const res = await createNews(fd)
-
-            if (!res?.error) {
-                setOpenModal(true)
-            }
+            fd.append(params.get('lang'), JSON.stringify({
+                title: data?.title,
+                description: data?.description,
+                shortDescription: data?.shortDescription,
+                shortLink: data?.shortLink,
+                tags: data?.hashtags || [],
+                descImg: data?.descImg || []
+            }))
+            // const res = await createNews(fd)
+            alert(JSON.stringify(data, null, 4))
+            // if (!res?.error) {
+            //     setOpenModal(true)
+            // }
         } catch (error) {
             console.log(error);
         } finally {
@@ -67,11 +77,16 @@ const Content = ({ useForm = {} }) => {
         setValue(`${params.get('lang')}.file`, null)
     }
 
+    useEffect(() => {
+        socket.on('input_change', data => {
+            setValue(data?.inputName, data?.value)
+        })
+    }, [])
 
     useEffect(() => {
-        saveToLocalStorage('new_news', watchedFiles)
-    }, [watchedFiles])
-
+    }, [formState.isDirty])
+    
+    console.log(formState.touchedFields);
     return (
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>
@@ -104,8 +119,9 @@ const Content = ({ useForm = {} }) => {
                         <Input
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
-                            value={watchedFiles?.[params.get('lang')]?.['title'] || ''}
+                            value={watchedFiles?.[params?.get('lang')]?.title || ''}
                             register={{ ...register(`${params.get('lang')}.title`) }}
+                            onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value})}
                         />
                         <TextArea
                             placeholder='Краткое описание'

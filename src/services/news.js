@@ -23,6 +23,15 @@ export const getPublishedNews = async (params) => {
     }
 }
 
+export const getGeneralAccessNews = async (params) => {
+    try {
+        params = Object.entries(params)?.map(param => param.join('='))?.join('&')
+        const res = await api.get(`/news/general_access?${params}`)
+        return res?.data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
 
 export const getMyNews = async (params) => {
     try {

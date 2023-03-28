@@ -11,6 +11,8 @@ import Roles from "../views/Users/components/Roles"
 import AddNews from "../views/AddNews"
 import EditNews from "../views/EditNews"
 import EditUser from "../views/EditUser"
+import GeneralAccess from "../views/GenerelAccess"
+import EditGeneralAccess from "../views/EditGeneralAccess"
 
 const Router = () => {
   return (
@@ -28,7 +30,8 @@ const Router = () => {
         <Route path="/user/edit/:id" element={<EditUser />} />
         <Route path="/adduser" element={<AddUser />} />
         <Route path="/adduser" element={<AddUser />} />
-        <Route path="/general-access" element={<></>} />
+        <Route path="/general-access" element={<GeneralAccess />} />
+        <Route path="/general-access/edit/:id" element={<EditGeneralAccess />} />
         <Route path="/dop-pages" element={<></>} />
         <Route path="/reklama" element={<></>} />
         <Route path="/statistika" element={<></>} />

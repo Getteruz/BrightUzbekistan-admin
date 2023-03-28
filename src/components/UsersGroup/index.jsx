@@ -2,7 +2,8 @@ import Flex from '../Flex';
 import UserItem from '../UserItem';
 import cls from './UsersGroup.module.scss'
 
-const UsersGroup = ({users = [], label = ''}) => {
+const UsersGroup = ({users = [], label = '', config = {}}) => {
+    
     return (
         <div className={cls.group}>
             <h4>{label}</h4>
@@ -15,6 +16,7 @@ const UsersGroup = ({users = [], label = ''}) => {
                             name={user?.fullName}
                             role={user?.position?.title}
                             image={user?.avatar}
+                            {...config}
                         />
                     )
                 }

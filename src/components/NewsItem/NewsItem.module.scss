@@ -41,6 +41,19 @@
         opacity: 0.4;
     }
 
+    &__text {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    &__editing {
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        color: #07AC8E;
+    }
+
     &__dots {
         padding: 3px 8px;
         border: none;

@@ -1,0 +1,15 @@
+@use '../../../../scss/colors' as v;
+.content{
+    max-height: 100%;
+    height: 100%;
+
+    &__menu{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        & > label{
+            flex-shrink: 0;
+        }
+    }
+}

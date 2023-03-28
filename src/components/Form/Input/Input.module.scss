@@ -8,6 +8,28 @@
     font-size: 11px;
     line-height: 15px;
 
+    &__wrapper{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        & > div > span{
+            display: flex;
+        }
+
+        & > div > span > div{
+            width: 100%!important;
+            height: 100%!important;
+            display: flex;  
+            align-items: center;
+            justify-content: center;
+
+            & > div{
+                font-size: 15px!important;
+            }
+        }
+    }
+
     & > input{
         width: 100%;
         border: 1px solid rgba(11, 33, 43, 0.2);
