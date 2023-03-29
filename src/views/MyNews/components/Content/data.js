@@ -11,12 +11,12 @@ export const btns = [
     },
     {
         id: 2,
-        label: 'В доработке',
+        label: 'Даработке',
         link: 'general access'
     },
     {
         id: 3,
-        label: 'Отказанные',
+        label: 'Отказона',
         link: 'refected'
     },
     {

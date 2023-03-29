@@ -9,8 +9,9 @@
   align-items: flex-start;
   gap: 30px;
 }
-@media screen and (max-width: 1130px) {
+
+@media screen and (max-width: 1070px) {
   .aside {
     display: none;
   }
-}/*# sourceMappingURL=RightAsideWrapper.module.css.map */
+}

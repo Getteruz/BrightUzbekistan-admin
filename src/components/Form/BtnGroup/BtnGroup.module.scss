@@ -32,5 +32,17 @@
             border-right: none;
             padding-right: 0;
         }
+
+        @media screen and (max-width: 1300px) {
+            font-family: 'Noto Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 11px;
+            line-height: 16px;
+
+            color: #0B212B;
+
+        }
+
     }
 }

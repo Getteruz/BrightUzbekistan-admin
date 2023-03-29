@@ -16,12 +16,14 @@ import paramsToObject from "../../../../utils/paramsToObject";
 import { btns } from "./data";
 import cls from './Content.module.scss';
 import Filter from "../../../../components/Filter/Filter";
+import { useGetWindowWidth } from "../../../../hooks/useGetWindowWith";
 
 const Content = () => {
     const location = useLocation()
     const [loading, setLoading] = useState(false)
     const [isDisabled, setIsDisabled] = useState(true)
     const [params, setSearchParams] = useSearchParams()
+    const windowWidth = useGetWindowWidth()
     const { data: mynews } = useQuery(
         ['my-news', params.get('category') || '', params.get('page') || ''],
         async ({ queryKey }) => await getMyNews({ categoryId: queryKey[1] || '', state: queryKey[2] || '' })
@@ -60,12 +62,12 @@ const Content = () => {
                 <div className={cls.navbar__wrapper}>
                     <Flex gap='20' style={{ width: 'auto' }}>
                         <Checkbox
-                            label="Выбрать все"
+                            label={windowWidth > 525 ? `Выбрать все` : 'Все'}
                             onChange={handleCheck}
                             checked={mynews?.length > 0 && getQueryInArray('checked')?.length === mynews?.length}
                         />
                         <RedButton disabled={isDisabled} onClick={handleClick}>
-                            Опубликовать
+                            Отправить
                         </RedButton>
                     </Flex>
                     <Flex gap='5' style={{ width: 'auto' }}>

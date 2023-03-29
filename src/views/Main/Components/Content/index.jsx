@@ -10,6 +10,7 @@ import Datapicker from '../../../../components/Form/Datapicker';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import NewsList from '../../../../components/NewsList';
 import SiteAdd from '../../../../components/siteAdd/SiteAdd';
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
 import { getPublishedNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
@@ -17,6 +18,7 @@ import cls from './Content.module.scss'
 
 const Content = () => {
     const [params, setSearchParams] = useSearchParams()
+    const windowWidth = useGetWindowWidth()
     const { data: news } = useQuery(
         ['news', params.get('category') || ''],
         async ({ queryKey }) => await getPublishedNews({ categoryId: queryKey[1] || '' })
@@ -34,10 +36,11 @@ const Content = () => {
         <ContentWrapper navbar={
             <div className={cls.content__menu} id='content-menu'>
                 <Checkbox
-                    label='Выбрать все'
+                    label={windowWidth > 525 ? `Выбрать все` : 'Все'}
                     onChange={handleCheck}
                     checked={news?.length > 0 && getQueryInArray('checked')?.length === news?.length}
                 />
+
                 <Flex gap='5'>
                     <GreyButton>
                         <DeleteIcon />
