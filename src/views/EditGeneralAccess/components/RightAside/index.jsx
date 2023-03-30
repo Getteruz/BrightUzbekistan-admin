@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useParams, useSearchParams } from 'react-router-dom';
 import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
 import DateGroup from '../../../../components/DateGroup';
 import Flex from '../../../../components/Flex';
@@ -10,12 +11,16 @@ import Switch from '../../../../components/Form/Switch';
 import Timepicker from '../../../../components/Form/Timepicker';
 import SwitchGroup from '../../../../components/SwitchGroup';
 import TagsGroup from '../../../../components/TagsGroup';
+import useSocket from '../../../../hooks/useSocket';
 import { getCategories } from '../../../../services/category';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './RightAside.module.scss'
 
 const RightAside = ({ useForm = {} }) => {
+    const {id} = useParams()
+    const socket = useSocket()
+    const { user} = useSelector(state => state?.auth)
     const { setValue, getValues, watch } = useForm
     const [params, setSearchParams] = useSearchParams()
     const { data: categories } = useQuery('categories', getCategories)
@@ -37,12 +42,14 @@ const RightAside = ({ useForm = {} }) => {
             setSearchParams(params.set('mainCategory', categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID) || ''), {
                 replace: true
             })
+            // socket.emit('change', {roomId: id, userId: user?.id, inputName: 'mainCategory', value: categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID)?.id || ''})
         }
 
         categories = Array.from(new Set(categories))
 
         setValue('categories', categories)
         setSearchParams({ ...paramsToObject(params.entries()), 'categories': categories?.join(',') || '' }, { replace: true })
+        // socket.emit('change', {roomId: id, value: categories, inputName: 'categories', userId: user?.id})
     }
 
     const handleKeyUp = (e) => {
@@ -80,7 +87,12 @@ const RightAside = ({ useForm = {} }) => {
 
     useEffect(() => {
         setValue('mainCategory', params.get('mainCategory'))
+        socket.emit('change', {roomId: id, userId: user?.id, inputName: 'mainCategory', value: params.get('mainCategory')})
     }, [params.get('mainCategory')])
+
+    useEffect(() => {
+        socket.emit('change', {roomId: id, userId: user?.id, inputName: 'categories', value:params.get('categories')?.split(',')})
+    }, [params.get('categories')])
 
     return (
         <RightAsideWrapper>

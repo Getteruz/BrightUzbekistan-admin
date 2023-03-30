@@ -16,7 +16,7 @@ import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
-import { createNews } from '../../../../services/news';
+import { editNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
@@ -27,37 +27,32 @@ import { useSelector } from 'react-redux';
 
 const Content = ({ useForm = {} }) => {
     const socket = useSocket()
-    const {id} = useParams()
+    const { id } = useParams()
     const navigate = useNavigate()
-    const {user} = useSelector(state => state.auth)
+    const { user } = useSelector(state => state.auth)
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [users, setUsers] = useState({})
     const [params, setSearchParams] = useSearchParams()
     const { register, handleSubmit, setValue, watch, getValues, formState } = useForm
     const watchedFiles = watch()
-    
-    const func = async (data, state) => {
+
+    const func = async (data) => {
         try {
             setIsLoading(true)
+            console.log(data);
             const fd = new FormData()
-            fd.append('state', state)
             if (data?.mainCtg) fd.append('mainCategory', data?.mainCategory)
             fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append(params.get('lang'), JSON.stringify({
-                title: data?.title,
-                description: data?.description,
-                shortDescription: data?.shortDescription,
-                shortLink: data?.shortLink,
-                tags: data?.hashtags || [],
-                descImg: data?.descImg || []
-            }))
-            // const res = await createNews(fd)
-            alert(JSON.stringify(data, null, 4))
-            // if (!res?.error) {
-            //     setOpenModal(true)
-            // }
+            fd.append('ru', JSON.stringify(data?.ru))
+            fd.append('uz', JSON.stringify(data?.uz))
+            fd.append('en', JSON.stringify(data?.en))
+            fd.append('уз', JSON.stringify(data?.уз))
+            const res = await editNews(fd, id)
+            if (!res?.error) {
+                setOpenModal(true)
+            }
         } catch (error) {
             console.log(error);
         } finally {
@@ -69,8 +64,9 @@ const Content = ({ useForm = {} }) => {
         const file = e.target?.files?.[0]
         if (file) {
             const data = await uploadImage(file)
-            if(data?.url){
+            if (data?.url) {
                 setValue(`${params.get('lang')}.file`, data?.url)
+                socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.file`, value: data?.url, userId: user?.id })
             }
         }
     }
@@ -78,37 +74,45 @@ const Content = ({ useForm = {} }) => {
     const deleteImage = async (url) => {
         await removeFile(url)
         setValue(`${params.get('lang')}.file`, null)
+        socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.file`, value: null, userId: user?.id })
     }
 
     useEffect(() => {
         socket.on('input_change', data => {
             setValue(data?.inputName, data?.value)
+            // if (data?.inputName === 'categories') {
+            //     setSearchParams({
+            //         ...paramsToObject(params?.entries()),
+            //         'categories': data?.value?.join(',')
+            //     }, { replace: true })
+            // } else if (data?.inputName === 'mainCategory') {
+            //     setSearchParams({
+            //         ...paramsToObject(params?.entries()),
+            //         'mainCategory': data?.value || ''
+            //     }, { replace: true })
+            // }
         })
+        // socket.on('input_focus', data => {
+        //     setUsers(state => {
+        //         const users = state?.[data?.inputName] || []
+        //         return {
+        //             ...state,
+        //             [data?.inputName]: [...users, data?.user]
+        //         }
+        //     })
+        // })
+        // socket.on('input_blur', data => {
+        //     setUsers(state => {
+        //         const users = state?.[data?.inputName] || []
+        //         return {
+        //             ...state,
+        //             [data?.inputName]: users?.filter(user => user?.id !== data?.userId)
+        //         }
+        //     })
+        // })
     }, [])
 
-    useEffect(() => {
-        socket.on('input_focus', data => {
-            setUsers(state => {
-                const users = state?.[data?.inputName] || []
-                return {
-                    ...state,
-                    [data?.inputName]: [...users, data?.user]
-                }
-            })
-        })
-        socket.on('input_blur', data => {
-            console.log(data);
-            setUsers(state => {
-                const users = state?.[data?.inputName] || []
-                return {
-                    ...state,
-                    [data?.inputName]: users?.filter(user => user?.id !== data?.userId)
-                }
-            })
-        })
-    }, [])
-    
-    
+
     return (
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>
@@ -119,8 +123,8 @@ const Content = ({ useForm = {} }) => {
                 <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
             </div>
         }>
-            {isLoading && <Loader text='Идет создание новости' />}
-            {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
+            {isLoading && <Loader text='Идет изменение новостя' />}
+            {openModal && <Modal title='Новость успешно изменен' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
             {/* {<div style={{position: 'relative'}}><Wrapper><NewsDropdown news={[getValues()]} /></Wrapper></div>} */}
             <div className={cls.content__form}>
                 <BtnGroup>
@@ -142,10 +146,13 @@ const Content = ({ useForm = {} }) => {
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
                             value={watchedFiles?.[params?.get('lang')]?.title || ''}
-                            register={{ ...register(`${params.get('lang')}.title`) }}
-                            onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value, userId: user?.id})}
-                            onFocus={() => socket.emit('focus', {roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title`})}
-                            onBlur={() => socket.emit('blur', {roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title`})}
+                            register={{
+                                ...register(`${params.get('lang')}.title`, {
+                                    onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value, userId: user?.id })
+                                })
+                            }}
+                            onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title` })}
+                            onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title` })}
                             users={users?.[`${params.get('lang')}.title`]}
                         />
                         <TextArea
@@ -153,18 +160,18 @@ const Content = ({ useForm = {} }) => {
                             label='Краткое описание'
                             value={watchedFiles?.[params.get('lang')]?.['shortDescription'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortDescription`) }}
-                            onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.shortDescription`, value: e.target.value, userId: user?.id})}
-                            onFocus={() => socket.emit('focus', {roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription`})}
-                            onBlur={() => socket.emit('blur', {roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription`})}
+                            onChange={(e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortDescription`, value: e.target.value, userId: user?.id })}
+                            onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription` })}
+                            onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription` })}
                         />
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
                             value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortLink`) }}
-                            onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value, userId: user?.id})}
-                            onFocus={() => socket.emit('focus', {roomId: id, userId: user?.id})}
-                            onBlur={() => socket.emit('blur', {roomId: id, userId: user?.id})}
+                            onChange={(e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value, userId: user?.id })}
+                            onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id })}
+                            onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id })}
                         />
                     </Flex>
                     <SquarePhotoUpload
@@ -176,8 +183,8 @@ const Content = ({ useForm = {} }) => {
                 </div>
                 <RichText
                     value={watchedFiles?.[params.get('lang')]?.['description'] || ''}
-                    register={{ ...register(`${params.get('lang')}.description`) }} 
-                    onChange={(e) => socket.emit('change', {roomId: id, inputName: `${params.get('lang')}.description`, value: e, userId: user?.id})}
+                    register={{ ...register(`${params.get('lang')}.description`) }}
+                    onChange={(e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.description`, value: e, userId: user?.id })}
                     setValue={setValue}
                     getValues={getValues}
                     name={`${params.get('lang')}.description`}

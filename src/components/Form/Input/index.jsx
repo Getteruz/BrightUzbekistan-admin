@@ -24,7 +24,7 @@ const Input = ({
                                     <Avatar 
                                         size={'default'} 
                                         {...{[user?.avatar && 'src']: user?.avatar}}
-                                        {...{[!user?.avatar && 'icon']: <LetteredAvatar size="14" name={user?.fullName} />}}
+                                        {...{[!user?.avatar && 'icon']: <LetteredAvatar name={user?.fullName} />}}
                                     />
                                 </Tooltip>
                             ))
@@ -32,7 +32,7 @@ const Input = ({
                     </Avatar.Group>
                 }
             </div>
-            <input type={type} placeholder={placeholder} {...{ [value && 'value']: value }} {...register} {...other} />
+            <input type={type} placeholder={placeholder} value={value} {...register} {...other} />
         </label>
     );
 }

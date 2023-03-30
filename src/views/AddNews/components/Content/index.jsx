@@ -33,13 +33,17 @@ const Content = ({ useForm = {} }) => {
 
     const func = async (data, state) => {
         try {
+            console.log(data);
             setIsLoading(true)
             const fd = new FormData()
             fd.append('state', state)
             if (data?.mainCategory) fd.append('mainCategory', data?.mainCategory)
-            fd.append(params.get('lang') + '_img', data?.img)
+            // fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append(params.get('lang'), JSON.stringify(data?.[params.get('lang')]))
+            fd.append('ru', JSON.stringify(data?.ru))
+            fd.append('uz', JSON.stringify(data?.uz))
+            fd.append('en', JSON.stringify(data?.en))
+            fd.append('уз', JSON.stringify(data?.уз))
             const res = await createNews(fd)
 
             if (!res?.error) {
@@ -69,6 +73,7 @@ const Content = ({ useForm = {} }) => {
 
 
     useEffect(() => {
+        console.log(watchedFiles);
         saveToLocalStorage('new_news', watchedFiles)
     }, [watchedFiles])
 

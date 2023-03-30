@@ -87,3 +87,16 @@ export const getNewsById = async (id) => {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
+
+export const editNews = async(body, id) => {
+    try {
+        const res = await api.put(`/news/${id}`, body)
+        console.log(res);
+        if (res?.data?.error) {
+            showAlert({ message: res?.data?.message })
+        }
+        return res?.data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
