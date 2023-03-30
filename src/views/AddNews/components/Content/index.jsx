@@ -48,6 +48,7 @@ const Content = ({ useForm = {} }) => {
 
             if (!res?.error) {
                 setOpenModal(true)
+                localStorage.removeItem('new_news')
             }
         } catch (error) {
             console.log(error);

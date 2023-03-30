@@ -7,6 +7,7 @@ const showAlert = useShowAlert(store.dispatch)
 export const createNews = async (data) => {
     try {
         const res = await api.post('/news', data)
+        console.log(res);
         return res?.data
     } catch (error) {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })

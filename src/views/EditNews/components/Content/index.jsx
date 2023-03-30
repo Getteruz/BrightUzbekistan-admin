@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
@@ -16,7 +16,7 @@ import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
-import { createNews } from '../../../../services/news';
+import { createNews, editNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
@@ -25,6 +25,7 @@ import cls from './Content.module.scss'
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
+    const {id} = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
@@ -42,7 +43,7 @@ const Content = ({ useForm = {} }) => {
             fd.append('uz', JSON.stringify(data?.uz))
             fd.append('en', JSON.stringify(data?.en))
             fd.append('уз', JSON.stringify(data?.['уз']))
-            const res = await createNews(fd)
+            const res = await editNews(fd, id)
 
             if (!res?.error) {
                 setOpenModal(true)
