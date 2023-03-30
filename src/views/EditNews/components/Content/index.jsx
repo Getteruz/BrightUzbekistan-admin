@@ -37,16 +37,11 @@ const Content = ({ useForm = {} }) => {
             const fd = new FormData()
             fd.append('state', state)
             if (data?.mainCtg) fd.append('mainCategory', data?.mainCategory)
-            fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append(params.get('lang'), JSON.stringify({
-                title: data?.title,
-                description: data?.description,
-                shortDescription: data?.shortDescription,
-                shortLink: data?.shortLink,
-                tags: data?.hashtags || [],
-                descImg: data?.descImg || []
-            }))
+            fd.append('ru', JSON.stringify(data?.ru))
+            fd.append('uz', JSON.stringify(data?.uz))
+            fd.append('en', JSON.stringify(data?.en))
+            fd.append('уз', JSON.stringify(data?.['уз']))
             const res = await createNews(fd)
 
             if (!res?.error) {
