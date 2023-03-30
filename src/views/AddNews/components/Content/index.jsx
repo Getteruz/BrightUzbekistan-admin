@@ -40,10 +40,10 @@ const Content = ({ useForm = {} }) => {
             if (data?.mainCategory) fd.append('mainCategory', data?.mainCategory)
             // fd.append(params.get('lang') + '_img', data?.img)
             fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append('ru', JSON.stringify(data?.ru))
-            fd.append('uz', JSON.stringify(data?.uz))
-            fd.append('en', JSON.stringify(data?.en))
-            fd.append('уз', JSON.stringify(data?.уз))
+            fd.append('ru', JSON.stringify(data?.ru || {}))
+            fd.append('uz', JSON.stringify(data?.uz || {}))
+            fd.append('en', JSON.stringify(data?.en || {}))
+            fd.append('уз', JSON.stringify(data?.['уз'] || {}))
             const res = await createNews(fd)
 
             if (!res?.error) {
