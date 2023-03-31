@@ -21,6 +21,7 @@ import { createNews } from '../../../../services/news';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 import { langs } from './data';
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
@@ -29,7 +30,7 @@ const Content = ({ useForm = {} }) => {
     const [params, setSearchParams] = useSearchParams()
     const { register, handleSubmit, setValue, watch } = useForm
     const watchedFiles = watch()
-
+    const windowWidth = useGetWindowWidth()
     useEffect(() => {
         if (!params.get('lang')) {
             setSearchParams({ lang: 'uz' }, { replace: true })
@@ -72,7 +73,7 @@ const Content = ({ useForm = {} }) => {
                         <RedButton onClick={handleSubmit(func)}>Сохранить</RedButton>
                         <RoundedButton><BookIcon /> Избранные</RoundedButton>
                     </Flex>
-                    <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
+                    <SimpleButton><PlayIcon /> {windowWidth > 390 ? "Быстрый просмотр " : "Просмотр"} </SimpleButton>
                 </div>
 
             </>

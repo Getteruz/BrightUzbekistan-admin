@@ -1,6 +1,6 @@
-@use '../../../scss/colors' as v;
+@use '../../../scss/colors'as v;
 
-.btn{
+.btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -12,4 +12,13 @@
     border: 1px solid v.$border-color;
     background: transparent;
     border-radius: 20px;
+
+    @media only screen and (max-width:510px) {
+        padding: 8px 10px;
+        gap: 5px;
+
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 13px;
+    }
 }
