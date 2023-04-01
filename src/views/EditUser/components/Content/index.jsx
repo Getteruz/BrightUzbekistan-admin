@@ -56,9 +56,10 @@ const Content = ({
                 if (typeof data?.avatar !== 'string') fd.append('avatar', data?.avatar)
 
                 const res = await updateAdmin(id, fd)
+                
                 if (res?.error) {
                     toast.error(res?.message)
-                } else {
+                } else if (res?.id) {
                     setOpenModal(true)
                 }
             }

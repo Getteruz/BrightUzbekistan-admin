@@ -136,7 +136,7 @@ const Content = ({
                                 type="password"
                                 placeholder="Password"
                                 name="password"
-                                register={{ ...register('password', { required: true,minLength: 8 }) }}
+                                register={{ ...register('password', { required: true, }) }}
                             />
                         </div>
                         <div>
@@ -146,7 +146,7 @@ const Content = ({
                                 type="password"
                                 placeholder="Repeat password"
                                 name="repeat_password"
-                                register={{ ...register('repeat_password', { required: true, minLength: 8 }) }}
+                                register={{ ...register('repeat_password', { required: true, }) }}
                             />
                         </div>
                     </div>

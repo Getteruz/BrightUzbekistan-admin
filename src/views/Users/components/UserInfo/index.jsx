@@ -8,11 +8,15 @@ import NewsList from '../../../../components/NewsList';
 import { getAdminById } from '../../../../services/admin';
 import cls from './UserInfo.module.scss'
 import Loader from '../../../../components/Loader';
+import parseTimestamp from '../../../../utils/parseTimestamp';
 
 const UserInfo = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const { data: admin, isLoading } = useQuery(['admin', id], async () => await getAdminById(id))
+    const {hours, minutes, data, year, month} = parseTimestamp(admin?.lastSeen)
+    const {data: today, year: currentYear, month: currentMonth} = parseTimestamp(Date.now())
+
     return (
         <div className={cls.box}>
             <span></span>
@@ -33,7 +37,14 @@ const UserInfo = () => {
                             <LocationIcon /> {admin?.city}
                         </span>
                         <span>
-                            <CheckCircle /> 17:56 Был в сети
+                            <CheckCircle /> {admin?.isOnline ? 
+                            'В сети' : 
+                            `Был(а) в ${(
+                                today === data && 
+                                currentMonth === month && 
+                                currentYear === year
+                            ) ? '' : `${data} ${month} ${currentYear !== year ? year : ''}`} 
+                            ${hours}:${minutes}`}
                         </span>
                     </div>
                     <div style={{ marginBottom: '37px' }}>
