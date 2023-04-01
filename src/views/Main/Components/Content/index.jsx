@@ -14,7 +14,6 @@ import NewsList from '../../../../components/NewsList';
 import { deleteNews, getPublishedNews } from '../../../../services/news';
 import SiteAdd from '../../../../components/siteAdd/SiteAdd';
 import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
-import { getPublishedNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'

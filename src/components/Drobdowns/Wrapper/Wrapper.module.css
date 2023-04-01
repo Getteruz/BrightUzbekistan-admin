@@ -1,9 +1,0 @@
-.wrapper {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 100000;
-}
-.wrapper > * {
-  transform: translateY(100%);
-}/*# sourceMappingURL=Wrapper.module.css.map */
