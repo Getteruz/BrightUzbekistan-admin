@@ -12,6 +12,7 @@ const Input = ({
     users = [],
     ...other
 }) => {
+
     return (
         <label className={cls.label}>
             <div className={cls.label__wrapper}>
@@ -32,8 +33,8 @@ const Input = ({
                     </Avatar.Group>
                 }
             </div>
-            {value ? <input type={type} placeholder={placeholder} value={value} {...register} {...other} />
-            : <input type={type} placeholder={placeholder} {...register} {...other} />}
+            {value ? <input type={type} placeholder={placeholder} {...{[value && 'value']: value}} {...register} {...other} />
+            : <input type={type} placeholder={placeholder} {...register} {...other} /> }
         </label>
     );
 }

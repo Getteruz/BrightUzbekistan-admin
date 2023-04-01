@@ -22,7 +22,7 @@ const UserInfo = () => {
             <span></span>
             <div>
             {isLoading && <Loader text='Подгружаем данные...' />}
-                {admin?.avatar ? <Avatar src={admin?.avatar} size='lg' /> : <LetteredAvatar size={120} name={admin?.fullName} />}
+                {admin?.avatar ? <Avatar src={admin?.avatar} size='lg' /> : <LetteredAvatar size={120} name={admin?.fullName || '👻'} />}
                 <div className={cls.box__info}>
                     <div className={cls.box__info__nav}>
                         <h4>{admin?.fullName}</h4>

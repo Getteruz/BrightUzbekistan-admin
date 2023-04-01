@@ -33,22 +33,11 @@ const Content = ({ useForm = {} }) => {
 
     const func = async (data, state) => {
         try {
-            console.log(data);
             setIsLoading(true)
-            const fd = new FormData()
-            fd.append('state', state)
-            if (data?.mainCategory) fd.append('mainCategory', data?.mainCategory)
-            // fd.append(params.get('lang') + '_img', data?.img)
-            fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append('ru', JSON.stringify(data?.ru || {}))
-            fd.append('uz', JSON.stringify(data?.uz || {}))
-            fd.append('en', JSON.stringify(data?.en || {}))
-            fd.append('уз', JSON.stringify(data?.['уз'] || {}))
-            const res = await createNews(fd)
-
-            if (!res?.error) {
+            const res = await createNews({...data, state})
+            if (res?.status === 201) {  
+                window.localStorage.removeItem('new_news')
                 setOpenModal(true)
-                localStorage.removeItem('new_news')
             }
         } catch (error) {
             console.log(error);
@@ -72,9 +61,7 @@ const Content = ({ useForm = {} }) => {
         setValue(`${params.get('lang')}.file`, null)
     }
 
-
     useEffect(() => {
-        console.log(watchedFiles);
         saveToLocalStorage('new_news', watchedFiles)
     }, [watchedFiles])
 

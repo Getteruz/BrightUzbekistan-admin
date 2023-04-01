@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../services/auth';
 import { LogOutIcon } from '../icons';
 import { links } from './data';
@@ -6,15 +6,25 @@ import cls from './Sidebar.module.scss'
 
 const Sidebar = () => {
     const router = useLocation()
+    const navigate = useNavigate()
+
+    const userLogout = async() => {
+        try {
+            console.log(1);
+            await logout()
+            navigate('/auth')
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <aside className={cls.sidebar}>
             <img src="/Logo.svg" alt="Bright Uzbekistan" />
-            <Link className={cls.sidebar__helplink} to='/'>Как создать?</Link>
             <div className={cls.sidebar__list}>
                 {
                     links?.length > 0 && links.map(link =>
-                        <Link 
+                        <Link
                             key={link.id} 
                             to={link.link} 
                             className={`${cls.sidebar__link} ${router.pathname.split('/')?.slice(0, 2)?.join('/') === link.link?.split('/')?.slice(0,2)?.join('/') ? cls.active : ''}`}
@@ -25,7 +35,7 @@ const Sidebar = () => {
                     )
                 }
             </div>
-            <button className={cls.sidebar__button}>
+            <button className={cls.sidebar__button} onClick={userLogout}>
                 <LogOutIcon /> Выход
             </button>
         </aside>

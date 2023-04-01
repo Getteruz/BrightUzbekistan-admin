@@ -92,7 +92,6 @@ export const getNewsById = async (id) => {
 export const editNews = async(body, id) => {
     try {
         const res = await api.put(`/news/${id}`, body)
-        console.log(res);
         if (res?.data?.error) {
             showAlert({ message: res?.data?.message })
         }

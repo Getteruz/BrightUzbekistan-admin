@@ -50,7 +50,7 @@ const RightAside = ({ useForm = {} }) => {
             const values = getValues()
             const hashtags = values?.[params.get('lang')]?.tags || []
             hashtags.push(e.target.value?.trim())
-            setValue(`${params.get('lang')}.hashtags`, Array.from(new Set(hashtags)))
+            setValue(`${params.get('lang')}.tags`, Array.from(new Set(hashtags)))
         }
         if (e.keyCode === 13) {
             e.target.value = ''
@@ -116,7 +116,7 @@ const RightAside = ({ useForm = {} }) => {
             </DateGroup>
             <Flex gap='15' direction='column'>
                 <RoundedInput placeholder='Название тега' label='Теги' onKeyUp={handleKeyUp} />
-                <TagsGroup tags={getValues()?.[params.get('lang')]?.tags || []} setValue={setValue} />
+                <TagsGroup tags={watchedFiles?.[params.get('lang')]?.tags || []} setValue={setValue} />
             </Flex>
         </RightAsideWrapper>
     );

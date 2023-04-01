@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import RedButton from '../../../../components/Buttons/RedButton'
@@ -16,9 +15,8 @@ import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
-import { createNews, editNews } from '../../../../services/news';
+import { editNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
-import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import { langs } from './data';
 import cls from './Content.module.scss'
@@ -35,17 +33,9 @@ const Content = ({ useForm = {} }) => {
     const func = async (data, state) => {
         try {
             setIsLoading(true)
-            const fd = new FormData()
-            fd.append('state', state)
-            if (data?.mainCtg) fd.append('mainCategory', data?.mainCategory)
-            fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append('ru', JSON.stringify(data?.ru))
-            fd.append('uz', JSON.stringify(data?.uz))
-            fd.append('en', JSON.stringify(data?.en))
-            fd.append('уз', JSON.stringify(data?.['уз']))
-            const res = await editNews(fd, id)
+            const res = await editNews(data, id)
 
-            if (!res?.error) {
+            if (res?.status === 203) {
                 setOpenModal(true)
             }
         } catch (error) {
@@ -80,8 +70,8 @@ const Content = ({ useForm = {} }) => {
                 <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>
             </div>
         }>
-            {isLoading && <Loader text='Идет создание новости' />}
-            {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
+            {isLoading && <Loader text='Идёт изменение новости' />}
+            {openModal && <Modal title='Новость успешно изменён' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
             {/* {<div style={{position: 'relative'}}><Wrapper><NewsDropdown news={[getValues()]} /></Wrapper></div>} */}
             <div className={cls.content__form}>
                 <BtnGroup>
@@ -102,7 +92,7 @@ const Content = ({ useForm = {} }) => {
                         <Input
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
-                            value={watchedFiles?.[params?.get('lang')]?.title || ''}
+                            value={watchedFiles?.[params?.get('lang')]?.['title'] || ' '}
                             register={{ ...register(`${params.get('lang')}.title`) }}
                         />
                         <TextArea
