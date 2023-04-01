@@ -40,15 +40,7 @@ const Content = ({ useForm = {} }) => {
     const func = async (data) => {
         try {
             setIsLoading(true)
-            const fd = new FormData()
-            if (data?.mainCtg) fd.append('mainCategory', data?.mainCategory)
-            fd.append(params.get('lang') + '_img', data?.img)
-            fd.append('categories', JSON.stringify(data?.categories || []))
-            fd.append('ru', JSON.stringify(data?.ru))
-            fd.append('uz', JSON.stringify(data?.uz))
-            fd.append('en', JSON.stringify(data?.en))
-            fd.append('уз', JSON.stringify(data?.уз))
-            const res = await editNews(fd, id)
+            const res = await editNews(data, id)
             if (!res?.error) {
                 setOpenModal(true)
             }
@@ -144,7 +136,7 @@ console.log(users);
                         <Input
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
-                            value={watchedFiles?.[params?.get('lang')]?.title || ''}
+                            value={watchedFiles?.[params?.get('lang')]?.title || ' '}
                             register={{
                                 ...register(`${params.get('lang')}.title`, {
                                     onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value, userId: user?.id })
@@ -168,7 +160,7 @@ console.log(users);
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
-                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
+                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ' '}
                             register={{ ...register(`${params.get('lang')}.shortLink`, {
                                 onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value, userId: user?.id }),
                             }) }}
