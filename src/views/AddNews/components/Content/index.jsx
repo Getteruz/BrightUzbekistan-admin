@@ -17,7 +17,6 @@ import Loader from '../../../../components/Loader';
 import Modal from '../../../../components/Modal';
 import { createNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
-import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import { saveToLocalStorage } from '../../../../utils/localStorageService';
 import { langs } from './data';

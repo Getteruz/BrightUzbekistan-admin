@@ -53,10 +53,10 @@ const Content = ({
                 fd.append('avatar', data?.avatar)
         
                 const res = await createAdmin(fd)
-                if(res?.error) {
-                    toast.error(res?.message)
-                } else {
+                if(res?.id) {
                     setOpenModal(true)
+                } else {
+                    toast.error(res?.message)
                 }
             }
         } catch (error) {
