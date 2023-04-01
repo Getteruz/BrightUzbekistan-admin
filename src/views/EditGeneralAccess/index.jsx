@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { useParams, useSearchParams } from 'react-router-dom';
 import RightAside from './components/RightAside';
@@ -9,16 +9,17 @@ import { getNewsById } from '../../services/news';
 import { useEffect } from 'react';
 import paramsToObject from '../../utils/paramsToObject';
 import useSocket from '../../hooks/useSocket';
+import { useState } from 'react';
 
 const EditGeneralAccess = () => {
     const { id } = useParams()
     const socket = useSocket()
+    const Form = useForm({ mode: 'onChange' })
     const { data } = useQuery(['news', id], () => getNewsById(id))
     const [params, setSearchParams] = useSearchParams()
-    const Form = useForm({ mode: 'onChange' })
 
     useEffect(() => {
-        const categories = data?.categories?.map(ctg => ctg.id) || []
+        const categories = data?.categories?.map(ctg => ctg?.id) || []
         setSearchParams({
             ...paramsToObject(params.entries()),
             categories: categories?.join(','),

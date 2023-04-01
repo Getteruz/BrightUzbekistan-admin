@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import RedButton from "../../../../components/Buttons/RedButton";
 import RoundedButton from "../../../../components/Buttons/RoundedButton";
@@ -13,7 +13,7 @@ import cls from './Content.module.scss'
 import Loader from "../../../../components/Loader";
 import Modal from "../../../../components/Modal";
 import { useState } from "react";
-import { createAdmin } from "../../../../services/admin";
+import { createAdmin, updateAdmin } from "../../../../services/admin";
 import { useQuery } from "react-query";
 import { getRoles } from "../../../../services/roles";
 
@@ -21,7 +21,8 @@ const Content = ({
     useForm = {}
 }) => {
     const navigate = useNavigate()
-    const {data: roles} = useQuery('roles', getRoles)
+    const { id } = useParams()
+    const { data: roles } = useQuery('roles', getRoles)
     const [loading, setLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const { register, formState: { isValid }, handleSubmit, setValue, control, watch } = useForm
@@ -31,18 +32,19 @@ const Content = ({
         try {
             setLoading(true)
             data.phone = data?.phone.replace(/[^0-9]+/g, '')
-            if(!data.role) {
+            if (!data.role) {   
+                console.log(data);
                 toast.error('Вы должны выбрать роль !')
-                return 
-            } else if (data.permissions?.length < 1){
+                return
+            } else if (data.permissions?.length < 1) {
                 toast.error('Пользователь должен иметь минимум 1 разрешение !')
                 return
-            } else if(data.phoneNumber?.length < 12) {
+            } else if (data.phoneNumber?.length < 12) {
                 toast.error('Вы ввели неправильный фотмат номера !')
-            } else if(data.password !== data.repeat_password){
+            } else if (data.password !== data.repeat_password) {
                 toast.error('Пароли не совпадают.')
             } else {
-                const fd =new FormData()
+                const fd = new FormData()
                 fd.append('fullName', data?.fullName)
                 fd.append('city', data?.city)
                 fd.append('education', data?.education)
@@ -51,10 +53,10 @@ const Content = ({
                 fd.append('password', data?.password)
                 fd.append('position', data?.role)
                 fd.append('permissions', JSON.stringify(data?.permissions))
-                fd.append('avatar', data?.avatar)
-        
-                const res = await createAdmin(fd)
-                if(res?.error) {
+                if (typeof data?.avatar !== 'string') fd.append('avatar', data?.avatar)
+
+                const res = await updateAdmin(id, fd)
+                if (res?.error) {
                     toast.error(res?.message)
                 } else {
                     setOpenModal(true)
@@ -69,7 +71,7 @@ const Content = ({
     }
 
     const redirectFunc = () => {
-        navigate('/users', {replace: true})
+        navigate('/users', { replace: true })
     }
 
     return (
@@ -79,12 +81,17 @@ const Content = ({
         </div>}>
 
             <Toaster />
-            {loading && <Loader text="Идет создание пользователя, пожалуйста подождите..." />}
-            {openModal && <Modal title={'Пользователь успешно создан!'} onClose={redirectFunc} onOk={redirectFunc} />}
+            {loading && <Loader text="Идёт изменение данных пользователя, пожалуйста подождите..." />}
+            {openModal && <Modal title={'Пользователь успешно изменён!'} onClose={redirectFunc} onOk={redirectFunc} />}
 
-            <div className={cls.box}>   
+            <div className={cls.box}>
                 <div>
-                    <Circle label="Аватарка" setValue={setValue} name='avatar' defaultUrl={watchedFiles?.avatar} />
+                    <Circle
+                        label="Аватарка"
+                        setValue={setValue}
+                        name='avatar'
+                        defaultUrl={watchedFiles?.avatar}
+                    />
                 </div>
                 <div className={cls.form}>{ }
                     <Input

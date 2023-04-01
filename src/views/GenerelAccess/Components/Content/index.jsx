@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import NewsItem from '../../../../components/NewsItem';
@@ -14,8 +14,10 @@ import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
 import RedButton from '../../../../components/Buttons/RedButton';
 import NewsConfirm from '../../../../components/NewsConfirm';
+import useSocket from '../../../../hooks/useSocket';
 
 const Content = () => {
+    const socket = useSocket()
     const queryClient = useQueryClient()
     const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
@@ -64,6 +66,17 @@ const Content = () => {
         }
     }
 
+    useEffect(() => {
+        socket.on('news_editing', newsId => queryClient.setQueryData(
+            ['news', 'general-access', params.get('category') || ''],
+            (old) => old?.map(news => news?.id === newsId ? {...news, isEditing: true} : news)
+        ))
+        socket.on('news_end_editing', newsId => queryClient.setQueryData(
+            ['news', 'general-access', params.get('category') || ''],
+            (old) => old?.map(news => news?.id === newsId ? {...news, isEditing: false} : news)
+        ))
+    }, [])
+
     return (
         <ContentWrapper navbar={
             <div className={cls.content__menu} id='content-menu'>
@@ -107,7 +120,8 @@ const Content = () => {
                             creator={news?.creator?.fullName}
                             date={news?.created_at}
                             categories={news?.categories?.map(ctg => ctg?.ru)}
-                        // lastUpdate={news?.updated_at}
+                            editing={news?.isEditing}
+                            lastUpdate={news?.updated_at}
                         />)
                 }
             </Flex>

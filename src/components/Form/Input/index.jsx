@@ -32,7 +32,8 @@ const Input = ({
                     </Avatar.Group>
                 }
             </div>
-            <input type={type} placeholder={placeholder} value={value} {...register} {...other} />
+            {value ? <input type={type} placeholder={placeholder} value={value} {...register} {...other} />
+            : <input type={type} placeholder={placeholder} {...register} {...other} />}
         </label>
     );
 }

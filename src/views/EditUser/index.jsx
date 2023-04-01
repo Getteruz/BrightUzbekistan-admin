@@ -26,7 +26,11 @@ const EditUser = () => {
             role: data?.position?.id,
             permissions: data?.permissions?.map(permission => permission?.id)?.join(',')
         }, {replace: true})
-        form.reset(data)
+        form.reset({
+            ...data,
+            role: data?.position?.id,
+            permissions: data?.permissions?.map(permission => permission?.id)
+        })
     }, [data])
 
     return (

@@ -43,3 +43,12 @@ export const getAdminInfo = async () => {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
+
+export const updateAdmin = async (id, data) => {
+    try {
+        const res = await api.put(`/admin/${id}`, data, { withCredentials: true })
+        return res?.data
+    } catch (error) {
+        
+    }
+}

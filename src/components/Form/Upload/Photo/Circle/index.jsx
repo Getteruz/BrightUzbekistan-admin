@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import Button from '../../Button';
 import cls from './Circle.module.scss'
@@ -21,6 +22,10 @@ const Circle = ({
             setValue(name, null)
         }
     }
+
+    useEffect(() => {
+        if(typeof defaultUrl === 'string') setSelectedFile({url: defaultUrl})
+    }, [defaultUrl])
 
     return (
         <div className={cls.wrapper}>

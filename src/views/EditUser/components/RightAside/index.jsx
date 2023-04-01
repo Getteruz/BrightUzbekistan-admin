@@ -1,41 +1,51 @@
 import { useEffect } from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import RightAsideWrapper from "../../../../components/Aside/RightAsideWrapper";
 import Switch from "../../../../components/Form/Switch";
 import SwitchGroup from "../../../../components/SwitchGroup";
 import { getPermissions } from "../../../../services/permissions";
 import { getRoles } from "../../../../services/roles";
+import getQueryInArray from "../../../../utils/getQueryInArray";
+import paramsToObject from "../../../../utils/paramsToObject";
 
 const RightAside = ({ useForm = {} }) => {
-    const navigate = useNavigate()
     const {data: roles} = useQuery('roles', getRoles)
     const {data: permissions} = useQuery('permissions', getPermissions)
-    const {getValues, setValue} = useForm
-    const query = new URLSearchParams(window.location.search);
+    const [params, setSearchParams] = useSearchParams()
+    const { setValue} = useForm;
 
     const handleCheckboxChange = (e) => {
-        const values = getValues()
-        const permissions = values?.permissions || []
+        let permissions = []
         if (e.target.checked) {
-            setValue('permissions', [...permissions, e.target.value])
+            permissions= [...getQueryInArray('permissions'), e.target.value]?.join(',')
         } else {
-            setValue('permissions', permissions?.filter(permission => permission !== e.target.value))
+            permissions = getQueryInArray('permissions')?.filter(permission => permission !== e.target.value)?.join(',')
         }
+        setSearchParams({
+            ...paramsToObject(params.entries()),
+            permissions
+        }, {
+            replace: true
+        })
+        setValue('permissions',permissions?.split(','))
     }
 
-    const hanldeRadioChange = (e, role) => {
+    const hanldeRadioChange = (e) => {
+        let role = ''
         if (e.target.checked) {
-            query.set('role', role.id, {replace: true})
+            role = e.target.value
         } else {
-            query.set('role', '', {replace: true})
+            role = ''
         }
-        navigate(`?${query.toString()}`, { replace: true })
+        setSearchParams({
+            ...paramsToObject(params.entries()),
+            role
+        },  {
+            replace: true
+        })
+        setValue('role', role)
     }
-
-    useEffect(() => {
-        setValue('role', query.get('role'))
-    }, [window.location.search])
 
     return (
         <RightAsideWrapper>
@@ -45,8 +55,8 @@ const RightAside = ({ useForm = {} }) => {
                         key={role.id}
                         label={role.title}
                         value={role.id}
-                        checked={query.get('role') === role.id}
-                        onChange={(e) => hanldeRadioChange(e, role)}
+                        checked={params.get('role') === role.id}
+                        onChange={hanldeRadioChange}
                     />
                 )}
             </SwitchGroup>
@@ -57,7 +67,7 @@ const RightAside = ({ useForm = {} }) => {
                         label={permission.title}
                         value={permission.id}
                         name='permissions'
-                        checked={query?.get('permissions')?.split(',')?.includes(permission?.id)}
+                        checked={getQueryInArray('permissions')?.includes(permission?.id)}
                         onChange={handleCheckboxChange}
                     />
                 )}
