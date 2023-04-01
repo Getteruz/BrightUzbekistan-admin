@@ -60,4 +60,54 @@
         background: transparent;
         cursor: pointer;
     }
+
+    &__wrap2 {
+        display: none;
+    }
+}
+
+@media screen and(max-width: 1440px) {
+    .item {
+        flex-wrap: wrap;
+
+        &__dots {
+            display: none;
+        }
+
+        &__author {
+            display: none;
+        }
+
+        &__wrap2 {
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &__wrap {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &__author2 {
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 18px;
+            opacity: 0.6;
+            flex-shrink: 0;
+            padding-bottom: 5px;
+            padding-right: 5px;
+        }
+
+        &__dots2 {
+            padding: 3px 8px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+
+    }
 }

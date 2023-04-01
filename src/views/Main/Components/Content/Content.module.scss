@@ -1,15 +1,21 @@
-@use '../../../../scss/colors' as v;
-.content{
+@use '../../../../scss/colors'as v;
+
+.content {
     max-height: 100%;
     height: 100%;
 
-    &__menu{
+
+    &__menu {
         display: flex;
         align-items: center;
         gap: 20px;
 
-        & > label{
+        &>label {
             flex-shrink: 0;
         }
+    }
+
+    &__filter {
+        display: none;
     }
 }

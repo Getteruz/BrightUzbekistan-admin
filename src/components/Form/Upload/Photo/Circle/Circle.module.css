@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.label {
+  width: 136px;
+  height: 136px;
+  display: flex;
+  background: #EEEEEE;
+  border: 1px solid rgba(11, 33, 43, 0.1);
+  border-radius: 5px;
+  padding: 7px;
+  aspect-ratio: 1/1;
+}
+.label__circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(11, 33, 43, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 2px;
+}
+.label__circle > input {
+  display: none;
+}
+.label__circle__avatar {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.label__title {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 2px;
+}
+.label__name {
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 14px;
+  opacity: 0.4;
+}/*# sourceMappingURL=Circle.module.css.map */

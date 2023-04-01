@@ -1,6 +1,6 @@
-@use '../../../scss/colors' as v;
+@use '../../../scss/colors'as v;
 
-.btn{
+.btn {
     display: flex;
     padding: 12px 20px;
     gap: 5px;
@@ -13,7 +13,16 @@
     color: #FFFFFF;
     align-items: center;
 
-    &:disabled{
-        opacity: 0.4!important;
+    &:disabled {
+        opacity: 0.4 !important;
+    }
+
+    @media only screen and (max-width:510px) {
+        padding: 8px 10px;
+        gap: 0px;
+        border-radius: 30px;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 13px;
     }
 }

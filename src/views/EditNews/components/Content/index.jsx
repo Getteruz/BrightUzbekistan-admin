@@ -6,6 +6,7 @@ import SimpleButton from '../../../../components/Buttons/SimpleButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
 import NewsDropdown from '../../../../components/Drobdowns/NewsDropdown';
 import Wrapper from '../../../../components/Drobdowns/Wrapper';
+import Filter from '../../../../components/Filter/Filter';
 import Flex from '../../../../components/Flex';
 import BtnGroup from '../../../../components/Form/BtnGroup';
 import Input from '../../../../components/Form/Input';
@@ -87,6 +88,7 @@ const Content = ({ useForm = {} }) => {
                         )
                     }
                 </BtnGroup>
+                <Filter />
                 <div className={cls.content__form__wrapper}>
                     <Flex direction='column' gap='20'>
                         <Input

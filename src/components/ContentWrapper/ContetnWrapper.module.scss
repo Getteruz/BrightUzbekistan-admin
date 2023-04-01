@@ -9,7 +9,18 @@
     height: 100%;
     overflow-y: auto;
 
+
     &::-webkit-scrollbar {
         width: 0;
+    }
+}
+
+@media screen and(min-width: 451px) and(max-width: 767px) {
+    .wrapper {
+        margin-left: 70px;
+    }
+
+    .navbar {
+        margin-left: 70px;
     }
 }

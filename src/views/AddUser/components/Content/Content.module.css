@@ -1,0 +1,61 @@
+.box {
+  height: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.box > div:first-child {
+  flex-shrink: 0;
+}
+.box > div:nth-child(2) {
+  flex-grow: 1;
+  height: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.form__auth {
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.form__auth > * {
+  max-width: calc(50% - 10px);
+  width: 100%;
+}
+.form__auth > div {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  flex-grow: 1;
+}
+.form__auth > div > h3 {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+}
+.form__auth > div > p {
+  font-size: 11px;
+  line-height: 15px;
+  margin-bottom: 5px;
+  opacity: 0.6;
+}
+.form__auth > div > *:nth-child(3) {
+  margin-top: auto;
+}
+.form__roles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+  padding-bottom: 60px;
+}/*# sourceMappingURL=Content.module.css.map */

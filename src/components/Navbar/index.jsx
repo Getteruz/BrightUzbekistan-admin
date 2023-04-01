@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import {useCookies} from 'react-cookie'
+import { useCookies } from 'react-cookie'
 import LetterAvatar from 'react-lettered-avatar'
 import Avatar from '../Avatar';
 import MessageButton from '../Buttons/MessageButton';
@@ -24,15 +24,16 @@ const Navbar = () => {
     return (
         <div className={cls.nav} id='navbar'>
             <Container className={cls.nav__container}>
+                <img className={cls.nav__img} src="/MaskGroup.svg" alt="Bright Uzbekistan" />
                 <label className={cls.nav__label}>
                     <SearchIcon />
                     <input className={cls.nav__input} type="text" placeholder="Поиск" />
                 </label>
                 <div className={cls.nav__btns}>
-                    <MessageButton className={cls.nav__msg__btn} 
+                    <MessageButton className={cls.nav__msg__btn}
                         active={location.pathname === '/messages'}
                         onClick={() => navigate('/messages')}
-                        notification 
+                        notification
                     />
                     <WhiteButton>{user?.fullName}</WhiteButton>
                     <div style={{ position: 'relative', cursor: 'pointer' }} onClick={handleClick}>

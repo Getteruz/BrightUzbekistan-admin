@@ -1,4 +1,4 @@
-import { DocIcon, HomeIcon, StatistikaIcon } from "../icons";
+import { AcesIcon, ArchiveIcon2, DocIcon, HomeIcon, PlusIcon2, ReklamaIcon, StatistikaIcon, UserIcon } from "../icons";
 
 export const links = [
     {
@@ -16,25 +16,26 @@ export const links = [
     {
         id: 8,
         label: 'Общий доступ',
-        icon: DocIcon,
+        icon: AcesIcon,
         link: '/general-access'
     },
+   
     {
         id: 3,
         label: 'Пользователи',
-        icon: StatistikaIcon,
+        icon:  UserIcon,
         link: '/users'
     },
     {
         id: 4,
         label: 'Доп-страници',
-        icon: StatistikaIcon,
+        icon:  PlusIcon2,
         link: '/dop-pages'
     },
     {
         id: 5,
         label: 'Реклама',
-        icon: StatistikaIcon,
+        icon:  ReklamaIcon,
         link: '/reklama'
     },
     {
@@ -46,7 +47,7 @@ export const links = [
     {
         id: 7,
         label: 'Архив',
-        icon: StatistikaIcon,
+        icon: ArchiveIcon2,
         link: '/archive'
     },
 ]

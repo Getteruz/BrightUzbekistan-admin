@@ -3,12 +3,18 @@ import { useQuery, useQueryClient } from 'react-query';
 import { useSearchParams } from 'react-router-dom';
 import GreyButton from '../../../../components/Buttons/GreyButton';
 import ContentWrapper from '../../../../components/ContentWrapper';
+import DateGroup from '../../../../components/DateGroup';
+import Filter from '../../../../components/Filter/Filter';
 import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
+import Datapicker from '../../../../components/Form/Datapicker';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
 import Loader from '../../../../components/Loader';
 import NewsList from '../../../../components/NewsList';
 import { deleteNews, getPublishedNews } from '../../../../services/news';
+import SiteAdd from '../../../../components/siteAdd/SiteAdd';
+import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
+import { getPublishedNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
@@ -17,6 +23,7 @@ const Content = () => {
     const queryClient = useQueryClient()
     const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
+    const windowWidth = useGetWindowWidth()
     const { data: news } = useQuery(
         ['news', params.get('category') || ''],
         async ({ queryKey }) => await getPublishedNews({ categoryId: queryKey[1] || '' })
@@ -24,9 +31,9 @@ const Content = () => {
 
     const handleCheck = (e) => {
         if (e.target.checked) {
-            setSearchParams({...paramsToObject(params.entries()), checked: news?.map(news => news?.id)?.join(',') })
+            setSearchParams({ ...paramsToObject(params.entries()), checked: news?.map(news => news?.id)?.join(',') })
         } else {
-            setSearchParams({...paramsToObject(params.entries()), checked: '' })
+            setSearchParams({ ...paramsToObject(params.entries()), checked: '' })
         }
     }
 
@@ -46,10 +53,11 @@ const Content = () => {
         <ContentWrapper navbar={
             <div className={cls.content__menu} id='content-menu'>
                 <Checkbox
-                    label='Выбрать все'
+                    label={windowWidth > 525 ? `Выбрать все` : 'Все'}
                     onChange={handleCheck}
                     checked={news?.length > 0 && getQueryInArray('checked')?.length === news?.length}
                 />
+
                 <Flex gap='5'>
                     <GreyButton active={!!params?.get('checked')} onClick={handleDelete}>
                         <DeleteIcon />
@@ -63,7 +71,10 @@ const Content = () => {
             </div>
         }>
             {isLoading && <Loader text='Выполняется удаление новостей'/>}
+            <Filter />
+
             <NewsList news={news} />
+            <SiteAdd />
         </ContentWrapper>
     );
 }

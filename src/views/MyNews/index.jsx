@@ -1,4 +1,5 @@
 import ComponentsWrapper from "../../components/ComponentsWrapper";
+import SiteAdd from "../../components/siteAdd/SiteAdd";
 import Content from "./components/Content";
 import LeftAside from "./components/LeftAside";
 import RightAside from "./components/RightAside";
@@ -10,6 +11,7 @@ const MyNews = () => {
             <LeftAside />
             <Content />
             <RightAside />
+            <SiteAdd />
         </ComponentsWrapper>
     );
 }

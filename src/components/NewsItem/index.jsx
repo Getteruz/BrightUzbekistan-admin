@@ -32,13 +32,22 @@ const NewsItem = ({
 
     return (
         <div className={cls.item}>
-            <Checkbox
-                label={`${hours}:${minutes}`}
-                light={true}
-                onChange={handleCheck}
-                checked={(params.get('checked') || '')?.split(',')?.includes(id)}
-                defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
-            />
+            <div className={cls.item__wrap}>
+                <Checkbox
+                    label={`${hours}:${minutes}`}
+                    light={true}
+                    onChange={handleCheck}
+                    checked={(params.get('checked') || '')?.split(',')?.includes(id)}
+                    defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
+                />
+                <div className={cls.item__wrap2}>
+                    <span className={cls.item__author2}>{creator}</span>
+                    <button className={cls.item__dots2}>
+                        <DotsIcon />
+                    </button>
+                </div>
+
+            </div>
             <Flex gap='10' direction='column'>
                 <Link to={link}>
                     <div className={cls.item__text__wrapper}>

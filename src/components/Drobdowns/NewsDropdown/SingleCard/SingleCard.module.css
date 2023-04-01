@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 516px;
+  padding: 2px;
+}
+.card__title {
+  font-family: "Old Standard TT";
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 38px;
+}
+.card__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card__time, .card__ctg {
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 15px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.card__desc {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+}/*# sourceMappingURL=SingleCard.module.css.map */

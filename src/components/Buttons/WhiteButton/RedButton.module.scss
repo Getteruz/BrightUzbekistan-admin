@@ -12,3 +12,15 @@
     gap: 7px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 650px) {
+    .btn {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1140px) {
+    .btn {
+        min-width: 98px;
+    }
+}

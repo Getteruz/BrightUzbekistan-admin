@@ -1,0 +1,1 @@
+.navbar{display:flex;align-items:center;padding:20px 0;gap:20px}.wrapper{height:100%;overflow-y:auto}.wrapper::-webkit-scrollbar{width:0}@media screen and (min-width: 451px) and (max-width: 767px){.wrapper{margin-left:70px}.navbar{margin-left:70px}}

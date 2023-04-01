@@ -1,12 +1,12 @@
 import Flex from '../Flex';
 import ListItem from '../NewsItem';
 
-const NewsList = ({news = []}) => {
+const NewsList = ({ news = [] }) => {
     return (
         <Flex direction='column' gap='20'>
             {
-                news?.length > 0 && news.map((news) => 
-                    <ListItem 
+                news?.length > 0 && news.map((news) =>
+                    <ListItem
                         id={news?.id}
                         link={`/news/edit/${news?.id}`}
                         key={news?.id} 
@@ -16,6 +16,7 @@ const NewsList = ({news = []}) => {
                         categories={news?.categories?.map(ctg => ctg?.ru)}
                     />)
             }
+
         </Flex>
     );
 }
