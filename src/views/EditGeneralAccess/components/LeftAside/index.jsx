@@ -15,14 +15,16 @@ const LeftAside = ({ useForm }) => {
     const navigate = useNavigate()
     const { watch } = useForm
     const editorsFile = watch('editors')
+    const creator = watch('creator')
 
     useEffect(() => {
         socket.on('set_editor', data => {
-            console.log(data);
+            alert(1)
             setEditors(state => {
                 return state.map(edit => {
                     return edit.id === data?.id ? { ...edit, editor: { ...edit?.editor, lastEdited: data?.editedDate } } : edit
                 })
+                ?.sort((a, b) => new Date(b?.editor?.lastEdited) - new Date(a?.editor?.lastEdited))
             })
         })
         socket.on('input_focus', data => {
@@ -49,7 +51,7 @@ const LeftAside = ({ useForm }) => {
         )
     }, [editorsFile])
 
-    
+
     return (
         <LeftAsideWrapper>
             <RoundedButton onClick={() => navigate(-1)}>
@@ -57,23 +59,9 @@ const LeftAside = ({ useForm }) => {
                 Назад
             </RoundedButton>
             <Flex gap='15' direction='column' alignItems='flex-start'>
-                {/* <UsersGroup label='Создатель' users={[value?.creator]} /> */}
+                <UsersGroup label='Создатель' users={[creator]} />
                 <p>Редактировали</p>
-                {/* {
-                    Object.entries(editors?.reduce((acc, curr) => {
-                        return {
-                            ...acc,
-                            [new Date(curr?.editor?.lastEdited)?.toDateString()]: [curr, ...(acc?.[new Date(curr?.editor?.lastEdited)?.toDateString()] || [])]
-                        }
-                    }, {}) || {})?.length > 0 && Object.entries(editors?.reduce((acc, curr) => {
-                        return {
-                            ...acc,
-                            [new Date(curr?.editor?.lastEdited)?.toDateString()]: [curr, ...(acc?.[new Date(curr?.editor?.lastEdited)?.toDateString()] || [])]
-                        }
-                    }, {}) || {}).map(date => (
-                        ))
-                    } */}
-                    <UsersGroup users={editors?.map(edit => edit.editor)} />
+                <UsersGroup users={editors?.map(edit => edit.editor)} />
             </Flex>
             <Flex gap='11' direction='column' alignItems='flex-start'>
                 <SimpleButton>Как создать?</SimpleButton>

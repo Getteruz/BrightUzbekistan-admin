@@ -39,10 +39,10 @@ const config = (setValue, getValues) => ({
             'buttons': ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote']
         },
         'moreRich': {
-            'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR']
+            'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertHR']
         },
         'moreMisc': {
-            'buttons': ['undo', 'redo', 'spellChecker', 'selectAll', 'html', 'help'],
+            'buttons': ['undo', 'redo', 'selectAll', 'help'],
             'align': 'right',
             'buttonsVisible': 2
         }

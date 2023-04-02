@@ -136,7 +136,7 @@ console.log(users);
                         <Input
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
-                            value={watchedFiles?.[params?.get('lang')]?.title || ' '}
+                            value={watchedFiles?.[params?.get('lang')]?.title || ''}
                             register={{
                                 ...register(`${params.get('lang')}.title`, {
                                     onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value, userId: user?.id })
@@ -160,7 +160,7 @@ console.log(users);
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
-                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ' '}
+                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortLink`, {
                                 onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value, userId: user?.id }),
                             }) }}

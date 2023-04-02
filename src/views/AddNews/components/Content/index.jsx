@@ -27,7 +27,7 @@ const Content = ({ useForm = {} }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
-    const { register, handleSubmit, setValue, watch, getValues } = useForm
+    const { register, handleSubmit, setValue, watch, getValues, reset } = useForm
     const watchedFiles = watch()
 
     const func = async (data, state) => {
@@ -35,7 +35,7 @@ const Content = ({ useForm = {} }) => {
             setIsLoading(true)
             const res = await createNews({...data, state})
             if (res?.status === 201) {  
-                window.localStorage.removeItem('new_news')
+                reset({})
                 setOpenModal(true)
             }
         } catch (error) {
@@ -96,7 +96,7 @@ const Content = ({ useForm = {} }) => {
                         <Input
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
-                            value={watchedFiles?.[params.get('lang')]?.['title'] || ' '}
+                            value={watchedFiles?.[params.get('lang')]?.['title'] || ''}
                             register={{ ...register(`${params.get('lang')}.title`) }}
                         />
                         <TextArea
@@ -108,7 +108,7 @@ const Content = ({ useForm = {} }) => {
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
-                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ' '}
+                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortLink`) }}
                         />
                     </Flex>

@@ -3,7 +3,7 @@ import UserItem from '../UserItem';
 import cls from './UsersGroup.module.scss'
 
 const UsersGroup = ({users = [], label = ''}) => {
-    console.log(users);
+
     return (
         <div className={cls.group}>
             <h4>{label}</h4>

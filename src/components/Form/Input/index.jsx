@@ -8,7 +8,7 @@ const Input = ({
     placeholder = '',
     label = '',
     register = {},
-    value = '',
+    value,
     users = [],
     ...other
 }) => {
@@ -33,8 +33,13 @@ const Input = ({
                     </Avatar.Group>
                 }
             </div>
-            {value ? <input type={type} placeholder={placeholder} {...{[value && 'value']: value}} {...register} {...other} />
-            : <input type={type} placeholder={placeholder} {...register} {...other} /> }
+            <input 
+                type={type} 
+                placeholder={placeholder} 
+                {...{[value !== undefined && value !== null && 'value']: value}} 
+                {...register} 
+                {...other} 
+            />
         </label>
     );
 }

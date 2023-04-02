@@ -89,8 +89,8 @@ const RightAside = ({ useForm = {} }) => {
                                 key={ctg.id}
                                 onChange={handleCheckboxChange}
                                 checked={getQueryInArray('categories')?.some(category => category === ctg.id)}
-                                value={ctg.id}
-                                label={ctg.ru}
+                                value={ctg.id || ''}
+                                label={ctg.ru || ''}
                             />
                         </div>
                     )

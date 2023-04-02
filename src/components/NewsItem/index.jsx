@@ -38,7 +38,7 @@ const NewsItem = ({
                     light={true}
                     onChange={handleCheck}
                     checked={(params.get('checked') || '')?.split(',')?.includes(id)}
-                    defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
+                    // defaultChecked={(params.get('checked') || '')?.split(',').some(newsId => newsId === id)}
                 />
                 <div className={cls.item__wrap2}>
                     <span className={cls.item__author2}>{creator}</span>

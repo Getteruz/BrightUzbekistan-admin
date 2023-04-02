@@ -94,7 +94,7 @@ const Content = ({ useForm = {} }) => {
                         <Input
                             placeholder='Загаловок новости'
                             label='Загаловок новости'
-                            value={watchedFiles?.[params?.get('lang')]?.['title'] || ' '}
+                            value={watchedFiles?.[params?.get('lang')]?.['title'] || ''}
                             register={{ ...register(`${params.get('lang')}.title`) }}
                         />
                         <TextArea
@@ -106,7 +106,7 @@ const Content = ({ useForm = {} }) => {
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
-                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ' '}
+                            value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
                             register={{ ...register(`${params.get('lang')}.shortLink`) }}
                         />
                     </Flex>
