@@ -103,7 +103,7 @@ const Content = ({ useForm = {} }) => {
         })
     }, [])
 
-console.log(users);
+
     return (
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>

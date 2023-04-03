@@ -25,7 +25,7 @@ const EditNews = () => {
         }, {
             replace: true
         })
-
+        
         Form.reset({
             ...data,
             categories,

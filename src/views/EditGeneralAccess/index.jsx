@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { useForm } from 'react-hook-form';
 import { useParams, useSearchParams } from 'react-router-dom';
 import RightAside from './components/RightAside';
@@ -9,7 +9,6 @@ import { getNewsById } from '../../services/news';
 import { useEffect } from 'react';
 import paramsToObject from '../../utils/paramsToObject';
 import useSocket from '../../hooks/useSocket';
-import { useState } from 'react';
 
 const EditGeneralAccess = () => {
     const { id } = useParams()
@@ -28,15 +27,23 @@ const EditGeneralAccess = () => {
         }, {
             replace: true
         })
-
-        Form.reset({
-            ...data,
-            categories
-        })
+// console.log(data);
+        // Form.reset({
+        //     ...data,
+        //     categories
+        // })
     }, [data])
 
     useEffect(() => {
         socket.emit('create', id)
+        socket.on('get_changes', data => {
+            console.log(data);
+            const categories = data?.categories?.map(ctg => ctg?.id) || []
+            Form.reset({
+                ...data,
+                categories
+            })
+        })
         return () => socket.emit('leave', id)
     }, [])
 

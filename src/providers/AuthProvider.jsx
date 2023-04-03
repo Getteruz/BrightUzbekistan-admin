@@ -8,7 +8,7 @@ const AuthProvider = ({ children }) => {
     const auth = useSelector(state => state.auth)
     const navigate = useNavigate()
     // console.log(auth.isAuth);
-    console.log(auth.isAuth);
+   
     if (!auth.isAuth) {
         // navigate('/auth')
     //     return <Navigate to='/auth' />

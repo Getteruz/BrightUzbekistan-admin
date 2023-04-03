@@ -32,8 +32,7 @@ const Content = ({
         try {
             setLoading(true)
             data.phone = data?.phone.replace(/[^0-9]+/g, '')
-            if (!data.role) {   
-                console.log(data);
+            if (!data.role) {
                 toast.error('Вы должны выбрать роль !')
                 return
             } else if (data.permissions?.length < 1) {

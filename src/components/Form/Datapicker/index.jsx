@@ -1,14 +1,26 @@
 import { DatePicker } from 'antd';
-import moment from 'moment';
-import { CalendaIcon } from '../../icons';
-
+import dayjs from 'dayjs';
+import moment from 'moment/moment';
 import cls from './Datapicker.module.scss'
 
-const Datapicker = ({ label, onChange, value = '' }) => {
+const Datapicker = ({ 
+    label, 
+    onChange, 
+    value
+}) => {
+    const date = new Date(value)?.getDate()
+    const month = new Date(value)?.getMonth() + 1
+    const year = new Date(value)?.getFullYear()
+
     return (
         <div className={cls.datapicker}>
             <span className={cls.datapicker__label}>{label}</span>
-            <DatePicker className={cls.custom} {...{[value && 'value']: moment(value, 'DD|MM|YYYY')}} format='DD|MM|YYYY' onChange={onChange} />
+            <DatePicker 
+                className={cls.custom}
+                format='DD|MM|YYYY'
+                onChange={onChange}
+                // {...{[value !== undefined && value !== null && 'value']: dayjs(`${date}|${month}|${year}`, 'DD-MM-YYYY')}}
+            />
         </div>
     );
 }

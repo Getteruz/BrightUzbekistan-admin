@@ -57,7 +57,7 @@ const RightAside = ({ useForm = {} }) => {
             const values = getValues()
             const hashtags = values?.[params.get('lang')]?.tags || []
             hashtags.push(e.target.value?.trim())
-            setValue(`${params.get('lang')}.hashtags`, Array.from(new Set(hashtags)))
+            setValue(`${params.get('lang')}.tags`, Array.from(new Set(hashtags)))
         }
         if (e.keyCode === 13) {
             e.target.value = ''
@@ -66,7 +66,6 @@ const RightAside = ({ useForm = {} }) => {
 
     const onTimeChange = (e) => {
         if (e) {
-            console.log(e);
             const publishedDate = getValues()?.publishDate || Date.now()
             const date = new Date(publishedDate)
             date.setTime(e?.$d)
@@ -123,12 +122,12 @@ const RightAside = ({ useForm = {} }) => {
                 }
             </SwitchGroup>
             <DateGroup label='Дата публикации'>
-                <Timepicker label='Время' onChange={onTimeChange} defaultValue={watchedFiles?.publishDate} />
-                <Datapicker label='Дата' onChange={onDateChange} />
+                <Timepicker label='Время' onChange={onTimeChange} value={watchedFiles?.publishDate} />
+                <Datapicker label='Дата' onChange={onDateChange} value={watchedFiles?.publishDate} />
             </DateGroup>
             <Flex gap='15' direction='column'>
                 <RoundedInput placeholder='Название тега' label='Теги' onKeyUp={handleKeyUp} />
-                <TagsGroup tags={getValues()?.[params.get('lang')]?.tags || []} setValue={setValue} />
+                <TagsGroup tags={watchedFiles?.[params.get('lang')]?.tags || []} setValue={setValue} />
             </Flex>
         </RightAsideWrapper>
     );
