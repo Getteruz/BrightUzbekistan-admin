@@ -32,6 +32,7 @@ const Content = ({ useForm = {} }) => {
     const { user } = useSelector(state => state.auth)
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
+    const [imageLoading, setImageLoading] = useState(false)
     const [users, setUsers] = useState({})
     const [params, setSearchParams] = useSearchParams()
     const { register, handleSubmit, setValue, watch, getValues } = useForm
@@ -52,15 +53,23 @@ const Content = ({ useForm = {} }) => {
     }
 
     const uploadSelectedImage = async (e) => {
-        const file = e.target?.files?.[0]
-        if (file) {
-            const data = await uploadImage(file)
-            if (data?.url) {
-                setValue(`${params.get('lang')}.file`, data?.url)
-                socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.file`, value: data?.url, userId: user?.id })
+        try {
+            setImageLoading(true)
+            const file = e.target?.files?.[0]
+            if (file) {
+                const data = await uploadImage(file)
+                if (data?.url) {
+                    setValue(`${params.get('lang')}.file`, data?.url)
+                    socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.file`, value: data?.url, userId: user?.id })
+                }
             }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setImageLoading(false)
         }
     }
+
 
     const deleteImage = async (url) => {
         await removeFile(url)
@@ -173,6 +182,7 @@ const Content = ({ useForm = {} }) => {
                         setValue={setValue}
                         onChange={uploadSelectedImage}
                         onDelete={deleteImage}
+                        loading={imageLoading}
                         url={watchedFiles?.[params.get('lang')]?.file}
                     />
                 </div>

@@ -18,6 +18,7 @@ import cls from './Content.module.scss';
 import NewsConfirm from "../../../../components/NewsConfirm";
 import Filter from "../../../../components/Filter/Filter";
 import { useGetWindowWidth } from "../../../../hooks/useGetWindowWith";
+import NewsSkeleton from "../../../../components/Skeletons/NewsSkeleton";
 
 const Content = () => {
     const location = useLocation()
@@ -27,7 +28,7 @@ const Content = () => {
     const [params, setSearchParams] = useSearchParams()
     const query = new useQueryClient()
     const windowWidth = useGetWindowWidth()
-    const { data: mynews } = useQuery(
+    const { data: mynews, isLoading: newsLoading } = useQuery(
         ['my-news', params.get('category') || '', params.get('page') || ''],
         async ({ queryKey }) => await getMyNews({ categoryId: queryKey[1] || '', state: queryKey[2] || '' })
     )
@@ -37,9 +38,9 @@ const Content = () => {
             setLoading(true)
             setIsOpenModal(false)
             const newsIds = getQueryInArray('checked')
-            const res = await publishNews({newsIds, tg: !!params.get('telegram'), inst: !!params.get('insta')})
+            const res = await publishNews({ newsIds, tg: !!params.get('telegram'), inst: !!params.get('insta') })
             query.invalidateQueries(['my-news', params.get('category') || '', params.get('page') || ''])
-            setSearchParams({...paramsToObject(params.entries()), checked: ''})
+            setSearchParams({ ...paramsToObject(params.entries()), checked: '' })
         } catch (error) {
             console.log(error);
         } finally {
@@ -50,7 +51,7 @@ const Content = () => {
     const handleClick = () => {
         setIsOpenModal(true)
     }
- 
+
     const handleCheck = (e) => {
         if (e.target.checked) {
             setSearchParams({ ...paramsToObject(params.entries()), checked: mynews?.map(news => news?.id)?.join(',') })
@@ -77,7 +78,7 @@ const Content = () => {
                             checked={mynews?.length > 0 && getQueryInArray('checked')?.length === mynews?.length}
                         />
                         <RedButton
-                            disabled={isDisabled || !['general access', 'favorites']?.includes(params.get('page'))} 
+                            disabled={isDisabled || !['general access', 'favorites']?.includes(params.get('page'))}
                             onClick={handleClick}
                         >
                             Опубликовать
@@ -107,13 +108,22 @@ const Content = () => {
             </div>
         }>
             <Filter />
-            <NewsList news={mynews} />
+            {newsLoading ? (
+                <Flex direction='column' gap='20'>
+                    {Array(10)?.fill(null).map(() => (
+                        <NewsSkeleton />
+                    ))}
+                </Flex>
+            ) : (
+                <NewsList news={mynews} />
+            )}
             {loading && <Loader text="Идёт публикация новостей" />}
             {isOpenModal &&
                 <NewsConfirm
                     onClickOutside={() => setIsOpenModal(false)}
                     onOk={publishCheckedNews}
-                />}
+                />
+            }
         </ContentWrapper>
     );
 }

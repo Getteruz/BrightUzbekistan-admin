@@ -15,6 +15,7 @@ import cls from './Content.module.scss'
 import RedButton from '../../../../components/Buttons/RedButton';
 import NewsConfirm from '../../../../components/NewsConfirm';
 import useSocket from '../../../../hooks/useSocket';
+import NewsSkeleton from '../../../../components/Skeletons/NewsSkeleton';
 
 const Content = () => {
     const socket = useSocket()
@@ -22,7 +23,7 @@ const Content = () => {
     const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const [isOpenModal, setIsOpenModal] = useState(false)
-    const { data: news } = useQuery(
+    const { data: news, isLoading: newsLoading } = useQuery(
         ['news', 'general-access', params.get('category') || '',],
         async ({ queryKey }) => await getGeneralAccessNews({ categoryId: queryKey[2] || '' })
     )
@@ -32,9 +33,9 @@ const Content = () => {
             setIsLoading(true)
             setIsOpenModal(false)
             const newsIds = getQueryInArray('checked')
-            const res = await publishNews({newsIds, tg: !!params.get('telegram'), inst: !!params.get('insta')})
+            const res = await publishNews({ newsIds, tg: !!params.get('telegram'), inst: !!params.get('insta') })
             queryClient.invalidateQueries(['news', 'general-access', params.get('category') || '',])
-            setSearchParams({...paramsToObject(params.entries()), checked: ''})
+            setSearchParams({ ...paramsToObject(params.entries()), checked: '' })
         } catch (error) {
             console.log(error);
         } finally {
@@ -69,11 +70,11 @@ const Content = () => {
     useEffect(() => {
         socket.on('news_editing', newsId => queryClient.setQueryData(
             ['news', 'general-access', params.get('category') || ''],
-            (old) => old?.map(news => news?.id === newsId ? {...news, isEditing: true} : news)
+            (old) => old?.map(news => news?.id === newsId ? { ...news, isEditing: true } : news)
         ))
         socket.on('news_end_editing', newsId => queryClient.setQueryData(
             ['news', 'general-access', params.get('category') || ''],
-            (old) => old?.map(news => news?.id === newsId ? {...news, isEditing: false} : news)
+            (old) => old?.map(news => news?.id === newsId ? { ...news, isEditing: false } : news)
         ))
     }, [])
 
@@ -109,22 +110,30 @@ const Content = () => {
                     onClickOutside={() => setIsOpenModal(false)}
                     onOk={publishCheckedNews}
                 />}
-            <Flex direction='column' gap='20'>
-                {
-                    news?.length > 0 && news.map((news) =>
-                        <NewsItem
-                            id={news?.id}
-                            link={`/general-access/edit/${news?.id}`}
-                            key={news?.id}
-                            title={news?.ru?.title}
-                            creator={news?.creator?.fullName}
-                            date={news?.created_at}
-                            categories={news?.categories?.map(ctg => ctg?.ru)}
-                            editing={news?.isEditing}
-                            lastUpdate={news?.updated_at}
-                        />)
-                }
-            </Flex>
+            {newsLoading ? (
+                <Flex direction='column' gap='20'>
+                    {Array(10)?.fill(null).map(() => (
+                        <NewsSkeleton />
+                    ))}
+                </Flex>
+            ) : (
+                <Flex direction='column' gap='20'>
+                    {
+                        news?.length > 0 && news.map((news) =>
+                            <NewsItem
+                                id={news?.id}
+                                link={`/general-access/edit/${news?.id}`}
+                                key={news?.id}
+                                title={news?.ru?.title}
+                                creator={news?.creator?.fullName}
+                                date={news?.created_at}
+                                categories={news?.categories?.map(ctg => ctg?.ru)}
+                                editing={news?.isEditing}
+                                lastUpdate={news?.updated_at}
+                            />)
+                    }
+                </Flex>
+            )}
         </ContentWrapper>
     );
 }

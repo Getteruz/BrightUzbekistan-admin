@@ -25,6 +25,7 @@ import cls from './Content.module.scss'
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(false)
+    const [imageLoading, setImageLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
     const { register, handleSubmit, setValue, watch, getValues, reset } = useForm
@@ -33,8 +34,8 @@ const Content = ({ useForm = {} }) => {
     const func = async (data, state) => {
         try {
             setIsLoading(true)
-            const res = await createNews({...data, state})
-            if (res?.status === 201) {  
+            const res = await createNews({ ...data, state })
+            if (res?.status === 201) {
                 reset({})
                 setOpenModal(true)
             }
@@ -46,12 +47,19 @@ const Content = ({ useForm = {} }) => {
     }
 
     const uploadSelectedImage = async (e) => {
-        const file = e.target?.files?.[0]
-        if (file) {
-            const data = await uploadImage(file)
-            if(data?.url){
-                setValue(`${params.get('lang')}.file`, data?.url)
+        try {
+            setImageLoading(true)
+            const file = e.target?.files?.[0]
+            if (file) {
+                const data = await uploadImage(file)
+                if (data?.url) {
+                    setValue(`${params.get('lang')}.file`, data?.url)
+                }
             }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setImageLoading(false)
         }
     }
 
@@ -116,12 +124,13 @@ const Content = ({ useForm = {} }) => {
                         setValue={setValue}
                         onChange={uploadSelectedImage}
                         onDelete={deleteImage}
+                        loading={imageLoading}
                         url={watchedFiles?.[params.get('lang')]?.file}
                     />
                 </div>
                 <RichText
                     value={watchedFiles?.[params.get('lang')]?.['description'] || ''}
-                    register={{ ...register(`${params.get('lang')}.description`) }} 
+                    register={{ ...register(`${params.get('lang')}.description`) }}
                     setValue={setValue}
                     getValues={getValues}
                     name={`${params.get('lang')}.description`}

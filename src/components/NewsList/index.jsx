@@ -1,5 +1,6 @@
 import Flex from '../Flex';
 import ListItem from '../NewsItem';
+import NewsSkeleton from '../Skeletons/NewsSkeleton';
 
 const NewsList = ({ news = [] }) => {
     return (

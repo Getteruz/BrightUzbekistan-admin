@@ -17,13 +17,14 @@ import { useGetWindowWidth } from '../../../../hooks/useGetWindowWith';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './Content.module.scss'
+import NewsSkeleton from '../../../../components/Skeletons/NewsSkeleton';
 
 const Content = () => {
     const queryClient = useQueryClient()
     const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const windowWidth = useGetWindowWidth()
-    const { data: news } = useQuery(
+    const { data: news, isLoading: newsLoading } = useQuery(
         ['news', params.get('category') || ''],
         async ({ queryKey }) => await getPublishedNews({ categoryId: queryKey[1] || '' })
     )
@@ -71,8 +72,15 @@ const Content = () => {
         }>
             {isLoading && <Loader text='Выполняется удаление новостей'/>}
             <Filter />
-
-            <NewsList news={news} />
+            {newsLoading ? (
+                <Flex direction='column' gap='20'>
+                    {Array(10)?.fill(null).map(() => (
+                        <NewsSkeleton />
+                    ))}
+                </Flex>
+            ) : (
+                <NewsList news={news} />
+            )}
             <SiteAdd />
         </ContentWrapper>
     );

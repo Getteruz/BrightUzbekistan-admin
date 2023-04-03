@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import CircleLoader from '../../../../CircleLoader';
 import Flex from '../../../../Flex';
 import Button from '../../Button';
 import cls from './Square.module.scss'
@@ -7,7 +8,8 @@ import cls from './Square.module.scss'
 const SquarePhotoUpload = ({
     onChange = () => {},
     onDelete = () => {},
-    url = ''
+    url = '',
+    loading = false
 }) => {
 
     return (
@@ -22,7 +24,7 @@ const SquarePhotoUpload = ({
                                     src={url}
                                 />
                             ) : (
-                                <span>Нет фото</span>
+                                loading ? <CircleLoader /> :  <span>Нет фото</span>
                             )
                         }
                     </div>
