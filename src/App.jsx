@@ -21,28 +21,27 @@ function App() {
   })
 
   useEffect(() => {
-    if(!isLoading && data) {
+    if (!isLoading && data) {
       dispatch(authActions.setUser(data))
     } else if (!isLoading && !data) {
       dispatch(authActions.logout())
     }
   }, [data])
-  
+
   useEffect(() => {
-    if(!auth.isAuth) {
+    if (!auth.isAuth) {
       navigate('/auth')
     } else {
       refetch()
     }
   }, [auth.isAuth])
-  
+
   useEffect(() => {
-    if(auth?.user?.id){
-      socket.emit('join', {id: auth?.user?.id})
+    if (auth?.user?.id) {
+      socket.emit('join', { id: auth?.user?.id })
       socket.on('login', data => alert(data?.user))
     }
   }, [])
-  
 
   return (
     <Router />
