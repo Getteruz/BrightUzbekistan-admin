@@ -22,7 +22,10 @@ const AuthForm = () => {
     const sendForm = async (data) => {
         try {
             setLoading(true)
-            const res = await login(data)
+            const res = await login({
+                login: data?.login?.trim(),
+                password: data?.password?.trim()
+            })
 
             if (res?.access_token_admin) {
                 // setCookie('access_token_admin', res?.access_token_admin, { path: '/' })
