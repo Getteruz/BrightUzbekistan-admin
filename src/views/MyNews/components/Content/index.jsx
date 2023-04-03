@@ -8,7 +8,7 @@ import Flex from "../../../../components/Flex";
 import BtnGroup from "../../../../components/Form/BtnGroup";
 import Checkbox from "../../../../components/Form/Checkbox";
 import { PlayIcon } from "../../../../components/icons";
-import Loader from "../../../../components/Loader";
+import Loader from "../../../../components/Loaders/Loader";
 import NewsList from "../../../../components/NewsList";
 import { getMyNews, publishNews } from "../../../../services/news";
 import getQueryInArray from "../../../../utils/getQueryInArray";

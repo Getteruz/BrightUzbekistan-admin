@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import ComponentsWrapper from "../../components/ComponentsWrapper";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loaders/Loader";
 import Content from "./components/Content";
 import LeftAside from "./components/LeftAside";
 import RightAside from "./components/RightAside";

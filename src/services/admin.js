@@ -49,6 +49,15 @@ export const updateAdmin = async (id, data) => {
         const res = await api.put(`/admin/${id}`, data, { withCredentials: true })
         return res?.data
     } catch (error) {
-        
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
+
+export const deleteAdmin = async (id) => {
+    try {
+        const res = await api.delete(`/admin/${id}`)
+        return res?.data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }

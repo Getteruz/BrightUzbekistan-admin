@@ -9,7 +9,7 @@ import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
 import Datapicker from '../../../../components/Form/Datapicker';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
-import Loader from '../../../../components/Loader';
+import Loader from '../../../../components/Loaders/Loader';
 import NewsList from '../../../../components/NewsList';
 import { deleteNews, getPublishedNews } from '../../../../services/news';
 import SiteAdd from '../../../../components/siteAdd/SiteAdd';

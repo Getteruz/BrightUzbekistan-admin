@@ -10,8 +10,8 @@ import InputMask from "../../../../components/Form/InputMask";
 import Select from "../../../../components/Form/Select";
 import { regions } from "./data";
 import cls from './Content.module.scss'
-import Loader from "../../../../components/Loader";
-import Modal from "../../../../components/Modal";
+import Loader from "../../../../components/Loaders/Loader";
+import Modal from "../../../../components/Modals/Modal";
 import { useState } from "react";
 import { createAdmin } from "../../../../services/admin";
 import { useQuery } from "react-query";

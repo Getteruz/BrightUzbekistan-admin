@@ -1,6 +1,6 @@
-import RedButton from '../Buttons/RedButton';
-import { CloseIcon } from '../icons';
-import Successful from '../Marks/Successful';
+import RedButton from '../../Buttons/RedButton';
+import { CloseIcon } from '../../icons';
+import Successful from '../../Marks/Successful';
 import cls from './Modal.module.scss'
 
 const Modal = ({

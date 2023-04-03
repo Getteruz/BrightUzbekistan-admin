@@ -13,8 +13,8 @@ import RichText from '../../../../components/Form/RichText';
 import TextArea from '../../../../components/Form/TextArea';
 import SquarePhotoUpload from '../../../../components/Form/Upload/Photo/Square';
 import { BookIcon, PlayIcon } from '../../../../components/icons';
-import Loader from '../../../../components/Loader';
-import Modal from '../../../../components/Modal';
+import Loader from '../../../../components/Loaders/Loader';
+import Modal from '../../../../components/Modals/Modal';
 import { createNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
 import paramsToObject from '../../../../utils/paramsToObject';
@@ -53,7 +53,7 @@ const Content = ({ useForm = {} }) => {
             if (file) {
                 const data = await uploadImage(file)
                 if (data?.url) {
-                    setValue(`${params.get('lang')}.file`, data?.url)
+                    setValue(`file`, data?.url)
                 }
             }
         } catch (error) {
@@ -65,7 +65,7 @@ const Content = ({ useForm = {} }) => {
 
     const deleteImage = async (url) => {
         await removeFile(url)
-        setValue(`${params.get('lang')}.file`, null)
+        setValue(`file`, null)
     }
 
     useEffect(() => {
@@ -125,7 +125,7 @@ const Content = ({ useForm = {} }) => {
                         onChange={uploadSelectedImage}
                         onDelete={deleteImage}
                         loading={imageLoading}
-                        url={watchedFiles?.[params.get('lang')]?.file}
+                        url={watchedFiles?.file}
                     />
                 </div>
                 <RichText

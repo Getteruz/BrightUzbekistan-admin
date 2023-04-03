@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import CircleLoader from '../../../../CircleLoader';
+import CircleLoader from '../../../../Loaders/CircleLoader';
 import Flex from '../../../../Flex';
 import Button from '../../Button';
 import cls from './Square.module.scss'

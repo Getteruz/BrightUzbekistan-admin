@@ -6,7 +6,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import RedButton from '../../../../components/Buttons/RedButton';
 import WhiteInput from '../../../../components/Form/WhiteInput';
 import { RightIcon } from '../../../../components/icons';
-import Loader from '../../../../components/Loader';
+import Loader from '../../../../components/Loaders/Loader';
 import { login } from '../../../../services/auth';
 import cls from './Form.module.scss'
 import { useDispatch } from 'react-redux';

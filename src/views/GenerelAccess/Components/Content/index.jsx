@@ -7,7 +7,7 @@ import ContentWrapper from '../../../../components/ContentWrapper';
 import Flex from '../../../../components/Flex';
 import Checkbox from '../../../../components/Form/Checkbox';
 import { ArchiveIcon, DeleteIcon } from '../../../../components/icons';
-import Loader from '../../../../components/Loader';
+import Loader from '../../../../components/Loaders/Loader';
 import { deleteNews, getGeneralAccessNews, publishNews } from '../../../../services/news';
 import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';

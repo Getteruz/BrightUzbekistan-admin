@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircleLoaderIcon } from '../icons';
+import { CircleLoaderIcon } from '../../icons';
 
 const CircleLoader = () => {
     return (
