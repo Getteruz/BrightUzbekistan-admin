@@ -11,7 +11,9 @@ const Sidebar = () => {
     const iconRef = useRef()
     const router = useLocation()
     const navigate = useNavigate()
-
+    const wrap = useRef()
+    const wrap2 = useRef()
+    const btnWrap = useRef()
     useEffect(() => {
         const handleClick = (e) => {
             if (!x.current.contains(e.target)) {
@@ -19,8 +21,17 @@ const Sidebar = () => {
             } else if (iconRef.current === e.target) {
                 x.current.classList.add(cls.openmadal)
             }
+            // if (!wrap2.current.contains(e.target) && btnWrap.current !== e.target) {
+            //     wrap.current.classList.remove(cls.openmadal2)
+            // } else if (btnWrap.current === e.target) {
+            //     wrap.current.classList.add(cls.openmadal2)
+            // }
+
         }
+
+
         document.addEventListener('click', handleClick);
+
         return () => document.removeEventListener('click', handleClick)
     }, [])
 
@@ -65,12 +76,21 @@ const Sidebar = () => {
                     )
                 }
             </div>
-            <button className={cls.sidebar__button} onClick={Logout}>
+            <button ref={btnWrap} className={cls.sidebar__button} onClick={() => wrap.current.classList.add(cls.openmadal2)} >
                 <LogOutIcon /> Выход
             </button>
-            <button className={cls.sidebar__button2} onClick={Logout}>
+            <button ref={btnWrap} className={cls.sidebar__button2} onClick={() => wrap.current.classList.add(cls.openmadal2)}>
                 <LogOutIcon />
             </button>
+            <div ref={wrap} className={cls.logOut__boxshodow} >
+                <div ref={wrap2} className={cls.logOut__wrapp}>
+                    <p className={cls.logOut__text}>Вы действительно хотите выйти?</p>
+                    <div>
+                        <button className={cls.logOut__btn} onClick={Logout}>я вернусь позже</button>
+                        <button className={cls.logOut__btn2} onClick={() => wrap.current.classList.remove(cls.openmadal2)}>Это было случайно</button>
+                    </div>
+                </div>
+            </div>
         </aside>
     );
 }

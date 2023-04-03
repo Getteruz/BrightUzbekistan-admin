@@ -183,3 +183,77 @@
         width: 363px !important;
     }
 }
+
+
+.logOut {
+    &__boxshodow {
+        display: none;
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background: rgba(11, 33, 43, 0.2);
+        z-index: 10;
+
+    }
+
+    &__wrapp {
+        text-align: center;
+        background: #FFFFFF;
+        border-radius: 22px;
+        padding: 39px 19px 23px 18px;
+        width: 394px;
+        margin: 0 auto;
+        margin-top: 361px;
+    }
+
+    &__text {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        text-align: center;
+        width: 290px;
+        margin: 0 auto;
+        color: #141B1F;
+        margin-bottom: 44px;
+
+    }
+
+    &__btn {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 14px 10px;
+        background: #F3715B;
+        border-radius: 12px;
+        border: none;
+        margin-right: 5px;
+        width: 176px;
+    }
+
+    &__btn2 {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 20px;
+        text-align: center;
+        color: #FFFFFF;
+        padding: 14px 10px;
+        background: #141B1F;
+        border-radius: 12px;
+        border: none;
+        width: 176px;
+    }
+}
+
+.openmadal2 {
+    display: inline-block;
+}
