@@ -68,7 +68,7 @@ const Content = ({ useForm = {} }) => {
         <ContentWrapper navbar={
             <div className={cls.content__group} id='news_nav'>
                 <Flex gap='5' rowCount='2' alignItems='center'>
-                    <RedButton onClick={handleSubmit((data) => func(data, 'general access'))} disabled={!watchedFiles?.ru?.title}>Сохранить</RedButton>
+                    <RedButton onClick={handleSubmit((data) => func(data, 'general access'))} disabled={!watchedFiles?.ru?.title}>Сохранить в общий доступ</RedButton>
                     <RoundedButton onClick={handleSubmit((data) => func(data, 'favorites'))}><BookIcon /> Избранные</RoundedButton>
                 </Flex>
                 <SimpleButton><PlayIcon /> Быстрый просмотр</SimpleButton>

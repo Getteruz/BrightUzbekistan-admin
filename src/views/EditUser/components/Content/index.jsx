@@ -40,8 +40,6 @@ const Content = ({
                 return
             } else if (data.phoneNumber?.length < 12) {
                 toast.error('Вы ввели неправильный фотмат номера !')
-            } else if (data.password !== data.repeat_password) {
-                toast.error('Пароли не совпадают.')
             } else {
                 const fd = new FormData()
                 fd.append('fullName', data?.fullName)
@@ -49,7 +47,7 @@ const Content = ({
                 fd.append('education', data?.education)
                 fd.append('login', data?.login)
                 fd.append('phone', data?.phone)
-                fd.append('password', data?.password)
+                if(data?.password?.trim()) fd.append('password', data?.password)
                 fd.append('position', data?.role)
                 fd.append('permissions', JSON.stringify(data?.permissions))
                 if (typeof data?.avatar !== 'string') fd.append('avatar', data?.avatar)
@@ -141,18 +139,18 @@ const Content = ({
                                 rules={{ required: true }}
                             />
                         </div>
-                        {/* <div>
-                            <h3>Придумайте пароль</h3>
+                        <div>
+                            <h3>Изменить пароль</h3>
                             <p>Латинскими буквами и представьте его пользователю в письменном виде!</p>
                             <Input
                                 type="password"
                                 placeholder="Password"
                                 name="password"
-                                register={{ ...register('password', { required: true,minLength: 8 }) }}
+                                register={{ ...register('password') }}
                             />
                         </div>
-                        <div>
-                            <h3>Подтверите пароль</h3>
+                        {/* <div>
+                            <h3>Придумайте пароль</h3>
                             <p>Латинскими буквами и представьте его пользователю в письменном виде!</p>
                             <Input
                                 type="password"
