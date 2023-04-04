@@ -21,6 +21,7 @@ import paramsToObject from '../../../../utils/paramsToObject';
 import { saveToLocalStorage } from '../../../../utils/localStorageService';
 import { langs } from './data';
 import cls from './Content.module.scss'
+import latinCrill from 'latin-crill';
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
@@ -71,6 +72,18 @@ const Content = ({ useForm = {} }) => {
     useEffect(() => {
         saveToLocalStorage('new_news', watchedFiles)
     }, [watchedFiles])
+    
+    useEffect(() => {
+        setValue('уз.title', latinCrill(watchedFiles?.uz?.title || ''))
+        setValue('уз.shortDescription', latinCrill(watchedFiles?.uz?.shortDescription || ''))
+        setValue('уз.shortLink', latinCrill(watchedFiles?.uz?.shortLink || ''))
+        setValue('уз.description', latinCrill(watchedFiles?.uz?.description || '', true))
+    }, [
+        watchedFiles?.uz?.title,
+        watchedFiles?.uz?.shortDescription,
+        watchedFiles?.uz?.shortLink,
+        watchedFiles?.uz?.description    
+    ])
 
     return (
         <ContentWrapper navbar={

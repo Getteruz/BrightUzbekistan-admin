@@ -110,8 +110,8 @@ const Content = () => {
             <Filter />
             {newsLoading ? (
                 <Flex direction='column' gap='20'>
-                    {Array(10)?.fill(null).map(() => (
-                        <NewsSkeleton />
+                    {Array(10)?.fill(null).map((_, index) => (
+                        <NewsSkeleton key={index} />
                     ))}
                 </Flex>
             ) : (

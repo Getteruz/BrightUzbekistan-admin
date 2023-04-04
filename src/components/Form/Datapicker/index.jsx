@@ -19,7 +19,7 @@ const Datapicker = ({
                 className={cls.custom}
                 format='DD|MM|YYYY'
                 onChange={onChange}
-                // {...{[value !== undefined && value !== null && 'value']: dayjs(`${date}|${month}|${year}`, 'DD-MM-YYYY')}}
+                {...{[value !== undefined && value !== null && 'value']: dayjs(`${date}|${month}|${year}`, 'DD-MM-YYYY')}}
             />
         </div>
     );
