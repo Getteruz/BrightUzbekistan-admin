@@ -10,20 +10,16 @@ import paramsToObject from '../../utils/paramsToObject';
 import getQueryInArray from '../../utils/getQueryInArray';
 
 const AddNews = () => {
-    const Form = useForm({ mode: 'onChange', defaultValues: getFromLocalStorage('new_news', {}) })
+    const Form = useForm({ mode: 'onChange', defaultValues: getFromLocalStorage('new_news', {isLastNews: true}) })
     const [params, setSearchParams] = useSearchParams()
 
     useEffect(() => {
-        const oldValue = getFromLocalStorage('new_news', {})
+        const oldValue = getFromLocalStorage('new_news', {isLastNews: true})
         let categories = getQueryInArray('categories') || []
         let mainCategory = ''
-
         if(oldValue?.categories?.length > 0) {
             categories = [oldValue?.categories]
             mainCategory = oldValue?.mainCategory
-        } else  if(!categories?.includes(import.meta.env.VITE_LAST_NEWS_ID)){
-            categories.push(import.meta.env.VITE_LAST_NEWS_ID)
-
         }
         setSearchParams({
             ...paramsToObject(params.entries()),

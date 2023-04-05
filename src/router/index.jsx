@@ -13,6 +13,7 @@ import EditNews from "../views/EditNews"
 import EditUser from "../views/EditUser"
 import GeneralAccess from "../views/GenerelAccess"
 import EditGeneralAccess from "../views/EditGeneralAccess"
+import Archive from "../views/Archive"
 
 const
   Router = () => {
@@ -35,7 +36,7 @@ const
           <Route path="/dop-pages" element={<></>} />
           <Route path="/reklama" element={<></>} />
           <Route path="/statistika" element={<></>} />
-          <Route path="/archive" element={<></>} />
+          <Route path="/archive" element={<Archive />} />
         </Route>
         <Route path="/auth" element={<AuthPage />} />
       </Routes>

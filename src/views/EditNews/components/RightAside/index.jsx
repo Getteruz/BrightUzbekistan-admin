@@ -25,16 +25,14 @@ const RightAside = ({ useForm = {} }) => {
         let categories = getQueryInArray('categories') || []
 
         if (e.target.checked) {
-            categories = categories.slice(
-                0,
-                categories.some(ctg => ctg === import.meta.env.VITE_LAST_NEWS_ID || e.target.value === import.meta.env.VITE_LAST_NEWS_ID) ? 3 : 2)
+            categories = categories.slice(0, 2)
             categories?.push(e.target.value)
         } else {
             categories = categories?.filter(ctg => ctg !== e.target.value)
         }
 
         if (!categories?.includes(params.get('mainCategory'))) {
-            setSearchParams(params.set('mainCategory', categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID) || ''), {
+            setSearchParams(params.set('mainCategory', categories?.[0] || ''), {
                 replace: true
             })
         }
@@ -85,20 +83,21 @@ const RightAside = ({ useForm = {} }) => {
     return (
         <RightAsideWrapper>
             <SwitchGroup label='Выберите категорию'>
+                <div className={cls.checkbox}>
+                    <span className={cls.disabled}>*</span>
+                    <Switch
+                        label='Последние новости'
+                        checked={watchedFiles?.isLastNews}
+                        onChange={(e) => setValue('isLastNews', e.target.checked)}
+                    />
+                </div>
                 {
                     categories?.length > 0 && categories.map(ctg =>
                         <div className={cls.checkbox} key={ctg.id}>
-                            {
-                                getQueryInArray('categories')?.some(category => category == ctg.id) &&
-                                    ctg.id !== import.meta.env.VITE_LAST_NEWS_ID ? (
-                                    <span
-                                        className={params.get('mainCategory') === ctg.id ? cls.active : ""}
-                                        onClick={() => setSearchParams({ ...paramsToObject(params.entries()), 'mainCategory': ctg.id }, { replace: true })}
-                                    >*</span>
-                                ) : (
-                                    <span className={cls.disabled}>*</span>
-                                )
-                            }
+                            <span
+                                className={params.get('mainCategory') === ctg.id ? cls.active : ""}
+                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), 'mainCategory': ctg.id }, { replace: true })}
+                            >*</span>
                             <Switch
                                 key={ctg.id}
                                 onChange={handleCheckboxChange}

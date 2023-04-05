@@ -16,24 +16,23 @@ import paramsToObject from '../../../../utils/paramsToObject';
 import cls from './RightAside.module.scss'
 
 const RightAside = ({ useForm = {} }) => {
-    const { setValue, getValues } = useForm
+    const { setValue, getValues, watch } = useForm
     const [params, setSearchParams] = useSearchParams()
     const { data: categories } = useQuery('categories', getCategories)
+    const watchedFiles = watch()
 
     const handleCheckboxChange = (e) => {
         let categories = getQueryInArray('categories') || []
 
         if (e.target.checked) {
-            categories = categories.slice(
-                0,
-                categories.some(ctg => ctg === import.meta.env.VITE_LAST_NEWS_ID || e.target.value === import.meta.env.VITE_LAST_NEWS_ID) ? 3 : 2)
+            categories = categories.slice(0, 2) 
             categories?.push(e.target.value)
         } else {
             categories = categories?.filter(ctg => ctg !== e.target.value)
         }
 
         if (!categories?.includes(params.get('mainCategory'))) {
-            setSearchParams(params.set('mainCategory', categories?.find(ctg => ctg !== import.meta.env.VITE_LAST_NEWS_ID) || ''), {
+            setSearchParams(params.set('mainCategory', categories?.[0] || ''), {
                 replace: true
             })
         }
@@ -71,6 +70,14 @@ const RightAside = ({ useForm = {} }) => {
     return (
         <RightAsideWrapper>
             <SwitchGroup label='Выберите категорию'>
+            <div className={cls.checkbox}>
+                <span className={cls.disabled}>*</span>
+                <Switch 
+                    label='Последние новости'
+                    checked={watchedFiles?.isLastNews}
+                    onChange={(e) => setValue('isLastNews', e.target.checked)}
+                />
+            </div>
                 {
                     categories?.length > 0 && categories.map(ctg =>
                         <div className={cls.checkbox} key={ctg.id}>
