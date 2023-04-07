@@ -20,6 +20,7 @@ const config = (setValue, getValues) => ({
     heightMax: 592,
     widthMax: '100%',
     linkInsertButtons: [],
+    pastePlain: true,
     imageResize: true,
     imageDefaultWidth: '100%',
     fontFamilySelection: true,

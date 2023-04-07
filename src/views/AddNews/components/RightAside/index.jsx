@@ -56,11 +56,23 @@ const RightAside = ({ useForm = {} }) => {
     }
 
     const onTimeChange = (e) => {
-        console.log(e);
+        if (e) {
+            const publishedDate = getValues()?.publishDate || Date.now()
+            const date = new Date(publishedDate)
+            date.setTime(e?.$d)
+            setValue('publishDate', date?.toISOString())
+        }
     }
 
     const onDateChange = (e) => {
-        console.log(e);
+        if (e) {
+            const publishedDate = getValues()?.publishDate || Date.now()
+            const date = new Date(publishedDate)
+            const selectedate = new Date(e.$d)
+            date.setDate(selectedate?.getDate())
+            date.setMonth(selectedate?.getMonth())
+            setValue('publishDate', date?.toISOString())
+        }
     }
 
     useEffect(() => {
