@@ -19,7 +19,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/user/getter/bright-admin
-            git pull getter main
+            git pull origin main
             git status
             npm install --yes
             rm -rf dist
