@@ -4,8 +4,32 @@
     align-items: center;
     border-top: 1px solid #C1C6C8;
     padding: 20px;
+    gap: 20px;
+
     & > textarea{
+        height: 20px;
+        min-height: 20px;
+        max-height: 100px;
+        word-wrap:break-word;
         flex-grow: 1;
+        background-color: transparent;
+        border: none;
+        resize: none;
+        outline: none;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 20px;
+
+        &::placeholder{
+            color: rgba(0, 0, 0, 0.3);
+        }
+        &::-webkit-scrollbar{
+            width: 5px;
+        }
+        &::-webkit-scrollbar-thumb{
+            background: rgba(0, 0, 0, 0.287);
+            border-radius: 2px;
+        }
     }
     & > button{
         padding: 8px;
