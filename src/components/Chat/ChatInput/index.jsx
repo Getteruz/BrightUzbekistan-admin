@@ -1,5 +1,5 @@
-import autoGrow from '../../utils/autoGrow';
-import { MainForward } from '../icons';
+import autoGrow from '../../../utils/autoGrow';
+import { MainForward } from '../../icons';
 import cls from './ChatInput.module.scss'
 
 const ChatInput = () => {
