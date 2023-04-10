@@ -24,6 +24,8 @@ import { langs } from './data';
 import cls from './Content.module.scss'
 import useSocket from '../../../../hooks/useSocket';
 import { useSelector } from 'react-redux';
+import Timepicker from '../../../../components/Form/Timepicker';
+import Datapicker from '../../../../components/Form/Datapicker';
 
 const Content = ({ useForm = {} }) => {
     const socket = useSocket()
@@ -140,51 +142,70 @@ const Content = ({ useForm = {} }) => {
                         )
                     }
                 </BtnGroup>
-                <div className={cls.content__form__wrapper}>
-                    <Flex direction='column' gap='20'>
-                        <Input
-                            placeholder='Загаловок новости'
-                            label='Загаловок новости'
-                            value={watchedFiles?.[params?.get('lang')]?.title || ''}
-                            register={{
-                                ...register(`${params.get('lang')}.title`, {
-                                    onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value, userId: user?.id })
-                                })
-                            }}
-                            onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title` })}
-                            onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title` })}
-                            users={users?.[`${params.get('lang')}.title`]}
-                        />
-                        <TextArea
-                            placeholder='Краткое описание'
-                            label='Краткое описание'
-                            value={watchedFiles?.[params.get('lang')]?.['shortDescription'] || ''}
-                            register={{ ...register(`${params.get('lang')}.shortDescription`, {
+                <Flex direction='column' gap='20'>
+                    <Input
+                        placeholder='Загаловок новости'
+                        label='Загаловок новости'
+                        value={watchedFiles?.[params?.get('lang')]?.title || ''}
+                        register={{
+                            ...register(`${params.get('lang')}.title`, {
+                                onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.title`, value: e.target.value, userId: user?.id })
+                            })
+                        }}
+                        onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title` })}
+                        onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.title` })}
+                        users={users?.[`${params.get('lang')}.title`]}
+                    />
+                    <TextArea
+                        placeholder='Краткое описание'
+                        label='Краткое описание'
+                        value={watchedFiles?.[params.get('lang')]?.['shortDescription'] || ''}
+                        register={{
+                            ...register(`${params.get('lang')}.shortDescription`, {
                                 onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortDescription`, value: e.target.value, userId: user?.id }),
-                            }) }}
-                            onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription` })}
-                            onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription` })}
-                            users={users?.[`${params.get('lang')}.shortDescription`]}
+                            })
+                        }}
+                        onFocus={() => socket.emit('focus', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription` })}
+                        onBlur={() => socket.emit('blur', { roomId: id, userId: user?.id, inputName: `${params.get('lang')}.shortDescription` })}
+                        users={users?.[`${params.get('lang')}.shortDescription`]}
+                    />
+                </Flex>
+                <div className={cls.content__form__grid}>
+                    <div>
+                        <SquarePhotoUpload
+                            label={null}
+                            setValue={setValue}
+                            onChange={uploadSelectedImage}
+                            onDelete={deleteImage}
+                            loading={imageLoading}
+                            url={watchedFiles?.file}
                         />
+                    </div>
+                    <div>
                         <Input
                             placeholder='Короткий линк'
                             label='Короткий линк'
                             value={watchedFiles?.[params.get('lang')]?.['shortLink'] || ''}
-                            register={{ ...register(`${params.get('lang')}.shortLink`, {
-                                onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value, userId: user?.id }),
-                            }) }}
+                            register={{
+                                ...register(`${params.get('lang')}.shortLink`, {
+                                    onChange: (e) => socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.shortLink`, value: e.target.value, userId: user?.id }),
+                                })
+                            }}
                             onFocus={() => socket.emit('focus', { roomId: id, inputName: `${params.get('lang')}.shortLink`, userId: user?.id })}
                             onBlur={() => socket.emit('blur', { roomId: id, inputName: `${params.get('lang')}.shortLink`, userId: user?.id })}
                             users={users?.[`${params.get('lang')}.shortLink`]}
                         />
-                    </Flex>
-                    <SquarePhotoUpload
-                        setValue={setValue}
-                        onChange={uploadSelectedImage}
-                        onDelete={deleteImage}
-                        loading={imageLoading}
-                        url={watchedFiles?.file}
-                    />
+                        <div className={cls.content__form__times}>
+                            <Input
+                                placeholder='Название тега'
+                                label='Теги'
+                            />
+                            <div>
+                                <Timepicker />
+                                <Datapicker />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <RichText
                     value={watchedFiles?.[params.get('lang')]?.['description'] || ''}

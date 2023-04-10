@@ -348,7 +348,7 @@ export function ArchiveIcon2() {
 
 export function CircleLoaderIcon() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{margin: 'auto', background: 'rgba(241, 242, 243, 0)', display: 'block', shapeRendering: 'auto'}} width="58px" height="58px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" style={{ margin: 'auto', background: 'rgba(241, 242, 243, 0)', display: 'block', shapeRendering: 'auto' }} width="58px" height="58px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
             <circle cx="50" cy="50" r="0" fill="none" stroke="#215d38" strokeWidth="2">
                 <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="0s"></animate>
                 <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="0s"></animate>
@@ -356,6 +356,14 @@ export function CircleLoaderIcon() {
                 <animate attributeName="r" repeatCount="indefinite" dur="1s" values="0;40" keyTimes="0;1" keySplines="0 0.2 0.8 1" calcMode="spline" begin="-0.5s"></animate>
                 <animate attributeName="opacity" repeatCount="indefinite" dur="1s" values="1;0" keyTimes="0;1" keySplines="0.2 0 0.8 1" calcMode="spline" begin="-0.5s"></animate>
             </circle>
+        </svg>
+    )
+}
+
+export function MainForward() {
+    return (
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.6376 8.52874L12.0518 9.94295L17.0016 4.99321L12.0518 0.043457L10.6376 1.45767L13.1361 3.95614H4.99805C2.78891 3.95614 0.998047 5.747 0.998047 7.95614V9.95614H2.99805V7.95614C2.99805 6.85157 3.89348 5.95614 4.99805 5.95614H13.2102L10.6376 8.52874Z" fill="#061412" />
         </svg>
     )
 }

@@ -9,13 +9,14 @@ const SquarePhotoUpload = ({
     onChange = () => {},
     onDelete = () => {},
     url = '',
-    loading = false
+    loading = false,
+    label = 'Фото к зоголовку'
 }) => {
 
     return (
         <Flex gap='10' direction='column'>
             <label style={{ cursor: 'pointer' }}>
-                <span className={cls.text}>Фото к зоголовку</span>
+                {label && <span className={cls.text}>{label}</span>}
                 <div className={cls.box}>
                     <div className={cls.box__preview} onDoubleClick={() => onDelete(url)}>
                         {

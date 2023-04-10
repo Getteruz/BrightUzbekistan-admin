@@ -1,0 +1,16 @@
+
+.input{
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #C1C6C8;
+    padding: 20px;
+    & > textarea{
+        flex-grow: 1;
+    }
+    & > button{
+        padding: 8px;
+        border: none;
+        outline: none;
+        background: transparent;
+    }
+}
