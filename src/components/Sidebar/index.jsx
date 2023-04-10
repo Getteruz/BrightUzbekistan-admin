@@ -47,6 +47,7 @@ const Sidebar = () => {
         <aside ref={x} className={cls.sidebar}>
             <img className={cls.sidebar__img} src="/Logo.svg" alt="Bright Uzbekistan" />
             <img ref={iconRef} className={cls.sidebar__img2} src="/Vector.svg" alt="Bright Uzbekistan" />
+            
             <div className={cls.sidebar__list}>
                 {
                     links?.length > 0 && links.map(link =>
