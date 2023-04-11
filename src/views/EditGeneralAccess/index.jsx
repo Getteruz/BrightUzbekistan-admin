@@ -27,16 +27,11 @@ const EditGeneralAccess = () => {
         }, {
             replace: true
         })
-// console.log(data);
-        // Form.reset({
-        //     ...data,
-        //     categories
-        // })
     }, [data])
 
     useEffect(() => {
         socket.emit('create', id)
-        socket.on('get_changes', data => {
+        socket.on('get_changes', async data => {
             console.log(data);
             const categories = data?.categories?.map(ctg => ctg?.id) || []
             Form.reset({

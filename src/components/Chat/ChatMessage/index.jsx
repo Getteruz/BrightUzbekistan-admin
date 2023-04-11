@@ -2,10 +2,11 @@ import ChatProfile from '../ChatProfile';
 import cls from './ChatMessage.module.scss'
 
 const ChatMessage = ({
-    reverse = false
+    reverse = false,
+    onClick = () => {}
 }) => {
     return (
-        <div className={`${cls.msg} ${reverse ? cls.reverse : ''}`}>
+        <div className={`${cls.msg} ${reverse ? cls.reverse : ''}`} onClick={onClick}>
             <ChatProfile reverse={reverse} />
             <div className={cls.msg__wrapper}>
                 <div className={cls.msg__body}>
