@@ -21,7 +21,6 @@ const ChatMessagesList = ({messages = []}) => {
         }, 1)
 
         list.current.addEventListener('scroll', handleScroll)
-        return () => list.current.removeEventListener('scroll', handleScroll)
     }, [])
 
     const scrollToBottom = () => {
