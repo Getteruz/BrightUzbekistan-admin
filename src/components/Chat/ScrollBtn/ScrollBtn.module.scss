@@ -1,0 +1,26 @@
+.scrollbtn{
+    position: absolute;
+    bottom: -100%;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & > svg {
+        transform: translateY(1px);
+    }
+}
+
+.open{
+    bottom: 16px;
+}
+
+.close{
+    bottom: -100%;
+}

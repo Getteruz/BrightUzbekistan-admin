@@ -1,15 +1,15 @@
 import { useRef, useEffect, useState } from 'react';
-import { ChevronDown } from '../../icons';
 import ChatMessage from '../ChatMessage';
+import ScrollBtn from '../ScrollBtn';
 import cls from './ChatMessagesList.module.scss'
 
-const ChatMessagesList = () => {
+const ChatMessagesList = ({messages = []}) => {
     const list = useRef()
-    const [isOpenBtn, setIsOpenBtn] = useState(true)
+    const [isOpenBtn, setIsOpenBtn] = useState(false)
 
     useEffect(() => {
         const handleScroll = (e) => {
-            if((e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 10) && isOpenBtn){
+            if((e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 20)){
                 setIsOpenBtn(false)
             } else if((e.target.scrollTop + e.target.clientHeight <= e.target.scrollHeight - 10)){
                 setIsOpenBtn(true)
@@ -30,17 +30,17 @@ const ChatMessagesList = () => {
 
     return (
         <div className={cls.list} ref={list}>
-            <ChatMessage />
-            <ChatMessage />
-            <ChatMessage />
-            <ChatMessage />
-            <ChatMessage reverse={true} />
-            <div 
-                className={`${cls.scrollbtn} ${isOpenBtn ? cls.open : cls.close}`} 
-                onClick={scrollToBottom}
-            >
-                <ChevronDown />
-            </div>
+            {
+                messages?.length > 0 && messages?.map(msg => (
+                    <ChatMessage 
+                        key={msg?.id}
+                        message={msg?.body}
+                        admin={msg?.user}
+                        date={msg?.date}
+                    />
+                ))
+            }
+            <ScrollBtn onClick={scrollToBottom} isOpenBtn={isOpenBtn} />
         </div>
     );
 }
