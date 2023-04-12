@@ -1,31 +1,46 @@
+import { useLayoutEffect } from 'react';
 import { useRef, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { saveToLocalStorage, getFromLocalStorage } from '../../../utils/localStorageService';
 import ChatMessage from '../ChatMessage';
 import ScrollBtn from '../ScrollBtn';
 import cls from './ChatMessagesList.module.scss'
 
+
 const ChatMessagesList = ({messages = []}) => {
     const list = useRef()
+    const timer = useRef()
+    const {id} = useParams()
     const [isOpenBtn, setIsOpenBtn] = useState(false)
-
-    useEffect(() => {
-        const handleScroll = (e) => {
-            if((e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 20)){
-                setIsOpenBtn(false)
-            } else if((e.target.scrollTop + e.target.clientHeight <= e.target.scrollHeight - 10)){
-                setIsOpenBtn(true)
-            }
-        }
-
-        setTimeout(() => {
-            list.current.scrollTo({top: list.current.scrollHeight - list.current.clientWidth})
-        }, 1)
-
-        list.current.addEventListener('scroll', handleScroll)
-    }, [])
 
     const scrollToBottom = () => {
         list.current.scrollTo({top: list.current.scrollHeight, behavior: 'smooth'})
     }
+
+    useEffect(() => {
+        const onScrollEnd = (e) => {
+            saveToLocalStorage('chat_scroll_pos', {...getFromLocalStorage('chat_scroll_pos', {}), [id]: e.target.scrollTop})
+        }
+
+        const handleScroll = (e) => {
+            if((e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 20)){
+                setIsOpenBtn(false)
+            } else if((e.target.scrollTop + e.target.clientHeight <= e.target.scrollHeight - 20)){
+                setIsOpenBtn(true)
+            }
+
+            clearTimeout(timer.current);
+            timer.current = setTimeout(() => onScrollEnd(e), 200);
+        }
+
+        list.current.addEventListener('scroll', handleScroll)
+    }, [])
+
+    useLayoutEffect(() => {
+        setTimeout(() => {
+            list.current.scrollTo({top: getFromLocalStorage('chat_scroll_pos', {})?.[id]})
+        }, 0)
+    }, [messages])
 
     return (
         <div className={cls.list} ref={list}>

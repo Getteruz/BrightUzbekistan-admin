@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import getRandomEl from '../../../utils/getRandomEl';
 import parseTimestamp from '../../../utils/parseTimestamp';
@@ -12,6 +13,7 @@ const ChatMessage = ({
     date = '',
     onClick = () => { }
 }) => {
+    const color = useRef(getRandomEl(colors))
     const { user } = useSelector(state => state.auth)
     admin = admin?.id === user?.id ? {...user} : admin
     const {hours, minutes} = parseTimestamp(date)
@@ -26,7 +28,7 @@ const ChatMessage = ({
                 isMyMsg={admin?.id === user?.id}
             />
             <div className={cls.msg__wrapper}>
-                <div className={cls.msg__body} style={{background: `${getRandomEl(colors)} !important`}}>
+                <div className={cls.msg__body} style={{background: color.current}}>
                     {message}
                 </div>
                 <span className={cls.msg__time}>{hours}:{minutes}</span>

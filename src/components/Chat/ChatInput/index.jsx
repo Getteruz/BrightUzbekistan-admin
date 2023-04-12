@@ -7,6 +7,8 @@ const ChatInput = ({
     onSubmit = () => {}
 }) => {
     const inputRef = useRef()
+    const formRef = useRef()
+
     const handleSubmit = (e) => {
         e.preventDefault(); 
         onSubmit(inputRef.current.value?.trim()?.replace("\r\n", "\\r\\n"))
@@ -14,12 +16,24 @@ const ChatInput = ({
         inputRef.current.style.height = '20px'
     }
 
+    const handleKeyDown = (event) => {
+        if (event.keyCode == 13 && !event.shiftKey) {
+            event.preventDefault();
+            handleSubmit(event)
+        } else if (event.keyCode == 13 && event.shiftKey) {
+            event.preventDefault();
+            event.target.value += '\n';
+            autoGrow(event)
+        }
+    }
+
     return (
-        <form className={cls.input} onSubmit={handleSubmit}>
+        <form className={cls.input} onSubmit={handleSubmit} ref={formRef}>
             <textarea 
-                placeholder='Пишите сюда'  
+                placeholder='Написать сообщение...'  
                 wrap="hard" 
                 onChange={autoGrow}
+                onKeyDown={handleKeyDown}
                 ref={inputRef}
             />
             <button type='submit'>
