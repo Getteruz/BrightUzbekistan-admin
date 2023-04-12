@@ -21,3 +21,12 @@ export const postMessage = async (body, id) => {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
+
+export const deleteMessage = async (id) => {
+    try {
+        const res = await api.delete(`/message/${id}`)
+        return res
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}

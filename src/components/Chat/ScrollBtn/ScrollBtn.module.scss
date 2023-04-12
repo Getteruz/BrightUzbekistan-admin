@@ -2,18 +2,37 @@
     position: absolute;
     bottom: -100%;
     right: 16px;
-    width: 40px;
-    height: 40px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
     transition: all 0.5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    
+    & > div{
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
 
-    & > svg {
+    & > div > svg {
         transform: translateY(1px);
+    }
+
+    &__notification{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #F35034;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        transform: translate(-50%, -50%);
     }
 }
 

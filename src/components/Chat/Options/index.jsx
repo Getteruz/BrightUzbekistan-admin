@@ -4,7 +4,6 @@ import cls from './Options.module.scss'
 
 const Options = ({
     buttons = [],
-    message = {}
 }) => {
     const optionsRef = useRef()
     const [style, setStyle] = useState({})
@@ -26,7 +25,7 @@ const Options = ({
             {buttons?.length > 0 && buttons.map(btn => (
                 <button 
                     key={btn.id}
-                    onClick={() => btn.onClick(message)}
+                    onClick={btn.onClick}
                 >
                     {btn.icon} {btn.label}
                 </button>

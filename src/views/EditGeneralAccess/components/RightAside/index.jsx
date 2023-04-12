@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useParams } from 'react-router-dom';
 import ChatInput from '../../../../components/Chat/ChatInput';
@@ -9,9 +9,10 @@ import { getChatMessages, postMessage } from '../../../../services/chat';
 import cls from './RightAside.module.scss'
 
 const RightAside = () => {
+    const listRef = useRef()
     const { id } = useParams()
-    const queryClient = useQueryClient()
     const socket = useSocket()
+    const queryClient = useQueryClient()
     const { data: chat, isLoading } = useQuery(['chat', id], () => getChatMessages(id))
     const mutation = useMutation(({body, id}) => postMessage(body, id), {
         onSuccess: (res) => {
@@ -21,6 +22,9 @@ const RightAside = () => {
                 oldData?.messages.push(res)
                 return oldData
             })
+            setTimeout(() => {
+                listRef.current.scrollTo({top: listRef.current.scrollHeight, behavior: 'smooth'})
+            }, 1)
         }
     })
 
@@ -32,8 +36,6 @@ const RightAside = () => {
     
     useEffect(() => {
         socket.on('get_new_message', data => {
-            
-            console.log(data);
             queryClient.setQueryData(['chat', id], (oldData) => {
                 oldData = {...oldData, messages: oldData?.messages || []}
                 oldData?.messages.push(data)
@@ -47,8 +49,9 @@ const RightAside = () => {
             <ChatNavbar />
             <div className={cls.chat__body}>
                 <ChatMessagesList 
-                    isLoading={isLoading}
+                    loading={isLoading}
                     messages={chat?.messages || []}
+                    ref={listRef}
                 />
             </div>
             <ChatInput onSubmit={handleSubmit} />

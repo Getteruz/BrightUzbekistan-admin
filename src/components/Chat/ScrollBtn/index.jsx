@@ -2,7 +2,7 @@ import { ChevronDown } from "../../icons";
 import cls from './ScrollBtn.module.scss'
 
 const ScrollBtn = ({
-    onClick = () => {},
+    onClick = () => { },
     isOpenBtn = false
 }) => {
     return (
@@ -10,7 +10,10 @@ const ScrollBtn = ({
             className={`${cls.scrollbtn} ${isOpenBtn ? cls.open : cls.close}`}
             onClick={onClick}
         >
-            <ChevronDown />
+            <div>
+                <ChevronDown />
+                {/* <span className={cls.scrollbtn__notification}>1</span> */}
+            </div>
         </div>
     );
 }
