@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
 import { useRef } from 'react';
 import autoGrow from '../../../utils/autoGrow';
 import { MainForward } from '../../icons';
 import cls from './ChatInput.module.scss'
 
 const ChatInput = ({
-    onSubmit = () => {}
+    onSubmit = () => {},
+    state = {}
 }) => {
     const inputRef = useRef()
     const formRef = useRef()
@@ -26,6 +28,14 @@ const ChatInput = ({
             autoGrow(event)
         }
     }
+
+    useEffect(() => {
+        if(state.type === 'edit') {
+            inputRef.current.value = state.value
+        } else {
+            inputRef.current.value = '' 
+        }
+    }, [state.type])
 
     return (
         <form className={cls.input} onSubmit={handleSubmit} ref={formRef}>

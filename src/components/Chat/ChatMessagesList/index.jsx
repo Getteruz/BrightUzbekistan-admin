@@ -9,7 +9,11 @@ import ScrollBtn from '../ScrollBtn';
 import cls from './ChatMessagesList.module.scss'
 
 
-const ChatMessagesList = forwardRef(({ messages = [], loading = false }, ref) => {
+const ChatMessagesList = forwardRef(({ 
+    messages = [], 
+    loading = false,
+    setState = () => {}
+}, ref) => {
     const list = ref
     const timer = useRef()
     const { id } = useParams()
@@ -54,6 +58,7 @@ const ChatMessagesList = forwardRef(({ messages = [], loading = false }, ref) =>
                         message={msg?.body}
                         admin={msg?.user}
                         date={msg?.date}
+                        setState={setState}
                     />
                 )) : <EmptyMessage />
             }

@@ -4,6 +4,7 @@ import cls from './Options.module.scss'
 
 const Options = ({
     buttons = [],
+    message
 }) => {
     const optionsRef = useRef()
     const [style, setStyle] = useState({})
@@ -16,7 +17,7 @@ const Options = ({
         const buttonPos = button.getBoundingClientRect()
         
         if((optionsPos?.x - parentPos?.x) + optionsPos.width > parentPos.width) {
-            setStyle({left: (parentPos.width - optionsPos.width) - (buttonPos.x - parentPos.x) })
+            setStyle({left: (parentPos.width - optionsPos.width - 10) - (buttonPos.x - parentPos.x) })
         }
     }, [])
 
@@ -25,7 +26,7 @@ const Options = ({
             {buttons?.length > 0 && buttons.map(btn => (
                 <button 
                     key={btn.id}
-                    onClick={btn.onClick}
+                    onClick={() => btn.onClick(message)}
                 >
                     {btn.icon} {btn.label}
                 </button>

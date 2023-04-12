@@ -30,3 +30,13 @@ export const deleteMessage = async (id) => {
         showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
     }
 }
+
+export const editMessage = async (body, id) => {
+    try {
+        const {data} = await api.put(`/message/${id}`, body)
+        console.log(data);
+        return data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}

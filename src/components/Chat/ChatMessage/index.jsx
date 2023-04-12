@@ -11,18 +11,26 @@ import ChatProfile from '../ChatProfile';
 import Options from '../Options';
 import cls from './ChatMessage.module.scss'
 import { CopyIcon, DeleteIcon, EditIcon, ThreeDots } from '../../icons';
+import { getFromLocalStorage, saveToLocalStorage } from '../../../utils/localStorageService';
 
 const colors = ['#D8EBF7', '#FAF3FF', '#E5F8EB', '#FCF7EA', '#FFEAE6']
+
+const setColorToAdmin = (id) => {
+    const color = getRandomEl(colors)
+    saveToLocalStorage('admin-colors', {...getFromLocalStorage('admin-colors', {}), [id]: color})
+    return color
+}
 
 const ChatMessage = ({
     id = '',
     message = '',
     admin = {},
     date = '',
-    onClick = () => { }
+    onClick = () => { },
+    setState = () => {}
 }) => {
     const showAlert = useShowAlert(store.dispatch)
-    const color = useRef(getRandomEl(colors))
+    const color = getFromLocalStorage('admin-colors', {})?.[admin?.id] ? getFromLocalStorage('admin-colors', {})?.[admin?.id] : setColorToAdmin(admin?.id)
     const { id: chatId } = useParams()
     const { hours, minutes } = parseTimestamp(date)
     const { user } = useSelector(state => state.auth)
@@ -47,14 +55,14 @@ const ChatMessage = ({
                 })
             }
         },
-        // {
-        //     id: 2,
-        //     label: 'Изменить',
-        //     icon: <EditIcon />,
-        //     onClick: async () => {
-        //         // await deleteMessage()
-        //     }
-        // },
+        {
+            id: 2,
+            label: 'Изменить',
+            icon: <EditIcon fill='currentColor' />,
+            onClick: async ({message, id}) => {
+                setState({type: 'edit', value: message, id})
+            }
+        },
         {
             id: 3,
             label: 'Удалить',
@@ -92,12 +100,12 @@ const ChatMessage = ({
             />
             <div className={cls.msg__wrapper}>
                 <div className={cls.msg__options}>
-                    <div className={cls.msg__body} style={{ background: color.current }}>
+                    <div className={cls.msg__body} style={{ background: color }}>
                         {message}
                     </div>
                     <div className={cls.msg__options__btn} onClick={() => setIsOpenOptions(true)}>
                         <ThreeDots />
-                        {isOpenOptions && <Options buttons={buttons} />}
+                        {isOpenOptions && <Options buttons={buttons} message={{message, id}} />}
                     </div>
                 </div>
                 <span className={cls.msg__time}>{hours}:{minutes}</span>

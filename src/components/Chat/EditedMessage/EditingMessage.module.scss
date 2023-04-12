@@ -1,0 +1,28 @@
+
+.edit{
+    width: 100%;
+    padding: 20px;
+    background: #EEEEEE;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-top: 1px solid #C1C6C8;
+
+    &__msg{
+        flex-grow: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;    
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    & > button{
+        flex-shrink: 0;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        padding: 0;
+    }
+}
