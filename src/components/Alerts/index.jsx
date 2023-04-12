@@ -8,8 +8,8 @@ const Alerts = () => {
         if(alerts?.length > 0) {
             alerts.forEach(alert => {
                 switch (alert?.type) {
-                    case 'error': toast.error(alert?.message); break;
-                    case 'success': toast.success(alert?.message); break;
+                    case 'error': toast.error(alert?.message, {position: alert.position}); break;
+                    case 'success': toast.success(alert?.message, {position: alert.position}); break;
                     default: break;
                 }
             })

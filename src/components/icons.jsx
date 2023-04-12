@@ -375,3 +375,28 @@ export function ChevronDown() {
         </svg>
     )
 }
+
+export function ThreeDots() {
+    return (
+        <svg width="12" height="4" viewBox="0 0 16 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 2C4 3.10457 3.10457 4 2 4C0.895431 4 0 3.10457 0 2C0 0.895431 0.895431 0 2 0C3.10457 0 4 0.895431 4 2Z" fill="#061412" />
+            <path d="M10 2C10 3.10457 9.10457 4 8 4C6.89543 4 6 3.10457 6 2C6 0.895431 6.89543 0 8 0C9.10457 0 10 0.895431 10 2Z" fill="#061412" />
+            <path d="M14 4C15.1046 4 16 3.10457 16 2C16 0.895431 15.1046 0 14 0C12.8954 0 12 0.895431 12 2C12 3.10457 12.8954 4 14 4Z" fill="#061412" />
+        </svg>
+
+    )
+}
+
+export function CopyIcon() {
+    return (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4V3C4 2.73478 4.10536 2.48043 4.29289 2.29289C4.48043 2.10536 4.73478 2 5 2H9C9.26522 2 9.51957 2.10536 9.70711 2.29289C9.89464 2.48043 10 2.73478 10 3V7C10 7.26522 9.89464 7.51957 9.70711 7.70711C9.51957 7.89464 9.26522 8 9 8H8M7 4H3C2.44772 4 2 4.44772 2 5V9C2 9.55228 2.44772 10 3 10H7C7.55228 10 8 9.55228 8 9V5C8 4.44772 7.55228 4 7 4Z" stroke="#222222" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}
+
+export function EditIcon() {
+    return (
+        <></>
+    )
+}
