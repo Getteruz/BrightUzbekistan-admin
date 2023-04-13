@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import latinCrill from 'latin-crill'
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
@@ -18,7 +18,6 @@ import Loader from '../../../../components/Loaders/Loader';
 import Modal from '../../../../components/Modals/Modal';
 import { editNews } from '../../../../services/news';
 import { removeFile, uploadImage } from '../../../../services/upload';
-import getQueryInArray from '../../../../utils/getQueryInArray';
 import paramsToObject from '../../../../utils/paramsToObject';
 import { langs } from './data';
 import cls from './Content.module.scss'
@@ -119,6 +118,17 @@ const Content = ({ useForm = {} }) => {
         })
     }, [])
 
+    useEffect(() => {
+        setValue('уз.title', latinCrill(watchedFiles?.uz?.title || ''))
+        setValue('уз.shortDescription', latinCrill(watchedFiles?.uz?.shortDescription || ''))
+        setValue('уз.shortLink', latinCrill(watchedFiles?.uz?.shortLink || ''))
+        setValue('уз.description', latinCrill(watchedFiles?.uz?.description || '', true))
+    }, [
+        watchedFiles?.uz?.title,
+        watchedFiles?.uz?.shortDescription,
+        watchedFiles?.uz?.shortLink,
+        watchedFiles?.uz?.description    
+    ])
 
     return (
         <ContentWrapper navbar={
