@@ -113,9 +113,7 @@ p {
   flex-shrink: 0;
 }
 
-.fr-wrapper>div:not(.fr-element):not(.fr-placeholder){
-  position: absolute !important;
-}
+// .fr-wrapper>div:not(.fr-element):not(.fr-placeholder)
 div.fr-wrapper>div>a {
   opacity: 0;
 }

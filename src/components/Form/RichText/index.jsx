@@ -7,6 +7,7 @@ import "froala-editor/js/plugins.pkgd.min.js";
 // import 'froala-editor/js/plugins/image.min.js';
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
+import { useEffect } from "react";
 
 const config = (setValue, getValues) => ({
     enter: Froalaeditor.ENTER_BR,
@@ -111,6 +112,12 @@ const RichText = ({
     name = '',
     onChange = () => {}
 }) => {
+
+    useEffect(() => {
+        const els = document.getElementsByTagName("a[href='https://www.froala.com/wysiwyg-editor?k=u']")
+        els?.[0]?.parentNode?.style?.position = 'absolute'
+    }, [])
+
     return (
         <FroalaEditor
             model={value}
