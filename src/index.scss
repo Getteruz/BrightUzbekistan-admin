@@ -116,10 +116,13 @@ p {
 // .fr-wrapper>div:not(.fr-element):not(.fr-placeholder)
 .fr-element{
   margin-top: -36px;
+  z-index: 99999 !important;
 }
 .fr-placeholder{
   margin-top: 0 !important;
+  z-index: 99999 !important;
 }
+
 div.fr-wrapper>div>a {
   opacity: 0;
 }
