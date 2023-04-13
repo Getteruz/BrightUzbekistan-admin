@@ -114,9 +114,9 @@ const RichText = ({
 }) => {
 
     useEffect(() => {
-        let els = document.querySelector("[href='https://www.froala.com/wysiwyg-editor?k=u']")
+        let els = document.querySelector('.fr-wrapper')
         console.log(els);
-        // console.log(Array.from(els));
+        console.log(els.firstChild);
     }, [])
 
     return (
