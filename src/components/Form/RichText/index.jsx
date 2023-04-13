@@ -115,7 +115,7 @@ const RichText = ({
 }) => {
     useEffect(() => {
         if(import.meta.env.PROD) {
-            return import('./removeLisence.scss')
+            import('./removeLisence.scss')
         }
     }, [])
     return (
