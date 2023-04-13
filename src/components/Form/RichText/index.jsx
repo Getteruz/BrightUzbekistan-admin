@@ -115,10 +115,8 @@ const RichText = ({
 
     useEffect(() => {
         let els = document.getElementsByTagName("a[href='https://www.froala.com/wysiwyg-editor?k=u']")
-        const div = els[0]
-        if(div){
-            div.parentNode.style.position = 'absolute'
-        }
+        console.log(els);
+        console.log(Array.from(els));
     }, [])
 
     return (
