@@ -19,6 +19,7 @@ const config = (setValue, getValues) => ({
     heightMin: 220,
     heightMax: 592,
     widthMax: '100%',
+    placeholderText: false,
     linkInsertButtons: [],
     pastePlain: true,
     imageResize: true,
@@ -111,6 +112,7 @@ const RichText = ({
     name = '',
     onChange = () => {}
 }) => {
+    console.log(import.meta.env.PROD);
     return (
         <FroalaEditor
             model={value}
