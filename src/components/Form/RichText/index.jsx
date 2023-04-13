@@ -116,7 +116,7 @@ const RichText = ({
     useEffect(() => {
         let els = document.querySelector('.fr-wrapper')
         console.log(els);
-        console.log(els.firstChild);
+        // console.log(els.firstChild);
     }, [])
 
     return (
