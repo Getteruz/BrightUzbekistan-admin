@@ -1,5 +1,7 @@
 import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
 import moment from 'moment/moment';
 import cls from './Datapicker.module.scss'
 
@@ -7,12 +9,14 @@ const Datapicker = ({
     label, 
     onChange, 
     value,
-    rounded = true,
-    // minWidth =  
+    rounded = true, 
 }) => {
-    const date = new Date(value)?.getDate()
-    const month = new Date(value)?.getMonth() + 1
+    let date = new Date(value)?.getDate()
+    let month = new Date(value)?.getMonth() + 1
     const year = new Date(value)?.getFullYear()
+
+    date = date < 10 ? `0${date}` : date
+    month = month < 10 ? `0${month}` : month
 
     return (
         <div className={cls.datapicker}>
@@ -21,7 +25,7 @@ const Datapicker = ({
                 className={rounded ? cls.rounded : cls.square}
                 format='DD|MM|YYYY'
                 onChange={onChange}
-                {...{[value !== undefined && value !== null && 'value']: dayjs(`${date}|${month}|${year}`, 'DD-MM-YYYY')}}
+                {...{[value !== undefined && value !== null && 'value']: dayjs(`${date}|${month}|${year}`, 'DD|MM|YYYY')}}
             />
         </div>
     );

@@ -118,6 +118,26 @@ const Content = ({ useForm = {} }) => {
         })
     }, [])
 
+    const onTimeChange = (e) => {
+        if (e) {
+            const publishedDate = getValues()?.publishDate || Date.now()
+            const date = new Date(publishedDate)
+            date.setTime(e?.$d)
+            setValue('publishDate', date?.toISOString())
+        }
+    }
+
+    const onDateChange = (e) => {
+        if (e) {
+            const publishedDate = getValues()?.publishDate || Date.now()
+            const date = new Date(publishedDate)
+            const selectedate = new Date(e.$d)
+            date.setDate(selectedate?.getDate())
+            date.setMonth(selectedate?.getMonth())
+            setValue('publishDate', date?.toISOString())
+        }
+    }
+
     useEffect(() => {
         setValue('уз.title', latinCrill(watchedFiles?.uz?.title || ''))
         setValue('уз.shortDescription', latinCrill(watchedFiles?.uz?.shortDescription || ''))
@@ -141,7 +161,7 @@ const Content = ({ useForm = {} }) => {
             </div>
         }>
             {isLoading && <Loader text='Идет изменение новостя' />}
-            {openModal && <Modal title='Новость успешно изменен' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
+            {openModal && <Modal title='Новость успешно изменен' onClose={() => navigate(-1)} onOk={() => navigate(-1)} />}
             {/* {<div style={{position: 'relative'}}><Wrapper><NewsDropdown news={[getValues()]} /></Wrapper></div>} */}
             <div className={cls.content__form}>
                 <BtnGroup>
@@ -227,13 +247,13 @@ const Content = ({ useForm = {} }) => {
                                             >
                                                 #{tag}
                                             </span>
-                                        ))
+                                        )) 
                                     }
                                 </div>
                             </div>
                             <div className={cls.content__form__times__picker}>
-                                <Timepicker label='Время' rounded={false} />
-                                <Datapicker label='Дата' rounded={false} minWidth={103} />
+                                <Timepicker value={watchedFiles?.publishDate} label='Время' onChange={onTimeChange} rounded={false} />
+                                <Datapicker value={watchedFiles?.publishDate} label='Дата' onChange={onDateChange} rounded={false} />
                             </div>
                         </div>
                     </div>
