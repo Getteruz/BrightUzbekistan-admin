@@ -55,19 +55,40 @@
         &__times{
             display: flex;
             gap: 11px;
-            align-items: center;
+            align-items: flex-start;
 
-            & > label{
+            &__input{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
                 flex-grow: 1;
+
+                & > label{
+                    width: 100%;
+                }
             }
 
-            & > div{
-                // display: flex;
+            &__picker{
+                display: flex;
                 gap: 2px;
             }
         }
     }
 
+}
+
+.tags{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tag{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;    
+    cursor: pointer;
 }
 
 .active__btn{

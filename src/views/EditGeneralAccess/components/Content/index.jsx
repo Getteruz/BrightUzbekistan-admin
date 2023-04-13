@@ -72,6 +72,22 @@ const Content = ({ useForm = {} }) => {
         }
     }
 
+    const handleKeyUp = (e) => {
+        if(e.keyCode === 13 && !!e.target.value?.trim()) {
+            const values = getValues()
+            const hashtags = values?.[params.get('lang')]?.tags || []
+            hashtags.push(e.target.value?.trim())
+            setValue(`${params.get('lang')}.tags`, Array.from(new Set(hashtags)))
+        } 
+        if(e.keyCode === 13){
+            e.target.value = ''
+        }
+    }
+
+    const deleteTag = (index) => {
+        const tags = watchedFiles?.[params.get('lang')]?.tags
+        setValue(`${params.get('lang')}.tags`, tags.filter((_, tagIndex) => tagIndex !== index))
+    }
 
     const deleteImage = async (url) => {
         await removeFile(url)
@@ -82,17 +98,6 @@ const Content = ({ useForm = {} }) => {
     useEffect(() => {
         socket.on('input_change', data => {
             setValue(data?.inputName, data?.value)
-            // if (data?.inputName === 'categories') {
-            //     setSearchParams({
-            //         ...paramsToObject(params?.entries()),
-            //         'categories': data?.value?.join(',')
-            //     }, { replace: true })
-            // } else if (data?.inputName === 'mainCategory') {
-            //     setSearchParams({
-            //         ...paramsToObject(params?.entries()),
-            //         'mainCategory': data?.value || ''
-            //     }, { replace: true })
-            // }
         })
         socket.on('input_focus', data => {
             setUsers(state => {
@@ -196,13 +201,29 @@ const Content = ({ useForm = {} }) => {
                             users={users?.[`${params.get('lang')}.shortLink`]}
                         />
                         <div className={cls.content__form__times}>
-                            <Input
-                                placeholder='Название тега'
-                                label='Теги'
-                            />
-                            <div>
-                                <Timepicker />
-                                <Datapicker />
+                            <div className={cls.content__form__times__input}>
+                                <Input
+                                    placeholder='Название тега'
+                                    label='Теги'
+                                    onKeyUp={handleKeyUp}
+                                />
+                                <div className={cls.tags}>
+                                    {
+                                        watchedFiles?.[params.get('lang')]?.tags?.length > 0 &&
+                                        watchedFiles?.[params.get('lang')]?.tags?.map((tag, index) => (
+                                            <span 
+                                                className={cls.tag}
+                                                onClick={() => deleteTag(index)}
+                                            >
+                                                #{tag}
+                                            </span>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                            <div className={cls.content__form__times__picker}>
+                                <Timepicker label='Время' rounded={false} />
+                                <Datapicker label='Дата' rounded={false} minWidth={103} />
                             </div>
                         </div>
                     </div>

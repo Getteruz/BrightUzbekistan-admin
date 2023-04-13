@@ -6,7 +6,9 @@ import cls from './Datapicker.module.scss'
 const Datapicker = ({ 
     label, 
     onChange, 
-    value
+    value,
+    rounded = true,
+    // minWidth =  
 }) => {
     const date = new Date(value)?.getDate()
     const month = new Date(value)?.getMonth() + 1
@@ -16,7 +18,7 @@ const Datapicker = ({
         <div className={cls.datapicker}>
             <span className={cls.datapicker__label}>{label}</span>
             <DatePicker 
-                className={cls.custom}
+                className={rounded ? cls.rounded : cls.square}
                 format='DD|MM|YYYY'
                 onChange={onChange}
                 {...{[value !== undefined && value !== null && 'value']: dayjs(`${date}|${month}|${year}`, 'DD-MM-YYYY')}}
