@@ -114,8 +114,11 @@ const RichText = ({
 }) => {
 
     useEffect(() => {
-        const els = document.getElementsByTagName("a[href='https://www.froala.com/wysiwyg-editor?k=u']")
-        els?.[0]?.parentNode?.style?.position = 'absolute'
+        let els = document.getElementsByTagName("a[href='https://www.froala.com/wysiwyg-editor?k=u']")
+        const div = els[0]
+        if(div){
+            div.parentNode.style.position = 'absolute'
+        }
     }, [])
 
     return (
