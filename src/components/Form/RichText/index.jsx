@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { useEffect } from "react";
 import FroalaEditor from "react-froala-wysiwyg";
 import Froalaeditor from "froala-editor";
 import "froala-editor/css/froala_style.min.css";
@@ -8,12 +8,6 @@ import "froala-editor/js/plugins.pkgd.min.js";
 // import 'froala-editor/js/plugins/image.min.js';
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
-
-lazy(() => {
-    if(import.meta.env.PROD) {
-        return import('./removeLisence.scss')
-    }
-})
 
 const config = (setValue, getValues) => ({
     enter: Froalaeditor.ENTER_BR,
@@ -119,6 +113,11 @@ const RichText = ({
     name = '',
     onChange = () => {}
 }) => {
+    useEffect(() => {
+        if(import.meta.env.PROD) {
+            return import('./removeLisence.scss')
+        }
+    }, [])
     return (
         <FroalaEditor
             model={value}
