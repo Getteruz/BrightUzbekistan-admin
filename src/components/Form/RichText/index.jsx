@@ -7,7 +7,6 @@ import "froala-editor/js/plugins.pkgd.min.js";
 // import 'froala-editor/js/plugins/image.min.js';
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
-import { useEffect } from "react";
 
 const config = (setValue, getValues) => ({
     enter: Froalaeditor.ENTER_BR,
@@ -112,13 +111,6 @@ const RichText = ({
     name = '',
     onChange = () => {}
 }) => {
-
-    useEffect(() => {
-        let els = document.querySelector('.fr-wrapper')
-        console.log(els);
-        // console.log(els.firstChild);
-    }, [])
-
     return (
         <FroalaEditor
             model={value}

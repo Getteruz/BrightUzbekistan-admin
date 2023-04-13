@@ -114,6 +114,12 @@ p {
 }
 
 // .fr-wrapper>div:not(.fr-element):not(.fr-placeholder)
+.fr-element{
+  margin-top: -36px;
+}
+.fr-placeholder{
+  margin-top: 0;
+}
 div.fr-wrapper>div>a {
   opacity: 0;
 }
