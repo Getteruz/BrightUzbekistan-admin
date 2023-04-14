@@ -22,10 +22,10 @@ const Input = ({
                         {
                             users?.map(user => (
                                 <Tooltip title={user?.fullName} key={user?.id}>
-                                    <Avatar 
-                                        size={'default'} 
-                                        {...{[user?.avatar && 'src']: user?.avatar}}
-                                        {...{[!user?.avatar && 'icon']: <LetteredAvatar name={user?.fullName} />}}
+                                    <Avatar
+                                        size={'default'}
+                                        {...{ [user?.avatar && 'src']: user?.avatar }}
+                                        {...{ [!user?.avatar && 'icon']: <LetteredAvatar name={user?.fullName} /> }}
                                     />
                                 </Tooltip>
                             ))
@@ -33,12 +33,12 @@ const Input = ({
                     </Avatar.Group>
                 }
             </div>
-            <input 
-                type={type} 
-                placeholder={placeholder} 
-                {...{[value !== undefined && value !== null && 'value']: value}} 
-                {...register} 
-                {...other} 
+            <input
+                type={type}
+                placeholder={placeholder}
+                {...{ [value !== undefined && value !== null && 'value']: value }}
+                {...register}
+                {...other}
             />
         </label>
     );

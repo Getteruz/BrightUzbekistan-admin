@@ -72,13 +72,13 @@ const Content = ({ useForm = {} }) => {
     }
 
     const handleKeyUp = (e) => {
-        if(e.keyCode === 13 && !!e.target.value?.trim()) {
+        if (e.keyCode === 13 && !!e.target.value?.trim()) {
             const values = getValues()
             const hashtags = values?.[params.get('lang')]?.tags || []
             hashtags.push(e.target.value?.trim())
             setValue(`${params.get('lang')}.tags`, Array.from(new Set(hashtags)))
-        } 
-        if(e.keyCode === 13){
+        }
+        if (e.keyCode === 13) {
             e.target.value = ''
         }
     }
@@ -118,24 +118,22 @@ const Content = ({ useForm = {} }) => {
         })
     }, [])
 
-    const onTimeChange = (e) => {
-        if (e) {
-            const publishedDate = getValues()?.publishDate || Date.now()
-            const date = new Date(publishedDate)
-            date.setTime(e?.$d)
-            setValue('publishDate', date?.toISOString())
-        }
+    const onTimeChange = (e, b) => {
+        const publishedDate = getValues()?.publishDate || Date.now()
+        const date = new Date(publishedDate)
+        date.setHours(e ? e.$H : 0)
+        date.setMinutes(e ? e?.$m : 0)
+        setValue('publishDate', date?.toISOString())
     }
 
     const onDateChange = (e) => {
-        if (e) {
-            const publishedDate = getValues()?.publishDate || Date.now()
-            const date = new Date(publishedDate)
-            const selectedate = new Date(e.$d)
-            date.setDate(selectedate?.getDate())
-            date.setMonth(selectedate?.getMonth())
-            setValue('publishDate', date?.toISOString())
-        }
+        const publishedDate = getValues()?.publishDate || Date.now()
+        const date = new Date(publishedDate)
+        const selectedate = new Date(e?.$d)
+        date.setDate(e ? selectedate?.getDate() : new Date(Date.now()).getDate())
+        date.setMonth(e ? selectedate?.getMonth() : new Date(Date.now()).getMonth())
+        date.setFullYear(e ? selectedate?.getFullYear() : new Date(Date.now())?.getFullYear())
+        setValue('publishDate', date?.toISOString())
     }
 
     useEffect(() => {
@@ -147,7 +145,7 @@ const Content = ({ useForm = {} }) => {
         watchedFiles?.uz?.title,
         watchedFiles?.uz?.shortDescription,
         watchedFiles?.uz?.shortLink,
-        watchedFiles?.uz?.description    
+        watchedFiles?.uz?.description
     ])
 
     return (
@@ -241,13 +239,13 @@ const Content = ({ useForm = {} }) => {
                                     {
                                         watchedFiles?.[params.get('lang')]?.tags?.length > 0 &&
                                         watchedFiles?.[params.get('lang')]?.tags?.map((tag, index) => (
-                                            <span 
+                                            <span
                                                 className={cls.tag}
                                                 onClick={() => deleteTag(index)}
                                             >
                                                 #{tag}
                                             </span>
-                                        )) 
+                                        ))
                                     }
                                 </div>
                             </div>

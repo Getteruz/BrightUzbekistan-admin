@@ -64,11 +64,11 @@ const config = (setValue, getValues) => ({
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
-                }                
+                }
             }).then(res => replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get()))
-            
+
         },
-        'image.inserted': function(img) {
+        'image.inserted': function (img) {
             const values = getValues()
             let descImg = values?.descImg || []
             descImg?.push(img?.[0]?.src)
@@ -79,7 +79,7 @@ const config = (setValue, getValues) => ({
             let descImg = values?.descImg || []
             descImg = descImg?.filter(e => e !== img?.[0]?.currentSrc)
             setValue('descImg', descImg)
-            axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, {data: {url: img[0]?.currentSrc}})
+            axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, { data: { url: img[0]?.currentSrc } })
         },
         'image.error': () => {
 
@@ -96,8 +96,14 @@ const config = (setValue, getValues) => ({
                 }
             }).then(res => replyEditor.video.insert(String(res?.data?.url), null, null, replyEditor.video.get()))
         },
-        'paste.beforeCleanup': function (clipboardHtml) {
-            return replyEditor.html.setValue(clipboardHtml)
+        'paste.beforeCleanup': function (html) {
+            const temp = document.createElement("div");
+            temp.innerHTML = html;
+            const elements = temp.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, div, li, ul');
+            elements.forEach(el => {
+                el.removeAttribute('style');
+            });
+            return temp.innerHTML;
         },
 
     }
@@ -105,23 +111,23 @@ const config = (setValue, getValues) => ({
 
 let replyEditor = "";
 
-const RichText = ({ 
-    register, 
-    setValue = () => {}, 
-    getValues = () => {},
-    value = '' ,
+const RichText = ({
+    register,
+    setValue = () => { },
+    getValues = () => { },
+    value = '',
     name = '',
-    onChange = () => {}
+    onChange = () => { }
 }) => {
     useEffect(() => {
-        if(import.meta.env.PROD) {
+        if (import.meta.env.PROD) {
             import('./removeLisence.scss')
         }
     }, [])
     return (
         <FroalaEditor
             model={value}
-            onModelChange={(model) => {onChange(model); setValue(name, model)}}
+            onModelChange={(model) => { onChange(model); setValue(name, model) }}
             config={config(setValue, getValues)}
             {...register}
         />

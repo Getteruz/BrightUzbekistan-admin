@@ -7,6 +7,7 @@ import SimpleButton from '../../../../components/Buttons/SimpleButton';
 import Flex from '../../../../components/Flex';
 import UsersGroup from '../../../../components/UsersGroup';
 import useSocket from '../../../../hooks/useSocket';
+import cls from './LeftAside.module.scss'
 
 const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
@@ -29,7 +30,7 @@ const LeftAside = ({ useForm }) => {
                             state?.[key]?.map(editor => editor?.id === data?.editor?.id
                                 ? { ...editor, lastEdited: data?.editedDate }
                                 : editor)
-                            : [{...data?.editor, lastEdited: data?.editedDate}, ...state?.[key]]
+                            : [{ ...data?.editor, lastEdited: data?.editedDate }, ...state?.[key]]
                         : [{ ...data?.editor, lastEdited: data?.editedDate }]
                 }
             })
@@ -38,8 +39,8 @@ const LeftAside = ({ useForm }) => {
             setEditors(state => {
                 const key = Object.keys(state)?.find(date => state?.[date]?.find(editor => editor?.id === data?.userId))
                 return key ? {
-                    ...state, 
-                    [key]: state?.[key]?.map(editor => editor.id === data?.userId ? {...editor, editing: true} : editor)
+                    ...state,
+                    [key]: state?.[key]?.map(editor => editor.id === data?.userId ? { ...editor, editing: true } : editor)
                 } : state
             })
         })
@@ -47,8 +48,8 @@ const LeftAside = ({ useForm }) => {
             setEditors(state => {
                 const key = Object.keys(state)?.find(date => state?.[date]?.find(editor => editor?.id === data?.userId))
                 return key ? {
-                    ...state, 
-                    [key]: state?.[key]?.map(editor => editor.id === data?.userId ? {...editor, editing: false} : editor)
+                    ...state,
+                    [key]: state?.[key]?.map(editor => editor.id === data?.userId ? { ...editor, editing: false } : editor)
                 } : state
             })
         })
@@ -75,19 +76,17 @@ const LeftAside = ({ useForm }) => {
                 <LeftIcon />
                 Назад
             </RoundedButton>
-            <Flex gap='15' direction='column' alignItems='flex-start'>
-                <UsersGroup label='Создатель' users={[creator]} />
-                <p>Редактировали</p>
-                {
-                    Object.entries(editors || {})?.length > 0 && Object.entries(editors || {}).map((edit) => (
-                        <UsersGroup key={edit?.[0]} label={edit?.[0]} users={edit?.[1]} />
-                    ))
-                }
-            </Flex>
-            <Flex gap='11' direction='column' alignItems='flex-start'>
-                <SimpleButton>Как создать?</SimpleButton>
-                <SimpleButton light={true}>Последние новости</SimpleButton>
-            </Flex>
+            <div className={cls.editors}>
+                <Flex gap='15' direction='column' alignItems='flex-start'>
+                    <UsersGroup label='Создатель' users={[creator]} />
+                    <p>Редактировали</p>
+                    {
+                        Object.entries(editors || {})?.length > 0 && Object.entries(editors || {}).map((edit) => (
+                            <UsersGroup key={edit?.[0]} label={edit?.[0]} users={edit?.[1]} />
+                        ))
+                    }
+                </Flex>
+            </div>
         </LeftAsideWrapper>
     );
 }
