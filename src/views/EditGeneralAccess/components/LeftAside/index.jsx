@@ -87,6 +87,7 @@ const LeftAside = ({ useForm }) => {
                     }
                 </Flex>
             </div>
+            <span></span>
         </LeftAsideWrapper>
     );
 }
