@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { LeftIcon } from '../../../../components/icons';
 import LeftAsideWrapper from '../../../../components/Aside/LeftAsideWrapper';
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
-import SimpleButton from '../../../../components/Buttons/SimpleButton';
 import Flex from '../../../../components/Flex';
 import UsersGroup from '../../../../components/UsersGroup';
 import useSocket from '../../../../hooks/useSocket';
@@ -31,7 +30,7 @@ const LeftAside = ({ useForm }) => {
                                 ? { ...editor, lastEdited: data?.editedDate }
                                 : editor)
                             : [{ ...data?.editor, lastEdited: data?.editedDate }, ...state?.[key]]
-                        : [{ ...data?.editor, lastEdited: data?.editedDate }]
+                        : [{ ...data?.editor, lastEdited: data?.editedDate }],
                 }
             })
         })
@@ -86,7 +85,7 @@ const LeftAside = ({ useForm }) => {
                         ))
                     }
                 </Flex>
-            </div>
+            </div>  
             <span></span>
         </LeftAsideWrapper>
     );
