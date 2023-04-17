@@ -1,7 +1,7 @@
 @import "/src/scss/colors";
 @import "../public/fonts/fonts.css";
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
 
 html {
@@ -26,7 +26,7 @@ a {
 }
 
 button {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 h1,
@@ -123,6 +123,7 @@ p {
   display: none !important;
 
 }
+
 @media screen and(max-width: 1300px) {
 
   ._datapicker_1gdxz_1 {

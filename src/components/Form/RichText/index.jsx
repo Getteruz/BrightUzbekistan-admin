@@ -45,7 +45,7 @@ const config = (setValue, getValues) => ({
             'buttons': ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertHR']
         },
         'moreMisc': {
-            'buttons': ['undo', 'redo', 'selectAll', 'help'],
+            'buttons': ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help'],
             'align': 'right',
             'buttonsVisible': 2
         }

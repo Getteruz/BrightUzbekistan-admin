@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import latinCrill from 'latin-crill'
 import RedButton from '../../../../components/Buttons/RedButton'
 import RoundedButton from '../../../../components/Buttons/RoundedButton';
 import SimpleButton from '../../../../components/Buttons/SimpleButton';
@@ -68,6 +69,18 @@ const Content = ({ useForm = {} }) => {
         await removeFile(url)
         setValue(`file`, null)
     }
+
+    useEffect(() => {
+        setValue('уз.title', latinCrill(watchedFiles?.uz?.title || ''))
+        setValue('уз.shortDescription', latinCrill(watchedFiles?.uz?.shortDescription || ''))
+        setValue('уз.shortLink', latinCrill(watchedFiles?.uz?.shortLink || ''))
+        setValue('уз.description', latinCrill(watchedFiles?.uz?.description || '', true))
+    }, [
+        watchedFiles?.uz?.title,
+        watchedFiles?.uz?.shortDescription,
+        watchedFiles?.uz?.shortLink,
+        watchedFiles?.uz?.description    
+    ])
 
     return (
         <ContentWrapper navbar={

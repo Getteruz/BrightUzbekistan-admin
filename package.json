@@ -1,5 +1,5 @@
 {
-  "name": "Bright Uzbekistan Admin",
+  "name": "Bright_Uzbekistan_Admin",
   "private": true,
   "version": "1.0.0",
   "main": "main.jsx",
@@ -18,7 +18,7 @@
     "axios": "^0.26.1",
     "dayjs": "^1.11.7",
     "froala-editor": "^4.0.18",
-    "latin-crill": "^1.4.5",
+    "latin-crill": "^1.4.6",
     "react": "^18.0.0",
     "react-cookie": "^4.1.1",
     "react-detect-click-outside": "^1.1.7",
