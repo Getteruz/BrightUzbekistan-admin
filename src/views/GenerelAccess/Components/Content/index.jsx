@@ -24,8 +24,8 @@ const Content = () => {
     const [isLoading, setIsLoading] = useState(false)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const { data: news, isLoading: newsLoading } = useQuery(
-        ['news', 'general-access', params.get('category') || '',],
-        async ({ queryKey }) => await getGeneralAccessNews({ categoryId: queryKey[2] || '' })
+        ['news', 'general-access', params.get('category') || '', params.get('user')],
+        async ({ queryKey }) => await getGeneralAccessNews({ categoryId: queryKey[2] || '', creatorId: queryKey[3] || ''})
     )
 
     const publishCheckedNews = async () => {

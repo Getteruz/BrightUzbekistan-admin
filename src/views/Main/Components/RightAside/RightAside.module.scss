@@ -1,14 +1,11 @@
-
-.title{
-    font-size: 11px;
-    line-height: 15px;
-}
-
 .users{
     display: flex;
     align-items: center;
     gap: 7px;
     flex-wrap: wrap;
+    max-height: 134px;
+    overflow-y: auto;
+
     &::-webkit-scrollbar{
         width: 3px;
     }

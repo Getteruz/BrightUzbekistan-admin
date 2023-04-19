@@ -23,6 +23,15 @@ export const getAdmins = async () => {
     }
 }
 
+export const getAdminsByPermission = async (permissionId) => {
+    try {
+        const res = await api.get(`/admin?permissionId=${permissionId}`)
+        return res?.data
+    } catch (error) {
+        showAlert({ message: error?.data !== undefined ? error?.data?.message : error?.message })
+    }
+}
+
 export const getAdminById = async (id) => {
     try {
         const res = await api.get(`/admin/${id}`)

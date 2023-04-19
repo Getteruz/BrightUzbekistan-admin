@@ -18,14 +18,14 @@ root.render(
   <Suspense fallback={<>Loading...</>}>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
-            <AlertProvider>
-              <BrowserRouter>
+        <QueryClientProvider client={queryClient}>  
+          <AlertProvider>
+            <BrowserRouter>
               <CookiesProvider>
                 <App />
               </CookiesProvider>
-              </BrowserRouter>
-            </AlertProvider>
+            </BrowserRouter>
+          </AlertProvider>
         </QueryClientProvider>
       </PersistGate>
     </Provider>
