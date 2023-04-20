@@ -12,6 +12,7 @@ import Options from '../Options';
 import cls from './ChatMessage.module.scss'
 import { CopyIcon, DeleteIcon, EditIcon, ThreeDots } from '../../icons';
 import { getFromLocalStorage, saveToLocalStorage } from '../../../utils/localStorageService';
+import useSocket from '../../../hooks/useSocket';
 
 const colors = ['#D8EBF7', '#FAF3FF', '#E5F8EB', '#FCF7EA', '#FFEAE6']
 
@@ -30,6 +31,7 @@ const ChatMessage = ({
     setState = () => {}
 }) => {
     const showAlert = useShowAlert(store.dispatch)
+    const socket = useSocket()
     const color = getFromLocalStorage('admin-colors', {})?.[admin?.id] ? getFromLocalStorage('admin-colors', {})?.[admin?.id] : setColorToAdmin(admin?.id)
     const { id: chatId } = useParams()
     const { hours, minutes } = parseTimestamp(date)
@@ -76,6 +78,7 @@ const ChatMessage = ({
                             messages: oldData?.messages.filter(msg => msg.id !== id)
                         }
                     })
+                    socket.emit('delete_message', {msgId: id})
                 }
             }
         },

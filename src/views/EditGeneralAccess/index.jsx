@@ -25,6 +25,7 @@ const EditGeneralAccess = () => {
 
     useEffect(() => {
         socket.emit('create', id)
+        socket.removeAllListeners('change')
         socket.on('get_changes', async data => {
             const categories = data?.categories?.map(ctg => ctg?.id) || []
             const mainCategory = data?.mainCategory?.id || ''
@@ -34,7 +35,7 @@ const EditGeneralAccess = () => {
                 mainCategory
             })
         })
-        return () => socket.emit('leave', id)
+        return () => socket.emit('leave', id)   
     }, [])
 
     return (

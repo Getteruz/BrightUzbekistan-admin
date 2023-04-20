@@ -40,6 +40,7 @@ const RightAside = () => {
                     messages: oldData.messages.map(msg => msg.id === res?.id ? {...msg, body: res.body} : msg)
                 }
             })
+            socket.emit('edit_message', {roomId: id, msg: res?.body, msgId: res?.id})
             setState({type: null, value: null})
         }
     })
@@ -60,6 +61,21 @@ const RightAside = () => {
                 oldData = {...oldData, messages: oldData?.messages || []}
                 oldData?.messages.push(data)
                 return oldData
+            })
+        })
+        socket.on('on_edited_message', data => {
+            queryClient.setQueryData(['chat', id], (oldData) => {
+                return oldData?.messages?.map(msg => {
+                    if(msg?.id === data?.msgId) {
+                        msg.body = data?.msg
+                    }
+                    return msg
+                })
+            })
+        })
+        socket.on('on_deleted_message', data => {
+            queryClient.setQueryData(['chat', id], (oldData) => {
+                return oldData?.messages?.filter(msg => msg.id !== data?.msgId)
             })
         })
     }, [])
