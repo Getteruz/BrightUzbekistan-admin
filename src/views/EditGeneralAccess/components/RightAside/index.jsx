@@ -79,7 +79,10 @@ const RightAside = () => {
         socket.on('on_deleted_message', data => {
             console.log(data);
             queryClient.setQueryData(['chat', id], (oldData) => {
-                return oldData?.messages?.filter(msg => msg.id !== data?.msgId)
+                return {
+                    ...oldData,
+                    messages: oldData?.messages?.filter(msg => msg.id !== data?.msgId)
+                }
             })
         })
     }, [])
