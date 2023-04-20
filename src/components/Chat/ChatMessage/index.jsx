@@ -78,7 +78,7 @@ const ChatMessage = ({
                             messages: oldData?.messages.filter(msg => msg.id !== id)
                         }
                     })
-                    socket.emit('delete_message', {msgId: id})
+                    socket.emit('delete_message', {msgId: id, roomId: chatId})
                 }
             }
         },

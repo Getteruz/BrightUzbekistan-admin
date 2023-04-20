@@ -15,65 +15,69 @@ const RightAside = () => {
     const { id } = useParams()
     const socket = useSocket()
     const queryClient = useQueryClient()
-    const [state, setState] = useState({type: '', value: ''})
+    const [state, setState] = useState({ type: '', value: '' })
     const { data: chat, isLoading } = useQuery(['chat', id], () => getChatMessages(id))
 
-    const create = useMutation(({body, id}) => postMessage(body, id), {
+    const create = useMutation(({ body, id }) => postMessage(body, id), {
         onSuccess: (res) => {
             queryClient.setQueryData(['chat', id], (oldData) => {
-                socket.emit('new_message', {msgId: res?.id, roomId: id})
-                oldData = {...oldData, messages: oldData?.messages || []}
+                socket.emit('new_message', { msgId: res?.id, roomId: id })
+                oldData = { ...oldData, messages: oldData?.messages || [] }
                 oldData?.messages.push(res)
                 return oldData
             })
             setTimeout(() => {
-                listRef.current.scrollTo({top: listRef.current.scrollHeight, behavior: 'smooth'})
+                listRef.current.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' })
             }, 1)
         }
     })
 
-    const edit = useMutation(({body, id}) => editMessage(body, id), {
+    const edit = useMutation(({ body, id }) => editMessage(body, id), {
         onSuccess: (res) => {
             queryClient.setQueryData(['chat', id], oldData => {
                 return {
                     ...oldData,
-                    messages: oldData.messages.map(msg => msg.id === res?.id ? {...msg, body: res.body} : msg)
+                    messages: oldData.messages.map(msg => msg.id === res?.id ? { ...msg, body: res.body } : msg)
                 }
             })
-            socket.emit('edit_message', {roomId: id, msg: res?.body, msgId: res?.id})
-            setState({type: null, value: null})
+            socket.emit('edit_message', { roomId: id, msg: res?.body, msgId: res?.id })
+            setState({ type: null, value: null })
         }
     })
 
     const handleSubmit = async (value) => {
-        if(!value || !chat?.id) return
-        const body = {body: value}
-        if(state.type === 'edit') {
-            edit.mutate({body, id: state.id})
+        if (!value || !chat?.id) return
+        const body = { body: value }
+        if (state.type === 'edit') {
+            edit.mutate({ body, id: state.id })
         } else {
-            create.mutate({body, id: chat?.id})
+            create.mutate({ body, id: chat?.id })
         }
-    } 
-    
+    }
+
     useEffect(() => {
         socket.on('get_new_message', data => {
             queryClient.setQueryData(['chat', id], (oldData) => {
-                oldData = {...oldData, messages: oldData?.messages || []}
+                oldData = { ...oldData, messages: oldData?.messages || [] }
                 oldData?.messages.push(data)
                 return oldData
             })
         })
         socket.on('on_edited_message', data => {
             queryClient.setQueryData(['chat', id], (oldData) => {
-                return oldData?.messages?.map(msg => {
-                    if(msg?.id === data?.msgId) {
-                        msg.body = data?.msg
-                    }
-                    return msg
-                })
+                return {
+                    ...oldData,
+                    messages: oldData?.messages?.map(msg => {
+                        if (msg?.id === data?.msgId) {
+                            msg.body = data?.msg
+                        }
+                        return msg
+                    })
+                }
             })
         })
         socket.on('on_deleted_message', data => {
+            console.log(data);
             queryClient.setQueryData(['chat', id], (oldData) => {
                 return oldData?.messages?.filter(msg => msg.id !== data?.msgId)
             })
@@ -84,14 +88,14 @@ const RightAside = () => {
         <div className={cls.chat}>
             <ChatNavbar />
             <div className={cls.chat__body}>
-                <ChatMessagesList 
+                <ChatMessagesList
                     setState={setState}
                     loading={isLoading}
                     messages={chat?.messages || []}
                     ref={listRef}
                 />
             </div>
-            {state?.type === 'edit' && <EditingMessage value={state.value} onClose={() => setState({type: null, value: null})} />}
+            {state?.type === 'edit' && <EditingMessage value={state.value} onClose={() => setState({ type: null, value: null })} />}
             <ChatInput onSubmit={handleSubmit} state={state} />
         </div>
     );
