@@ -2,7 +2,6 @@ import { DatePicker } from 'antd';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
-import moment from 'moment/moment';
 import cls from './Datapicker.module.scss'
 
 const Datapicker = ({ 

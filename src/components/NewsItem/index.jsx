@@ -56,7 +56,7 @@ const NewsItem = ({
                     </div>
                 </Link>
                 <div className={cls.item__text}>
-                    <span className={cls.item__category}>{categories?.join(', ')}</span>
+                    {categories?.length > 0 && <span className={cls.item__category}>{categories?.join(', ')}</span>}
                     {
                         editing ? 
                             <span className={cls.item__editing}>Редактируется...</span> :
