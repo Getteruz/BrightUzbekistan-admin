@@ -25,8 +25,8 @@ const Content = () => {
     const [isLoading, setIsLoading] = useState(false)
     const windowWidth = useGetWindowWidth()
     const { data: news, isLoading: newsLoading } = useQuery(
-        ['news', params.get('category') || ''],
-        async ({ queryKey }) => await getPublishedNews({ categoryId: queryKey[1] || '' })
+        ['news', params.get('category') || '', params.get('user') || ''],
+        async ({ queryKey }) => await getPublishedNews({ categoryId: queryKey[1], creatorId: queryKey[2] })
     )
 
     const handleCheck = (e) => {

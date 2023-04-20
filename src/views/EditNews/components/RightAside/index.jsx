@@ -55,24 +55,25 @@ const RightAside = ({ useForm = {} }) => {
         }
     }
 
-    const onTimeChange = (e) => {
-        if (e) {
-            console.log(e);
-            const publishedDate = getValues()?.publishDate || Date.now()
-            const date = new Date(publishedDate)
-            date.setTime(e?.$d)
-            setValue('publishDate', date?.toISOString())
-        }
+    const onTimeChange = (e, b) => {
+        const publishedDate = getValues()?.publishDate || Date.now()
+        const date = new Date(publishedDate)
+        date.setHours(e ? e.$H : 0)
+        date.setMinutes(e ? e?.$m : 0)
+        setValue('publishDate', date?.toISOString())
     }
 
     const onDateChange = (e) => {
-        if (e) {
-            const publishedDate = getValues()?.publishDate || Date.now()
-            const date = new Date(publishedDate)
-            const selectedate = new Date(e.$d)
+        const publishedDate = getValues()?.publishDate || Date.now()
+        const date = new Date(publishedDate)
+        const selectedate = new Date(e?.$d)
+        if(e) {
             date.setDate(selectedate?.getDate())
             date.setMonth(selectedate?.getMonth())
+            date.setFullYear(selectedate?.getFullYear())
             setValue('publishDate', date?.toISOString())
+        } else {
+            setValue('publishDate', null)
         }
     }
 
@@ -110,8 +111,8 @@ const RightAside = ({ useForm = {} }) => {
                 }
             </SwitchGroup>
             <DateGroup label='Дата публикации'>
-                <Timepicker label='Время' onChange={onTimeChange} defaultValue={watchedFiles?.publishDate} />
-                <Datapicker label='Дата' onChange={onDateChange} />
+                <Timepicker label='Время' onChange={onTimeChange} value={watchedFiles.publishDate} />
+                <Datapicker label='Дата' onChange={onDateChange} value={watchedFiles.publishDate} />
             </DateGroup>
             <Flex gap='15' direction='column'>
                 <RoundedInput placeholder='Название тега' label='Теги' onKeyUp={handleKeyUp} />

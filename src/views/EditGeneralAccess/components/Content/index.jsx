@@ -77,6 +77,7 @@ const Content = ({ useForm = {} }) => {
             const hashtags = values?.[params.get('lang')]?.tags || []
             hashtags.push(e.target.value?.trim())
             setValue(`${params.get('lang')}.tags`, Array.from(new Set(hashtags)))
+            socket.emit('change', { roomId: id, inputName: `${params.get('lang')}.tags`, value: Array.from(new Set(hashtags)), userId: user?.id })
         }
         if (e.keyCode === 13) {
             e.target.value = ''
@@ -124,16 +125,20 @@ const Content = ({ useForm = {} }) => {
         date.setHours(e ? e.$H : 0)
         date.setMinutes(e ? e?.$m : 0)
         setValue('publishDate', date?.toISOString())
+        socket.emit('change', { roomId: id, inputName: 'publishDate', value: date.toISOString() })
     }
 
     const onDateChange = (e) => {
         const publishedDate = getValues()?.publishDate || Date.now()
         const date = new Date(publishedDate)
         const selectedate = new Date(e?.$d)
-        date.setDate(e ? selectedate?.getDate() : new Date(Date.now()).getDate())
-        date.setMonth(e ? selectedate?.getMonth() : new Date(Date.now()).getMonth())
-        date.setFullYear(e ? selectedate?.getFullYear() : new Date(Date.now())?.getFullYear())
-        setValue('publishDate', date?.toISOString())
+        if (e) {
+            date.setDate(selectedate?.getDate())
+            date.setMonth(selectedate?.getMonth())
+            date.setFullYear(selectedate?.getFullYear())
+        }
+        setValue('publishDate', e ? date?.toISOString() : null)
+        socket.emit('change', { roomId: id, inputName: 'publishDate', value: e ? date.toISOString() : null })
     }
 
     useEffect(() => {

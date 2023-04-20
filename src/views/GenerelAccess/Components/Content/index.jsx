@@ -20,11 +20,11 @@ import NewsSkeleton from '../../../../components/Skeletons/NewsSkeleton';
 const Content = () => {
     const socket = useSocket()
     const queryClient = useQueryClient()
-    const [params, setSearchParams] = useSearchParams()
+    const [params, setSearchParams] = useSearchParams() 
     const [isLoading, setIsLoading] = useState(false)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const { data: news, isLoading: newsLoading } = useQuery(
-        ['news', 'general-access', params.get('category') || '', params.get('user')],
+        ['news', 'general-access', params.get('category') || '', params.get('user') || ''],
         async ({ queryKey }) => await getGeneralAccessNews({ categoryId: queryKey[2] || '', creatorId: queryKey[3] || ''})
     )
 
@@ -34,7 +34,7 @@ const Content = () => {
             setIsOpenModal(false)
             const newsIds = getQueryInArray('checked')
             const res = await publishNews({ newsIds, tg: !!params.get('telegram'), inst: !!params.get('insta') })
-            queryClient.invalidateQueries(['news', 'general-access', params.get('category') || '',])
+            queryClient.invalidateQueries(['news', 'general-access', params.get('category') || '', params.get('user') || ''])
             setSearchParams({ ...paramsToObject(params.entries()), checked: '' })
         } catch (error) {
             console.log(error);
@@ -59,7 +59,7 @@ const Content = () => {
         try {
             setIsLoading(true)
             await deleteNews({ ids: getQueryInArray('checked') })
-            queryClient.invalidateQueries(['news', 'general-access', params.get('category') || '',])
+            queryClient.invalidateQueries(['news', 'general-access', params.get('category') || '', params.get('user') || ''])
         } catch (error) {
             console.log(error);
         } finally {
@@ -69,11 +69,11 @@ const Content = () => {
 
     useEffect(() => {
         socket.on('news_editing', newsId => queryClient.setQueryData(
-            ['news', 'general-access', params.get('category') || ''],
+            ['news', 'general-access', params.get('category') || '', params.get('user') || ''],
             (old) => old?.map(news => news?.id === newsId ? { ...news, isEditing: true } : news)
         ))
         socket.on('news_end_editing', newsId => queryClient.setQueryData(
-            ['news', 'general-access', params.get('category') || ''],
+            ['news', 'general-access', params.get('category') || '', params.get('user') || ''],
             (old) => old?.map(news => news?.id === newsId ? { ...news, isEditing: false } : news)
         ))
     }, [])
