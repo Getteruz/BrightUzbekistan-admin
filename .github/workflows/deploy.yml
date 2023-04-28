@@ -19,6 +19,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/user/getter/bright-admin
+            git stash
             git pull origin main
             git status
             npm install --yes --legacy-peer-deps
