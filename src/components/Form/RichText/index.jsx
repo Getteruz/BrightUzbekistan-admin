@@ -69,16 +69,17 @@ const config = (setValue, getValues) => ({
 
         },
         'image.inserted': function (img) {
+            console.log(locale);
             const values = getValues()
-            let descImg = values?.descImg || []
+            let descImg = values?.[locale]?.descImg || []
             descImg?.push(img?.[0]?.src)
-            setValue('descImg', descImg)
+            setValue(`${locale}.descImg`, descImg)
         },
         'image.removed': (img) => {
             const values = getValues()
-            let descImg = values?.descImg || []
+            let descImg = values?.[locale]?.descImg || []
             descImg = descImg?.filter(e => e !== img?.[0]?.currentSrc)
-            setValue('descImg', descImg)
+            setValue(`${locale}.descImg`, descImg)
             axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, { data: { url: img[0]?.currentSrc } })
         },
         'image.error': () => {
@@ -110,6 +111,7 @@ const config = (setValue, getValues) => ({
 })
 
 let replyEditor = "";
+let locale = ''
 
 const RichText = ({
     register,
@@ -117,13 +119,14 @@ const RichText = ({
     getValues = () => { },
     value = '',
     name = '',
-    onChange = () => { }
+    onChange = () => { },
 }) => {
     useEffect(() => {
         if (import.meta.env.PROD) {
             import('./removeLisence.scss')
         }
     }, [])
+    locale = name?.split('.')?.[0]
     return (
         <FroalaEditor
             model={value}

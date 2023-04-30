@@ -71,7 +71,6 @@ const Content = ({ useForm = {} }) => {
 
     useEffect(() => {
         saveToLocalStorage('new_news', watchedFiles)
-        console.log(watchedFiles?.[params.get('lang')]?.description);
     }, [watchedFiles])
     
     useEffect(() => {
