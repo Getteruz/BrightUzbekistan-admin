@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { alertActions } from "./alert.slice";
 
 let _id = 1

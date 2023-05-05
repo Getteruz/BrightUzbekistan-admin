@@ -49,7 +49,8 @@ const RightAside = () => {
                                 key={admin?.id}
                                 src={admin?.avatar}
                                 name={admin?.fullName}
-                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), user: admin?.id })}
+                                onClick={() => setSearchParams({ ...paramsToObject(params.entries()), user: params?.get('user') !== admin?.id ? admin?.id : '' })}
+                                isActive={params.get('user') === admin?.id}
                             />
                         ))
                     }

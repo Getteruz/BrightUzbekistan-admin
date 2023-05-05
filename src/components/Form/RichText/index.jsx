@@ -8,6 +8,7 @@ import "froala-editor/js/plugins.pkgd.min.js";
 // import 'froala-editor/js/plugins/image.min.js';
 import { _convertHtmlToPlainText } from "../../../utils/htmlToPlainText";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const config = (setValue, getValues) => ({
     enter: Froalaeditor.ENTER_BR,
@@ -57,16 +58,29 @@ const config = (setValue, getValues) => ({
         blur: () => {
             // console.log(replyEditor.html.get(true));
         },
-        'image.beforeUpload': function (e, editor) {
-            const fd = new FormData()
-            fd.append('image', e[0])
-            axios.post(`${import.meta.env.VITE_STORE_API}/upload/image`, fd, {
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+        'image.beforeUpload': function (e) {
+            toast.promise(new Promise((resolve, reject) => {
+                try {
+                    const fd = new FormData()
+                    fd.append('image', e[0])
+                    axios.post(`${import.meta.env.VITE_STORE_API}/upload/image`, fd, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+                        }
+                    })
+                        .then(res => {
+                            replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get())
+                            resolve('')
+                        })
+                } catch (error) {
+                    reject(error)
                 }
-            }).then(res => replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get()))
-
+            }), {
+                loading: 'Идёт загрузка картинки...',
+                success: 'Картинка успешно загружена',
+                error: 'Что-то пошло не так во время загрузки картинки'
+            })
         },
         'image.inserted': function (img) {
             console.log(locale);
@@ -85,7 +99,7 @@ const config = (setValue, getValues) => ({
         'image.error': () => {
 
         },
-        'video.beforeUpload': (e, editor) => {
+        'video.beforeUpload': (e) => {
             const file = e[0];
             const fd = new FormData()
             fd.append('video', file)
@@ -128,12 +142,15 @@ const RichText = ({
     }, [])
     locale = name?.split('.')?.[0]
     return (
-        <FroalaEditor
-            model={value}
-            onModelChange={(model) => { onChange(model); setValue(name, model) }}
-            config={config(setValue, getValues)}
-            {...register}
-        />
+        <>
+            <Toaster />
+            <FroalaEditor
+                model={value}
+                onModelChange={(model) => { onChange(model); setValue(name, model) }}
+                config={config(setValue, getValues)}
+                {...register}
+            />
+        </>
     );
 }
 
