@@ -6,12 +6,15 @@ const parseTimestamp = (timestapm) => {
     const year = date?.getFullYear()
     const data = date?.getDate()
     const month = monthInArr[date?.getMonth()]
+    const monthInNumber = date?.getMonth() + 1 < 10 ? '0' + (date?.getMonth() + 1) : date?.getMonth() + 1
+
     return {
         hours,
         minutes,
         year,
         data,
-        month
+        month,
+        monthInNumber
     }
 }
 

@@ -14,6 +14,10 @@ import EditUser from "../views/EditUser"
 import GeneralAccess from "../views/GenerelAccess"
 import EditGeneralAccess from "../views/EditGeneralAccess"
 import Archive from "../views/Archive"
+import Reklama from "../views/Reklama"
+import ReklamaLayout from "../views/ReklamaLayout"
+import AddReklama from "../views/AddReklama"
+import EditReklama from "../views/EditReklama"
 
 const
   Router = () => {
@@ -33,8 +37,12 @@ const
           <Route path="/adduser" element={<AddUser />} />
           <Route path="/general-access" element={<GeneralAccess />} />
           <Route path="/general-access/edit/:id" element={<EditGeneralAccess />} />
+          <Route path="/reklama" element={<ReklamaLayout />}>
+            <Route path="" element={<Reklama />} />
+            <Route path="add" element={<AddReklama />} />
+            <Route path=":id" element={<EditReklama />} />
+          </Route>
           <Route path="/dop-pages" element={<></>} />
-          <Route path="/reklama" element={<></>} />
           <Route path="/statistika" element={<></>} />
           <Route path="/archive" element={<Archive />} />
         </Route>

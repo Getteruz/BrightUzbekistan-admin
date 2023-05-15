@@ -96,7 +96,7 @@ const Content = ({ useForm = {} }) => {
             </div>
         }>
             {isLoading && <Loader text='Идет создание новости' />}
-            {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news')} onOk={() => navigate('/news')} />}
+            {openModal && <Modal title='Новость успешно создан' onClose={() => navigate('/news?page=general access')} onOk={() => navigate('/news?page=general access')} />}
             {/* {<div style={{position: 'relative'}}><Wrapper><NewsDropdown news={[getValues()]} /></Wrapper></div>} */}
             <div className={cls.content__form}>
                 <BtnGroup>

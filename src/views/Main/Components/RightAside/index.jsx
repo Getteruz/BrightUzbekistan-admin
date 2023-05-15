@@ -6,7 +6,7 @@ import RoundedInput from '../../../../components/Form/RoundedInput';
 import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
 import SwitchGroup from '../../../../components/SwitchGroup';
 import DateGroup from '../../../../components/DateGroup';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import { getAdminsByPermission } from '../../../../services/admin';
 import cls from './RightAside.module.scss'

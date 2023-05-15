@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import RightAsideWrapper from '../../../../components/Aside/RightAsideWrapper';
 import Avatar from '../../../../components/Avatar';
 import { getAdminsByPermission } from '../../../../services/admin';

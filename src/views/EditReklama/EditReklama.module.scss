@@ -1,0 +1,16 @@
+
+.nav{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.active__btn{
+    color: #F3715B !important;
+}
+
+.upload{
+   max-width: 710px; 
+   width: 100%;
+   aspect-ratio: 71/50;
+}

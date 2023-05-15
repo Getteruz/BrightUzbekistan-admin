@@ -13,7 +13,7 @@ import cls from './Content.module.scss'
 import Loader from "../../../../components/Loaders/Loader";
 import Modal from "../../../../components/Modals/Modal";
 import { useState } from "react";
-import { createAdmin, updateAdmin } from "../../../../services/admin";
+import { updateAdmin } from "../../../../services/admin";
 import { useQuery } from "react-query";
 import { getRoles } from "../../../../services/roles";
 

@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import ComponentsWrapper from "../../components/ComponentsWrapper";
-import Loader from "../../components/Loaders/Loader";
 import { getAdminById } from "../../services/admin";
 import paramsToObject from "../../utils/paramsToObject";
 import Content from "./components/Content";

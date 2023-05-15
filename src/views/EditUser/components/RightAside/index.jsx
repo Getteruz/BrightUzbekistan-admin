@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 import RightAsideWrapper from "../../../../components/Aside/RightAsideWrapper";

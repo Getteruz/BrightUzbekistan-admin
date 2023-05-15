@@ -46,3 +46,14 @@
 
     }
 }
+
+.label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & > span{
+        font-size: 11px;
+        line-height: 15px;
+    }
+}

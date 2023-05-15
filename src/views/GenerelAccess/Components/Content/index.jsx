@@ -20,12 +20,15 @@ import NewsSkeleton from '../../../../components/Skeletons/NewsSkeleton';
 const Content = () => {
     const socket = useSocket()
     const queryClient = useQueryClient()
-    const [params, setSearchParams] = useSearchParams() 
+    const [params, setSearchParams] = useSearchParams()
     const [isLoading, setIsLoading] = useState(false)
     const [isOpenModal, setIsOpenModal] = useState(false)
-    const { data: news, isLoading: newsLoading } = useQuery(
+    const { data: { items: news }, isLoading: newsLoading } = useQuery(
         ['news', 'general-access', params.get('category') || '', params.get('user') || ''],
-        async ({ queryKey }) => await getGeneralAccessNews({ categoryId: queryKey[2] || '', creatorId: queryKey[3] || ''})
+        async ({ queryKey }) => await getGeneralAccessNews({ categoryId: queryKey[2] || '', creatorId: queryKey[3] || '' }) || {},
+        {
+            initialData: {}
+        }
     )
 
     const publishCheckedNews = async () => {
