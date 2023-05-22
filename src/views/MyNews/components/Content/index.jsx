@@ -48,6 +48,19 @@ const Content = () => {
         }
     }
 
+    const sendNews = async () => {
+        try {
+            setLoading(true)
+            setIsOpenModal(false)
+            const newsIds = getQueryInArray('checked')
+            // const res = await 
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const handleClick = () => {
         setIsOpenModal(true)
     }

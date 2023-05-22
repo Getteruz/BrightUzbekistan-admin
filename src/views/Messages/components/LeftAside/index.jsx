@@ -1,22 +1,32 @@
+import { useQuery } from "react-query";
+import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import Flex from "../../../../components/Flex";
 import LeftAsideWrapper from "../../../../components/Aside/LeftAsideWrapper";
 import SimpleButton from "../../../../components/Buttons/SimpleButton";
-import Flex from "../../../../components/Flex";
-
+import { getCategories } from '../../../../services/category';
 
 const LeftAside = () => {
+    const { data: categories } = useQuery('categories', getCategories, { cacheTime: Infinity, staleTime: Infinity })
+    const navigate = useNavigate();
+    const [params] = useSearchParams();
+
     return (
         <LeftAsideWrapper>
             <Flex gap='15' direction='column' alignItems='flex-start'>
-                <SimpleButton>Последние новости</SimpleButton>
-                <SimpleButton>Мир</SimpleButton>
-                <SimpleButton>Экономика</SimpleButton>
-                <SimpleButton>Бизнес</SimpleButton>
-                <SimpleButton>Общество</SimpleButton>
-                <SimpleButton>Спорт</SimpleButton>
+                {
+                    categories?.length > 0 && categories?.map(ctg =>
+                        <SimpleButton
+                            key={ctg.id}
+                            active={params.get('category') === ctg.id}
+                            onClick={() => navigate(`?category=${ctg?.id}`, { replace: true })}
+                        >
+                            {ctg?.ru}
+                        </SimpleButton>
+                    )
+                }
             </Flex>
             <Flex gap='11' direction='column' alignItems='flex-start'>
-                <SimpleButton light={true}>Как создать?</SimpleButton>
-                <SimpleButton>Вы вошли как редактор</SimpleButton>
             </Flex>
         </LeftAsideWrapper>
     );

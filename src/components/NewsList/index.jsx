@@ -1,6 +1,5 @@
 import Flex from '../Flex';
 import ListItem from '../NewsItem';
-import NewsSkeleton from '../Skeletons/NewsSkeleton';
 
 const NewsList = ({ news = [] }) => {
     return (
@@ -15,6 +14,7 @@ const NewsList = ({ news = [] }) => {
                         creator={news?.creator?.fullName}
                         date={news?.created_at}
                         categories={news?.categories?.map(ctg => ctg?.ru)}
+                        isViewed={news?.isViewed}
                     />)
             }
 

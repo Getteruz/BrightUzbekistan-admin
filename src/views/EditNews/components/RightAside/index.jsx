@@ -18,7 +18,7 @@ import cls from './RightAside.module.scss'
 const RightAside = ({ useForm = {} }) => {
     const { setValue, getValues, watch } = useForm
     const [params, setSearchParams] = useSearchParams()
-    const { data: categories } = useQuery('categories', getCategories)
+    const { data: categories } = useQuery('categories', getCategories, { cacheTime: Infinity, staleTime: Infinity })
     const watchedFiles = watch()
 
     const handleCheckboxChange = (e) => {
@@ -67,7 +67,7 @@ const RightAside = ({ useForm = {} }) => {
         const publishedDate = getValues()?.publishDate || Date.now()
         const date = new Date(publishedDate)
         const selectedate = new Date(e?.$d)
-        if(e) {
+        if (e) {
             date.setDate(selectedate?.getDate())
             date.setMonth(selectedate?.getMonth())
             date.setFullYear(selectedate?.getFullYear())

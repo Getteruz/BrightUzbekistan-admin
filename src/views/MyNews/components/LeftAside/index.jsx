@@ -13,7 +13,7 @@ const LeftAside = () => {
     const navigate = useNavigate()
     const windowWidth = useGetWindowWidth()
     const [params, setSearchParams] = useSearchParams()
-    const { data: categories } = useQuery('categories', getCategories)
+    const { data: categories } = useQuery('categories', getCategories, { cacheTime: Infinity, staleTime: Infinity })
 
     return (
         <LeftAsideWrapper>

@@ -13,15 +13,15 @@ const AdsItem = ({
     clicks = 0,
     creator = '',
     link = '',
-    onCheckboxChange = () => {},
+    onCheckboxChange = () => { },
     checked = false,
     type = ''
 }) => {
-    const {hours, minutes, data, monthInNumber, year} = parseTimestamp(createdAt)
+    const { hours, minutes, data, monthInNumber, year } = parseTimestamp(createdAt)
     return (
         <div className={cls.item}>
             <div className={cls.item__check}>
-                <Checkbox 
+                <Checkbox
                     light
                     onChange={onCheckboxChange}
                     checked={checked}
@@ -35,29 +35,29 @@ const AdsItem = ({
                     <span className={cls.item__info__title}>{title}</span>
                 </Link>
                 <ul className={cls.item__info__list}>
-                   <li>
+                    <li>
                         <span>Просмотры:</span>
                         {views}
-                    </li> 
+                    </li>
                     <li>
                         <span>У.П:</span>
                         {uniqueViews}
-                    </li> 
+                    </li>
                     <li>
                         <span>Клики:</span>
                         {clicks}
-                    </li> 
+                    </li>
                     <li>
                         <span>Тип:</span>
                         {type}
-                    </li> 
+                    </li>
                 </ul>
             </div>
-            <span className={cls.item__status} style={{color: isActive ? '#07AC8E' : '#B56011'}}>
+            <span className={cls.item__status} style={{ color: isActive ? '#07AC8E' : '#B56011' }}>
                 {isActive ? 'Активный' : 'Деактивированный'}
             </span>
             <div className={cls.item__creator}>{creator}</div>
-            <button className={cls.item__dots}> 
+            <button className={cls.item__dots}>
                 <DotsIcon />
             </button>
         </div>

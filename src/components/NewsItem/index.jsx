@@ -14,7 +14,8 @@ const NewsItem = ({
     categories = [],
     date = Date.now(),
     lastUpdate,
-    editing = false
+    editing = false,
+    isViewed
 }) => {
     const [params, setSearchParams] = useSearchParams()
     const { hours, minutes } = parseTimestapm(date)
@@ -52,7 +53,7 @@ const NewsItem = ({
                 <Link to={link}>
                     <div className={cls.item__text__wrapper}>
                         <h3 className={cls.item__title}>{title}</h3>
-                        <span className={cls.item__author}>{creator}</span>
+                        <span className={`${cls.item__author} ${isViewed ? cls.isViewed : ''}`}>{creator}</span>
                     </div>
                 </Link>
                 <div className={cls.item__text}>

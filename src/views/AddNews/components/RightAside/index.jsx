@@ -18,7 +18,7 @@ import cls from './RightAside.module.scss'
 const RightAside = ({ useForm = {} }) => {
     const { setValue, getValues, watch } = useForm
     const [params, setSearchParams] = useSearchParams()
-    const { data: categories } = useQuery('categories', getCategories)
+    const { data: categories } = useQuery('categories', getCategories, {cacheTime: Infinity, staleTime: Infinity})
     const watchedFiles = watch()
 
     const handleCheckboxChange = (e) => {

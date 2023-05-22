@@ -70,8 +70,12 @@ const config = (setValue, getValues) => ({
                         }
                     })
                         .then(res => {
-                            replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get())
-                            resolve('')
+                            if(res.data?.url){
+                                replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get())
+                                resolve('')
+                            } else {
+                                reject('')
+                            }
                         })
                 } catch (error) {
                     reject(error)

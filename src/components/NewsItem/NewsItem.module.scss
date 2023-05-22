@@ -66,6 +66,20 @@
     }
 }
 
+.isViewed{
+    position: relative;
+    &::before{
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color:  #FF5E3B;
+        position: absolute;
+        top: calc(50% - 5px);
+        left: -20px;
+    }
+}
+
 @media screen and(max-width: 1440px) {
     .item {
         flex-wrap: wrap;

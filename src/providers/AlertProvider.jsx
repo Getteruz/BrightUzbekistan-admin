@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux"
 import Alerts from "../components/Alerts"
-
 
 const AlertProvider = ({children}) => {
   return (

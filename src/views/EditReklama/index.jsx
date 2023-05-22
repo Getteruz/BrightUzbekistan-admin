@@ -33,7 +33,7 @@ const EditReklama = () => {
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
     const [isLoadingCreate, setIsLoadingCreate] = useState(false)
-    const {data: categories} = useQuery('categories', getCategories, {placeholderData: []})
+    const {data: categories} = useQuery('categories', getCategories, {placeholderData: [], staleTime: Infinity, cacheTime: Infinity})
     const { data } = useQuery(['ads', urlParams?.id], () => getByIdAds(urlParams?.id))
     const [size, setSize] = useState(adsType.find(type => type.type === params.get('type')))
     const { register, setValue, watch, handleSubmit, formState: { isValid }, control, reset } = useForm({ mode: 'onChange' })

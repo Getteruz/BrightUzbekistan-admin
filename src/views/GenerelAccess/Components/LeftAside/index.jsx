@@ -10,7 +10,7 @@ import { getCategories } from '../../../../services/category';
 const LeftAside = () => {
     const navigate = useNavigate()
     const [params] = useSearchParams()
-    const {data: categories} = useQuery('categories', getCategories)
+    const {data: categories} = useQuery('categories', getCategories, {cacheTime: Infinity, staleTime: Infinity})
 
     return (
         <LeftAsideWrapper>

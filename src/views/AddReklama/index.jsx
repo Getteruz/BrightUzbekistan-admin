@@ -32,7 +32,7 @@ const AddReklama = () => {
     const [openModal, setOpenModal] = useState(false)
     const [params, setSearchParams] = useSearchParams()
     const [isLoadingCreate, setIsLoadingCreate] = useState(false)
-    const { data: categories } = useQuery('categories', getCategories, { placeholderData: [] })
+    const { data: categories } = useQuery('categories', getCategories, { placeholderData: [], cacheTime: Infinity, staleTime: Infinity  })
     const [size, setSize] = useState(adsType.find(type => type.type === params.get('type')))
     const { register, setValue, watch, handleSubmit, formState: { isValid }, control } = useForm({ mode: 'onChange' })
     const watchedFiles = watch()

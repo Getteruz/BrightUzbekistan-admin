@@ -9,8 +9,8 @@ import { CookiesProvider } from 'react-cookie'
 import { persistor, store } from './store'
 import { queryClient } from './services/api'
 import AlertProvider from './providers/AlertProvider'
+import LoaderProvider from './providers/LoaderProvider'
 import './index.scss'
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
@@ -18,13 +18,15 @@ root.render(
   <Suspense fallback={<>Loading...</>}>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <QueryClientProvider client={queryClient}>  
+        <QueryClientProvider client={queryClient}>
           <AlertProvider>
-            <BrowserRouter>
-              <CookiesProvider>
-                <App />
-              </CookiesProvider>
-            </BrowserRouter>
+            <LoaderProvider>
+              <BrowserRouter>
+                <CookiesProvider>
+                  <App />
+                </CookiesProvider>
+              </BrowserRouter>
+            </LoaderProvider>
           </AlertProvider>
         </QueryClientProvider>
       </PersistGate>
