@@ -52,8 +52,12 @@ const Content = ({ useForm = {} }) => {
         try {
             setImageLoading(true)
             const file = e.target?.files?.[0]
+            const date = new Date(Date.now())
+            const year = date.getFullYear()
+            const month = date.getMonth() + 1
+            const day = date.getDate()
             if (file) {
-                const data = await uploadImage(file)
+                const data = await uploadImage(file, `${year}/${month}/${day}`)
                 if (data?.url) {
                     setValue(`file`, data?.url)
                 }

@@ -62,7 +62,12 @@ const config = (setValue, getValues) => ({
             toast.promise(new Promise((resolve, reject) => {
                 try {
                     const fd = new FormData()
+                    const date = new Date(Date.now())
+                    const year = date.getFullYear()
+                    const month = date.getMonth() + 1
+                    const day = date.getDate()
                     fd.append('image', e[0])
+                    fd.append('folderName', `${year}/${month}/${day}`)
                     axios.post(`${import.meta.env.VITE_STORE_API}/upload/image`, fd, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -70,7 +75,7 @@ const config = (setValue, getValues) => ({
                         }
                     })
                         .then(res => {
-                            if(res.data?.url){
+                            if (res.data?.url) {
                                 replyEditor.image.insert(String(res?.data?.url), false, null, replyEditor.image.get())
                                 resolve('')
                             } else {

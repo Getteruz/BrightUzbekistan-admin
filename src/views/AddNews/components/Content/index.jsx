@@ -51,8 +51,12 @@ const Content = ({ useForm = {} }) => {
         try {
             setImageLoading(true)
             const file = e.target?.files?.[0]
+            const date = new Date(Date.now())
+            const year = date.getFullYear()
+            const month = date.getMonth() + 1
+            const day = date.getDate()
             if (file) {
-                const data = await uploadImage(file)
+                const data = await uploadImage(file, `${year}/${month}/${day}`)
                 if (data?.url) {
                     setValue(`file`, data?.url)
                 }
@@ -72,7 +76,7 @@ const Content = ({ useForm = {} }) => {
     useEffect(() => {
         saveToLocalStorage('new_news', watchedFiles)
     }, [watchedFiles])
-    
+
     useEffect(() => {
         setValue('уз.title', latinCrill(watchedFiles?.uz?.title || ''))
         setValue('уз.shortDescription', latinCrill(watchedFiles?.uz?.shortDescription || ''))
@@ -82,7 +86,7 @@ const Content = ({ useForm = {} }) => {
         watchedFiles?.uz?.title,
         watchedFiles?.uz?.shortDescription,
         watchedFiles?.uz?.shortLink,
-        watchedFiles?.uz?.description    
+        watchedFiles?.uz?.description
     ])
 
     return (
