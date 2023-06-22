@@ -92,21 +92,21 @@ const config = (setValue, getValues) => ({
             })
         },
         'image.inserted': function (img) {
-            console.log(locale);
             const values = getValues()
             let descImg = values?.[locale]?.descImg || []
             descImg?.push(img?.[0]?.src)
             setValue(`${locale}.descImg`, descImg)
         },
         'image.removed': (img) => {
+            toast.success(img?.[0]?.currentSrc)
             const values = getValues()
             let descImg = values?.[locale]?.descImg || []
             descImg = descImg?.filter(e => e !== img?.[0]?.currentSrc)
             setValue(`${locale}.descImg`, descImg)
-            axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, { data: { url: img[0]?.currentSrc } })
+            // axios.delete(`${import.meta.env.VITE_STORE_API}/remove`, { data: { url: img[0]?.currentSrc } })
         },
         'image.error': () => {
-
+ 
         },
         'video.beforeUpload': (e) => {
             const file = e[0];
