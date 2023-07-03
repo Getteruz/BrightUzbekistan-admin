@@ -4,17 +4,37 @@ import CircleLoader from '../../../../Loaders/CircleLoader';
 import Flex from '../../../../Flex';
 import Button from '../../Button';
 import cls from './Square.module.scss'
+import CropImage from '../../../../CropImage';
 
 const SquarePhotoUpload = ({
-    onChange = () => {},
-    onDelete = () => {},
+    onChange = () => { },
+    onDelete = () => { },
     url = '',
     loading = false,
     label = 'Фото к зоголовку'
 }) => {
+    const [isOpenModal, setIsOpenModal] = useState()
+    const [file, setFile] = useState()
+
+    const handleChange = (e) => {
+        if (e.target.files?.[0]) {
+            setFile(e.target.files?.[0])
+            setIsOpenModal(true)
+        } else {
+            setIsOpenModal(false)
+        }
+    }
 
     return (
         <Flex gap='10' direction='column'>
+            {isOpenModal && (
+                <CropImage
+                    url={URL.createObjectURL(file)}
+                    name={file?.name}
+                    onCancel={() => setIsOpenModal(false)}
+                    onCrop={(file) => onChange({ target: { files: [file] } })}
+                />
+            )}
             <label style={{ cursor: 'pointer' }}>
                 {label && <span className={cls.text}>{label}</span>}
                 <div className={cls.box}>
@@ -25,12 +45,12 @@ const SquarePhotoUpload = ({
                                     src={url}
                                 />
                             ) : (
-                                loading ? <CircleLoader /> :  <span>Нет фото</span>
+                                loading ? <CircleLoader /> : <span>Нет фото</span>
                             )
                         }
                     </div>
                     <label>
-                        {!url && <input type="file" accept='image/png, image/jpeg, image/jpg' className={cls.input} onChange={onChange} />}
+                        {!url && <input type="file" accept='image/png, image/jpeg, image/jpg' className={cls.input} onChange={handleChange} />}
                         <Button />
                         <Flex direction='column' gap='2'>
                             <p className={cls.box__title}>Загрузить фото</p>
