@@ -28,7 +28,7 @@ export const links = [
     },
     {
         id: 4,
-        label: 'Доп-страници',
+        label: 'Доп-страницы',
         icon:  PlusIcon2,
         link: '/dop-pages'
     },
