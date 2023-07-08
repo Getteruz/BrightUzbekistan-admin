@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactCrop, { centerCrop, makeAspectCrop } from 'react-image-crop';
-import cls from './CropImage.module.scss'
 import "react-image-crop/dist/ReactCrop.css";
+import { removeFile, uploadImage } from '../../services/upload';
+import { store } from '../../store';
+import { useShowAlert } from '../../store/alert/alert.thunk';
+import CircleLoader from '../Loaders/CircleLoader';
+import cls from './CropImage.module.scss'
 
-const aspect = 225 / 139
+const aspect = 10 / 9
+const showAlert = useShowAlert(store.dispatch)
 
 function centerAspectCrop(
     mediaWidth = '100%',
@@ -27,28 +32,54 @@ function centerAspectCrop(
 
 const CropImage = ({
     url = '',
-    onCancel = () => {},
-    onCrop = () => {},
+    onCancel = () => { },
+    onCrop = () => { },
     name = 'resized.png'
 }) => {
-    const [crop, setCrop] = useState({unit: 'px'})
-    const [croppedImage, setCroppedImage] = useState(null);
+    const [crop, setCrop] = useState({ unit: 'px' })
+    const [isLoading, setIsLoading] = useState(false)
     const [file, setFile] = useState()
+    const [fileUrl, setFileUrl] = useState()
     const timeoutRef = useRef()
     const modelRef = useRef()
     const imgRef = useRef()
 
-    const handleClick = (e) => {
-        // if(!modelRef.current.contains(e.target)) {
-        //     onCancel()
-        // }
-    }
-
-    const onImageLoad = (e) => { 
+    const onImageLoad = (e) => {
         if (aspect) {
             const { width, height } = e.currentTarget
             setCrop(centerAspectCrop(width, height, aspect))
         }
+    }
+
+    const uploadCroppedImage = async () => {
+        try {
+            setIsLoading(true)
+            const date = new Date(Date.now())
+            const year = date.getFullYear()
+            const month = date.getMonth() + 1
+            const day = date.getDate()
+            if (file) {
+                const data = await uploadImage(file, `${year}/${month}/${day}`)
+                if (data?.url) {
+                    setFileUrl(data?.url)
+                    onCrop(data?.url)
+                } else {
+                    showAlert({message: "Что-то пошло не так при загрузки картинки"})
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false)
+            onCancel()
+        }
+    }
+
+    const handelCancel = async() => {
+        if(fileUrl) {
+            await removeFile(file)
+        }
+        onCancel()
     }
 
     useEffect(() => {
@@ -70,7 +101,6 @@ const CropImage = ({
                 ctx.imageSmoothingQuality = 'high';
 
                 imageElement.onload = () => {
-                    console.log(crop);
                     ctx.drawImage(
                         imageElement,
                         crop.x * scaleX,
@@ -82,13 +112,11 @@ const CropImage = ({
                         crop.width,
                         crop.height
                     );
-    
+
                     canvas.toBlob(blob => {
                         try {
-                            if(blob) {
+                            if (blob) {
                                 const file = new File([blob], name, { type: 'image/png' });
-                                const url = URL.createObjectURL(blob);
-                                setCroppedImage(url)
                                 setFile(file)
                             }
                         } catch (error) {
@@ -105,33 +133,36 @@ const CropImage = ({
     }, [crop])
 
     return (
-        <div className={cls.overlay} onClick={handleClick}>
+        <div className={cls.overlay}>
             <div className={cls.modal} ref={modelRef}>
                 <div className={cls.modal__crop}>
-                    <ReactCrop
-                        ruleOfThirds={true}
-                        crop={crop}
-                        aspect={aspect}
-                        onChange={setCrop}
-                        maxWidth={400}
-                    >
-                        <img
-                            ref={imgRef}
-                            onLoad={onImageLoad}
-                            src={url}
-                            alt=""
-                        />
-                    </ReactCrop>
+                    {isLoading ? (
+                        <CircleLoader />
+                    ) : (
+                        <ReactCrop
+                            ruleOfThirds={true}
+                            crop={crop}
+                            aspect={aspect}
+                            onChange={setCrop}
+                        >
+                            <img
+                                ref={imgRef}
+                                onLoad={onImageLoad}
+                                src={url}
+                                alt=""
+                            />
+                        </ReactCrop>
+                    )}
                 </div>
 
-                {croppedImage && <img src={croppedImage} />}
+                {/* {croppedImage && <img src={croppedImage} />} */}
 
                 <div className={cls.modal__btns}>
-                    <button className={cls.modal__grey} onClick={onCancel}>Cancel</button>
-                    <button className={cls.modal__red} onClick={() => {onCrop(file); onCancel()}}>Crop</button>
+                    <button className={cls.modal__grey} onClick={handelCancel}>Cancel</button>
+                    <button className={cls.modal__red} onClick={uploadCroppedImage}>Crop</button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

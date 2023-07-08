@@ -7,6 +7,7 @@ import cls from './Square.module.scss'
 import CropImage from '../../../../CropImage';
 
 const SquarePhotoUpload = ({
+    setValue = () => { },
     onChange = () => { },
     onDelete = () => { },
     url = '',
@@ -32,7 +33,10 @@ const SquarePhotoUpload = ({
                     url={URL.createObjectURL(file)}
                     name={file?.name}
                     onCancel={() => setIsOpenModal(false)}
-                    onCrop={(file) => onChange({ target: { files: [file] } })}
+                    onCrop={(url) => {
+                        setValue('imageForGenerate', url);
+                        onChange({ target: { files: [file] }})
+                    }}
                 />
             )}
             <label style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '7px' }}>
