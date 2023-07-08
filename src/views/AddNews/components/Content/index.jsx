@@ -139,13 +139,21 @@ const Content = ({ useForm = {} }) => {
                             register={{ ...register(`${params.get('lang')}.shortLink`) }}
                         />
                     </Flex>
-                    <SquarePhotoUpload
-                        setValue={setValue}
-                        onChange={uploadSelectedImage}
-                        onDelete={deleteImage}
-                        loading={imageLoading}
-                        url={watchedFiles?.file}
-                    />
+                    <Flex gap='20'>
+                        <SquarePhotoUpload
+                            setValue={setValue}
+                            onChange={uploadSelectedImage}
+                            onDelete={deleteImage}
+                            loading={imageLoading}
+                            url={watchedFiles?.file}
+                        />  
+                        <Input
+                            label='Описание для фото'
+                            placeholder='Описание для фото'
+                            value={watchedFiles?.[params.get('lang')]?.['photoDesc'] || ''}
+                            register={{ ...register(`${params.get('lang')}.photoDesc`) }}
+                        />
+                    </Flex>
                 </div>
                 <RichText
                     value={watchedFiles?.[params.get('lang')]?.['description'] || ''}

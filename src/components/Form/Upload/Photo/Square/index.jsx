@@ -35,7 +35,7 @@ const SquarePhotoUpload = ({
                     onCrop={(file) => onChange({ target: { files: [file] } })}
                 />
             )}
-            <label style={{ cursor: 'pointer' }}>
+            <label style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '7px' }}>
                 {label && <span className={cls.text}>{label}</span>}
                 <div className={cls.box}>
                     <div className={cls.box__preview} onDoubleClick={() => onDelete(url)}>

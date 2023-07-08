@@ -98,7 +98,6 @@ const config = (setValue, getValues) => ({
             setValue(`${locale}.descImg`, descImg)
         },
         'image.removed': (img) => {
-            toast.success(img?.[0]?.currentSrc)
             const values = getValues()
             let descImg = values?.[locale]?.descImg || []
             descImg = descImg?.filter(e => e !== img?.[0]?.currentSrc)

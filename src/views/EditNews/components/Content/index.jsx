@@ -25,14 +25,14 @@ import cls from './Content.module.scss'
 
 const Content = ({ useForm = {} }) => {
     const navigate = useNavigate()
-    const {id} = useParams()
+    const { id } = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [imageLoading, setImageLoading] = useState(false)
     const [params, setSearchParams] = useSearchParams()
     const { register, handleSubmit, setValue, watch, getValues } = useForm
     const watchedFiles = watch()
-    
+
     const func = async (data, state) => {
         try {
             setIsLoading(true)
@@ -83,7 +83,7 @@ const Content = ({ useForm = {} }) => {
         watchedFiles?.uz?.title,
         watchedFiles?.uz?.shortDescription,
         watchedFiles?.uz?.shortLink,
-        watchedFiles?.uz?.description    
+        watchedFiles?.uz?.description
     ])
 
     return (
@@ -135,21 +135,29 @@ const Content = ({ useForm = {} }) => {
                             register={{ ...register(`${params.get('lang')}.shortLink`) }}
                         />
                     </Flex>
-                    <SquarePhotoUpload
-                        setValue={setValue}
-                        onChange={uploadSelectedImage}
-                        onDelete={deleteImage}
-                        loading={imageLoading}
-                        url={watchedFiles?.file}
-                    />
+                    <Flex gap='20'>
+                        <SquarePhotoUpload
+                            setValue={setValue}
+                            onChange={uploadSelectedImage}
+                            onDelete={deleteImage}
+                            loading={imageLoading}
+                            url={watchedFiles?.file}
+                        />
+                        <Input
+                            label='Описание для фото'
+                            placeholder='Описание для фото'
+                            value={watchedFiles?.[params.get('lang')]?.['photoDesc'] || ''}
+                            register={{ ...register(`${params.get('lang')}.photoDesc`) }}
+                        />
+                    </Flex>
                 </div>
                 <RichText
                     value={watchedFiles?.[params.get('lang')]?.['description'] || ''}
-                    register={{ ...register(`${params.get('lang')}.description`) }} 
+                    register={{ ...register(`${params.get('lang')}.description`) }}
                     setValue={setValue}
                     getValues={getValues}
                     name={`${params.get('lang')}.description`}
-                />
+                />  
             </div>
         </ContentWrapper>
     );

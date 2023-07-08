@@ -218,6 +218,12 @@ const Content = ({ useForm = {} }) => {
                             loading={imageLoading}
                             url={watchedFiles?.file}
                         />
+                        <Input
+                            label='Описание для фото'
+                            placeholder='Описание для фото'
+                            value={watchedFiles?.[params.get('lang')]?.['photoDesc'] || ''}
+                            register={{ ...register(`${params.get('lang')}.photoDesc`) }}
+                        />
                     </div>
                     <div>
                         <Input
